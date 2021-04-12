@@ -20,3 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('product', 'ProductController@index');
+Route::get('product/{id}', 'ProductController@show');
+Route::post('product', 'ProductController@create');
+Route::put('product/{id}', 'ProductController@update');
+Route::delete('product/{id}', 'ProductController@destroy');

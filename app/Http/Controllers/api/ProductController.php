@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Sector;
@@ -14,9 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products = Product::get();
-    
-       return view('worker.index', compact('products')); 
+       $products = Product::get()->toJson();
+       return response ($products , 200); 
     }
 
     /**

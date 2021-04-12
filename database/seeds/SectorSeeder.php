@@ -39,19 +39,28 @@ class SectorSeeder extends Seeder
             "scaffale 9",
             "scaffale 10"
         ];
-        
-        
+        $products = Product::orderBy('id')->get();
+        $idArray = array();
+        $stockArray = array();
+        foreach ($products as $product) {
+            $elementId = $product['id'];
+            $elementStock = $product['codice_stock'];
+            array_push($idArray, $elementId);
+            array_push($stockArray, $elementStock);
+
+        }
+
+        $i = 0;
         foreach ($randomSectors as $sectors => $key) {
-            $product = Product::inRandomOrder()->first();
             
             $newSector = new Sector;
-            $newSector->products_id = $product->id;
-            $newSector->codice_stock = $product->codice_stock;
+            $newSector->products_id = $idArray[$i];
+            $newSector->codice_stock = $stockArray[$i];
             $newSector->settore = $key;
             $newSector->scaffale = $randomScaffale[$sectors];
             $newSector->quantita_rimanente = $faker->numberBetween(1, 50);
             $newSector->save();
-        
+            $i++;
         }
 
 
