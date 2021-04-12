@@ -14,9 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products = Product::get();
-    
-       return view('worker.index', compact('products')); 
+       $products = Product::all();
+       return view('worker.index', compact('products'));
     }
 
     /**
@@ -90,7 +89,7 @@ class ProductController extends Controller
             $product->save();
 
 
-            // Aggiornato il model e gli ho indicato la nuova chiave primaria che sarebbe la nostra foreign key 
+            // Aggiornato il model e gli ho indicato la nuova chiave primaria che sarebbe la nostra foreign key
             $sector = Sector::find($id);
 
             $sector->codice_stock = $request->codice_stock;
@@ -98,7 +97,7 @@ class ProductController extends Controller
             $sector->scaffale = $request->scaffale;
             $sector->quantita_rimanente = $request->quantita_rimanente;
             $sector->save();
-            
+
             return response()->json([
                 "message" => "update successfull"
             ], 200);
