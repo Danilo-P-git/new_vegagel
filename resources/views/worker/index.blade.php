@@ -7,7 +7,8 @@
     <div>
         <a href="{{route("worker.create")}}" class="btn btn-success"> Scarico merci</a>
     </div>
-
+    <div>
+    </div>
 
     @foreach ($products as $product)
     <div class="card my-2 mx-2" style="width: 18rem;">
@@ -21,8 +22,11 @@
 
 
 
+
         <a href="#" class="btn btn-primary">action</a>
         <a href="{{ route("worker.show", $product->id) }}" class="btn btn-primary">Mostra</a>
+        <a href="{{route("worker.edit", $product->id)}}" class="btn btn-danger">Modifica</a>
+
         </div>
     </div>
     @endforeach

@@ -14,6 +14,7 @@ class CreateSectorsTable extends Migration
     public function up()
     {
         Schema::create('sectors', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('product_id')->constrained();
             $table->integer('codice_stock');
             $table->string('settore');
