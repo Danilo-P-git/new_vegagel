@@ -21,8 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('product', 'ProductController@index');
-Route::get('product/{id}', 'ProductController@show');
-Route::post('product', 'ProductController@create');
-Route::put('product/{id}', 'ProductController@update');
-Route::delete('product/{id}', 'ProductController@destroy');
+Route::get('product', 'ProductController@index')->name('worker.index');
+Route::post('product/create', 'ProductController@create')->name('worker.create');
+Route::get('product/show/{id}', 'ProductController@show')->name('worker.show');
+Route::post('product/update/{id}', 'ProductController@update');
+Route::delete('product/destroy{id}', 'ProductController@destroy');

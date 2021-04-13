@@ -4,6 +4,9 @@
 
 
 <div class="container d-flex flex-wrap">
+    <div>
+        <a href="{{route("worker.create")}}" class="btn btn-success"> Scarico merci</a>
+    </div>
 
 
     @foreach ($products as $product)
@@ -19,6 +22,7 @@
 
 
         <a href="#" class="btn btn-primary">action</a>
+        <a href="{{ route("worker.show", $product->id) }}" class="btn btn-primary">Mostra</a>
         </div>
     </div>
     @endforeach

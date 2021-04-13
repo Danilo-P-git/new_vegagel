@@ -41,9 +41,7 @@ class ProductController extends Controller
         $newSector->quantita_rimanente = $request->quantita_rimanente;
         $newSector->save();
 
-        return response()->json([
-            'message' => 'prodotti creati'
-        ], 201);
+        return view('worker.create');
     }
 
 
@@ -57,15 +55,12 @@ class ProductController extends Controller
     public function show($id)
     {
         if (Product::where('id', $id)->exists()) {
-            $product = Product::where('id', $id)->get()->toJson();
+            $product = Product::where('id', $id)->first();
             //query per la prendersi soltanto il necessario
-            $sector = Sector::where('products_id', $id)->select('settore', 'scaffale', 'quantita_rimanente')->get()->toJson();
-            return response()->json([$product, $sector], 200);
-        } else {
-            return response()->json([
-                "message" => 'not found'
-            ], 404);
-        }
+            $sector = Sector::where('product_id', $id)->select('settore', 'scaffale', 'quantita_rimanente')->first();
+            return view('worker.show', compact('product', 'sector'));
+        } 
+        
     }
 
     /**
