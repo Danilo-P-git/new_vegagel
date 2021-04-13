@@ -54,7 +54,7 @@ class SectorSeeder extends Seeder
         foreach ($randomSectors as $sectors => $key) {
             
             $newSector = new Sector;
-            $newSector->products_id = $idArray[$i];
+            $newSector->product_id = $idArray[$i];
             $newSector->codice_stock = $stockArray[$i];
             $newSector->settore = $key;
             $newSector->scaffale = $randomScaffale[$sectors];

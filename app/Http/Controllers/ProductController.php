@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products = Product::all();
+       $products = Product::with('sector')->get();
        return view('worker.index', compact('products'));
     }
 
