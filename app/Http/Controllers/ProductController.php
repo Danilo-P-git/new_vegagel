@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Sector;
+use Sortable;
 class ProductController extends Controller
 {
     /**
@@ -14,8 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products = Product::get()->toJson();
-       return response ($products , 200); 
+        $products = Product::with('sector')->sortable()->get();
+        return view('worker.index', compact('products'));
     }
 
     /**
@@ -23,27 +24,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $newProduct = new Product;
-        $newProduct->codice_prodotto = $request->codice_prodotto;
-        $newProduct->codice_stock = $request->codice_stock;
-        $newProduct->data_di_scadenza = $request->data_di_scadenza;
-        $newProduct->name = $request->name;
-        $newProduct->description = $request->description;
-        $newProduct->costo = $request->costo;
-        $newProduct->save();
-        $newSector = new Sector;
-        $newSector->products_id = $newProduct->id;
-        $newSector->codice_stock = $request->codice_stock;
-        $newSector->settore = $request->settore;
-        $newSector->scaffale = $request->scaffale;
-        $newSector->quantita_rimanente = $request->quantita_rimanente;
-        $newSector->save();
-
-        return response()->json([
-            'message' => 'prodotti creati'
-        ], 201);
+        return view('worker.create');
     }
 
     /**
@@ -54,7 +37,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newProduct = new Product;
+        $newProduct->codice_prodotto = $request->codice_prodotto;
+        $newProduct->codice_stock = $request->codice_stock;
+        $newProduct->data_di_scadenza = $request->data_di_scadenza;
+        $newProduct->name = $request->name;
+        $newProduct->description = $request->description;
+        $newProduct->costo = $request->costo;
+        $newProduct->save();
+        $newSector = new Sector;
+        $newSector->product_id = $newProduct->id;
+        $newSector->codice_stock = $request->codice_stock;
+        $newSector->settore = $request->settore;
+        $newSector->scaffale = $request->scaffale;
+        $newSector->quantita_rimanente = $request->quantita_rimanente;
+        $newSector->save();
+
+        return redirect()->route('worker.index', $newProduct); 
     }
 
     /**
@@ -65,7 +64,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        if (Product::where('id', $id)->exists()) {
+            $product = Product::where('id', $id)->first();
+            //query per la prendersi soltanto il necessario
+            $sector = Sector::where('product_id', $id)->select('settore', 'scaffale', 'quantita_rimanente')->first();
+            return view('worker.show', compact('product', 'sector'));
+        } 
     }
 
     /**
@@ -76,7 +80,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('worker.edit', compact('product'));
     }
 
     /**
@@ -88,35 +93,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Product::where('id', $id)->exists()) {
+        $product = Product::with('sector')->find($id);
+        $product->codice_prodotto = $product->codice_prodotto;
+        $product->codice_stock = $product->codice_stock;
+        $product->data_di_scadenza = $product->data_di_scadenza;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->costo = $request->costo;
+        $product->sector->settore = $request->settore;
+        $product->sector->scaffale = $request->scaffale;
+        $product->sector->quantita_rimanente = $request->quantita_rimanente;
+        $product->save();
 
-            $product = Product::find($id);
-            $product->codice_prodotto = $request->codice_prodotto;
-            $product->codice_stock = $request->codice_stock;
-            $product->data_di_scadenza = $request->data_di_scadenza;
-            $product->name = $request->name;
-            $product->description = $request->description;
-            $product->costo = $request->costo;
-            $product->save();
-
-
-            // Aggiornato il model e gli ho indicato la nuova chiave primaria che sarebbe la nostra foreign key 
-            $sector = Sector::find($id);
-
-            $sector->codice_stock = $request->codice_stock;
-            $sector->settore = $request->settore;
-            $sector->scaffale = $request->scaffale;
-            $sector->quantita_rimanente = $request->quantita_rimanente;
-            $sector->save();
-            
-            return response()->json([
-                "message" => "update successfull"
-            ], 200);
-        } else {
-            return response()->json([
-                "message" => 'product not found'
-            ], 404);
-        }
+        return redirect()->route('worker.index', $product);
     }
 
     /**
