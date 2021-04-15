@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Sector;
+use Sortable;
 class ProductController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('sector')->get();
+        $products = Product::with('sector')->sortable()->get();
         return view('worker.index', compact('products'));
     }
 
@@ -79,9 +80,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-
-
+        $product = Product::findOrFail($id);
         return view('worker.edit', compact('product'));
     }
 
@@ -94,8 +93,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-       dd($data);
+        $product = Product::with('sector')->find($id);
+        $product->codice_prodotto = $product->codice_prodotto;
+        $product->codice_stock = $product->codice_stock;
+        $product->data_di_scadenza = $product->data_di_scadenza;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->costo = $request->costo;
+        $product->sector->settore = $request->settore;
+        $product->sector->scaffale = $request->scaffale;
+        $product->sector->quantita_rimanente = $request->quantita_rimanente;
+        $product->save();
+
+        return redirect()->route('worker.index', $product);
     }
 
     /**

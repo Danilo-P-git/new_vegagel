@@ -17,7 +17,7 @@
   </div>
   <div class="form-group">
     <label for="scaffale">scaffale</label>
-    <input name="scaffale" type="number"  id="scaffale" class="form-control">
+    <input name="scaffale" type="text"  id="scaffale" class="form-control">
   </div>
 
   <div class="form-group">

@@ -10,25 +10,44 @@
     <div>
     </div>
 
-    @foreach ($products as $product)
-    <div class="card my-2 mx-2" style="width: 18rem;">
-        <div class="card-body">
-        <h5 class="card-title">{{$product->name}}</h5>
-        <p class="card-text">{{$product->codice_prodotto}}</p>
-        <div class="d-flex">
-            <p class="card-text">{{$product->sector->scaffale}}</p>
-            <p class="card-text ml-5">{{$product->sector->settore}}</p>
-        </div>
+    <table class="table table-dark table-hover">
+
+        <thead>
+            <th scope="col">@sortablelink('sector.settore', 'Settore')</th>
+            <th scope="col">@sortablelink('codice_prodotto', 'Codice Prodotto')</th>
+            <th scope="col">@sortablelink('name', 'Nome Prodotto')</th>
+            <th scope="col">@sortablelink('created_at', 'Arrivato il')</th>
+            <th scope="col">@sortablelink('updated_at', 'Spostato il')</th>
+            <th scope="col">@sortablelink('data_di_scadenza', 'data di scadenza')</th>
+            <th scope="col">Azioni</th>
 
 
+        </thead>
 
+        <tbody>
+            @if($products->count()==0)
+                <tr>
+                    <td colspan="5"> Nessun prodotto in database</td>
+                </tr>
+            @endif
 
-        <a href="#" class="btn btn-primary">action</a>
-        <a href="{{ route("worker.show", $product->id) }}" class="btn btn-primary">Mostra</a>
-        <a href="{{route("worker.edit", $product->id)}}" class="btn btn-danger">Modifica</a>
+            @foreach ($products as $product)
+                <tr>
+                    <td>{{$product->sector->settore}}</td>
+                    <td>{{$product->codice_prodotto}}</td>
+                    <td>{{$product->name}}</td>
+                    <td>{{$product->created_at}}</td>
+                    <td>{{$product->updated_at}}</td>
+                    <td>{{$product->data_di_scadenza}}</td>
+                    <td>
+                        <a href="{{route("worker.edit", $product->id)}}" class="btn btn-primary rounded"><i class="fas fa-edit"></i></a>
 
-        </div>
-    </div>
-    @endforeach
+                        <a href="{{route("worker.show", $product->id)}}" class="btn btn-secondary"><i class="fas fa-eye"></i></a>
+                    </td>
+
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection

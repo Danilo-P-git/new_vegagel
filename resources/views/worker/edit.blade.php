@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    <form action="{{route('worker.update', $product->id)}}" method="PUT" enctype="multipart/form-data">
+    <form action="{{route('worker.update', $product->id)}}" method="post" enctype="multipart/form-data">
       @csrf
-      @method('PUT')
+      @method('put')
     <div class="form-group">
     <label for="codice_prodotto">codice prodotto</label>
     <input name="codice_prodotto" type="number" id="codice_prodotto" disabled class="form-control" value="{{$product->codice_prodotto}}">
