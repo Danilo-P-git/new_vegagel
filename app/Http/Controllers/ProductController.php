@@ -8,6 +8,10 @@ use App\Sector;
 use Sortable;
 class ProductController extends Controller
 {
+
+    public function home() {
+        return view('worker.home');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -103,9 +107,17 @@ class ProductController extends Controller
         $product->sector->settore = $request->settore;
         $product->sector->scaffale = $request->scaffale;
         $product->sector->quantita_rimanente = $request->quantita_rimanente;
-        $product->save();
+        $product->push();
 
-        return redirect()->route('worker.index', $product);
+        $quantita = $product->sector->quantita_rimanente;
+
+
+        if ($quantita <= 0) {
+
+            $product->delete();
+        }
+    
+        return redirect()->route('worker.spostamento', $product);
     }
 
     /**
