@@ -4,6 +4,9 @@
 
 
 <div class="container">
+
+
+    <div id="result_strip"></div>
     <form action="{{route('worker.store')}}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('POST')

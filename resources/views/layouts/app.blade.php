@@ -70,6 +70,8 @@
                                 </div>
                             </li>
                         @endguest
+                    <a class="nav-link" href="{{route('worker.home')}}">Zona Worker</a>
+
                     </ul>
                 </div>
             </div>

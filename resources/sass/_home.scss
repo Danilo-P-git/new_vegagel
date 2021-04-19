@@ -1,0 +1,27 @@
+.col_home {
+    margin-left: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 30px !important;
+    padding-top: 0px  !important;
+    margin-top: 0px !important;
+
+    .aside-content{
+        border-right: 1px solid blue;
+        min-height: 100vh;
+        ul{
+            list-style: none;
+            width: 100%;
+            margin-top: 5rem;
+            padding-inline-start: 0px;
+            padding-inline-end: 0px;
+            li{
+                display: flex;
+                margin-left: 0px;
+                border: 1px solid black;
+                p{
+                    padding-left: 15px;
+                }
+            }
+        }
+    }
+}

@@ -10,7 +10,14 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+                        {{-- gestione dell'errore in caso si clicchi la zona worker senza essere loggato --}}
+                        @if (session('error'))
+                        <div class="alert alert-success">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+                        {{-- gestione dell'errore in caso si clicchi la zona worker senza essere loggato --}}
+                        
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

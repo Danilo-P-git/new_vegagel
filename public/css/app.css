@@ -5,6 +5,35 @@
   height: 20rem;
 }
 
+.col_home {
+  margin-left: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 30px !important;
+  padding-top: 0px !important;
+  margin-top: 0px !important;
+}
+.col_home .aside-content {
+  border-right: 1px solid blue;
+  min-height: 100vh;
+}
+.col_home .aside-content ul {
+  list-style: none;
+  width: 100%;
+  margin-top: 5rem;
+  -webkit-padding-start: 0px;
+          padding-inline-start: 0px;
+  -webkit-padding-end: 0px;
+          padding-inline-end: 0px;
+}
+.col_home .aside-content ul li {
+  display: flex;
+  margin-left: 0px;
+  border: 1px solid black;
+}
+.col_home .aside-content ul li p {
+  padding-left: 15px;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
