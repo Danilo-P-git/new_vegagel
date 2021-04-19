@@ -21,7 +21,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-    Route::get('worker/home', 'ProductController@home');
+    Route::get('worker/home', 'ProductController@home')->name('worker.home');
     Route::resource('worker', 'ProductController')->except([
         'index'
     ]);
