@@ -32,7 +32,21 @@
             
         </div>
         <div class="col-10">
-            
+            <div class="container d-flex flex-wrap">
+
+                
+                @foreach ($products as $product)
+                <div class="card my-2 mx-2" style="width: 18rem;">
+                    <img src="https://www.webfx.com/blog/images/cdn.designinstruct.com/files/582-how-to-image-placeholders/generic-image-placeholder.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">{{$product->name}}</h5>
+                    <p class="card-text">{{$product->description}}</p>
+                    <p class="card-text">{{$product->costo}}</p>
+                    <a href="#" class="btn btn-primary">Aggiungi al carrello</a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
 
