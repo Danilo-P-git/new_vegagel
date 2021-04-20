@@ -4,10 +4,18 @@
 
 
 <div class="container">
+
+
+    
     <form action="{{route('worker.store')}}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('POST')
     <div class="form-group">
+      <div class="input-field">
+        <label for="isbn_input">EAN:</label>
+        <input id="isbn_input" class="isbn" type="text" />
+        <button type="button" class="icon-barcode button scan">scansiona</button>
+    </div>
     <label for="codice_prodotto">codice prodotto</label>
     <input name="codice_prodotto" type="number" id="codice_prodotto" class="form-control">
   </div>

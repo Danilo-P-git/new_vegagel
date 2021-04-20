@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class HomeController extends Controller
 {
@@ -25,4 +26,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function adminHome()
+    {
+        return view('admin.adminhome');
+    }
+    public function workerHome()
+    {
+        return view('worker.home');
+    }
+
 }

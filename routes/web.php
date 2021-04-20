@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,14 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $products = Product::all();
+    return view('welcome', ['products' => $products]);
 });
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');
+Route::get('worker/home', 'HomeController@workerHome')->name('worker.home')->middleware('is_worker');
 
 
-    Route::get('worker/home', 'ProductController@home')->name('worker.home');
+    Route::get('worker/home', 'ProductController@home')->name('worker.home')->middleware('is_worker');
     Route::resource('worker', 'ProductController')->except([
         'index'
     ]);
