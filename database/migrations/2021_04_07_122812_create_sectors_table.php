@@ -16,7 +16,7 @@ class CreateSectorsTable extends Migration
         Schema::create('sectors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('codice_stock');
+            $table->string('codice_stock');
             $table->string('settore');
             $table->string('scaffale');
             $table->integer('quantita_rimanente');

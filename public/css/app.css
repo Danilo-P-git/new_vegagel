@@ -5,6 +5,52 @@
   height: 20rem;
 }
 
+#interactive.viewport {
+  position: relative;
+}
+
+#interactive.viewport > canvas, #interactive.viewport > video {
+  max-width: 100%;
+  width: 100%;
+}
+
+canvas.drawing, canvas.drawingBuffer {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+@media (max-width: 603px) {
+  .reader-config-group {
+    width: 100%;
+  }
+
+  .reader-config-group label > span {
+    width: 50%;
+  }
+
+  .reader-config-group label > select, .reader-config-group label > input {
+    max-width: calc(50% - 2px);
+  }
+
+  #interactive.viewport {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+}
+.manutenzione {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.manutenzione .manutenzione-inside h1 {
+  padding: 20px;
+}
+.manutenzione .manutenzione-inside p {
+  padding: 20px;
+}
+
 .col_home {
   margin-left: 0px !important;
   padding-left: 0px !important;

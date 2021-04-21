@@ -2,11 +2,21 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="manutenzione">
+    <div class="manutenzione-inside m-auto">
+        <h1>Ci dispiace per l'incoveniente...</h1>
+        <p class="inside-paragraph">In questo momento la pagina è in fase di manutenzione vi preghiamo di riprovare più tardi</p>
+    </div>
+</div>
+
+{{-- Pagina reale  --}}
+
+
+{{-- <div class="container-fluid">
     <div class="row">
-        <div class="col-2 col_home">
+        <div class="col-2 col_home"> --}}
             {{-- aside foreach con le categorie da mettere al db  --}}
-            <div class="aside-content">
+            {{-- <div class="aside-content">
                 <h2 class="pl-4">
                     Categorie
                 </h2>
@@ -27,10 +37,10 @@
 
 
                 </ul>
-            </div>
+            </div> --}}
             {{-- aside foreach con le categorie da mettere al db  --}}
             
-        </div>
+        {{-- </div>
         <div class="col-10">
             <div class="container d-flex flex-wrap">
 
@@ -50,5 +60,8 @@
         </div>
     </div>
 
-</div>
+</div> --}}
+
+{{-- Pagina reale  --}}
+
 @endsection
