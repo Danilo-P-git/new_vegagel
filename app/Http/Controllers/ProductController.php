@@ -39,8 +39,50 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    function search (Request $request) {
+        $data = $request->all();
+        
+        $products = Product::where( 'codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'codice_prodotto', 'LIKE', '%' . $data['q'] . '%' )->with('sector')->sortable()->get();
+            return view ( 'worker/search', compact('products') );
+    }
+
     public function store(Request $request)
     {
+        $request->validate([
+            'codice_prodotto' => "required|max:191",
+            'codice_stock' => "required|max:191",
+            'data_di_scadenza' => "required|date",
+            'name'=> "required|max:191",
+            'description'=> "nullable",
+            'costo'=> "required|integer|min:0",
+            'settore'=>"required|max:70",
+            'scaffale'=>"required|max:70",
+            'quantita_rimanente'=> 'required|integer'
+             
+                ],
+    [
+        'codice_prodotto.required'=> 'Inserisci il codice prodotto',
+        'codice_prodotto.max'=> 'Codice prodotto troppo lungo',
+        'codice_stock.required'=> 'Inserisci il Codice Stock',
+        'codice_stock.max'=> 'Codice Stock troppo lungo',
+        'data_di_scadenza.required'=> 'Inserisci la data di scadenza',
+        'data_di_scadenza.date'=> 'Devi inserire una data valida',
+        'name.required'=> 'Inserisci il nome del prodotto',
+        'name.max' => 'Nome troppo lungo inserisci le informazioni nella descrizione',
+        'costo.required'=> 'inserisci il prezzo',
+        'costo.integer'=> 'inserisci un numero maggiore di zero',
+        'costo.min'=> 'inserisci un numero maggiore di zero',
+        'settore.required'=> 'inserisci il settore',
+        'settore.max'=> 'nome settore troppo grande',
+        'scaffale.required'=> 'inserisci lo scaffale',
+        'scaffale.max'=> 'inserimento troppo grande accorcia il nome',
+        'quantita_rimanente.required'=> 'Inserisci la quantità',
+        'quantita_rimanente.integer'=> 'Devi inserire un numero',
+           
+    
+    ]);
+
         $newProduct = new Product;
         $newProduct->codice_prodotto = $request->codice_prodotto;
         $newProduct->codice_stock = $request->codice_stock;
@@ -84,6 +126,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+
         $product = Product::findOrFail($id);
         return view('worker.edit', compact('product'));
     }
@@ -97,6 +140,39 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+                $request->validate([
+            'codice_prodotto' => "required|max:191",
+            'codice_stock' => "required|max:191",
+            'data_di_scadenza' => "required|date",
+            'name'=> "required|max:191",
+            'description'=> "nullable",
+            'costo'=> "required|integer|min:0",
+            'settore'=>"required|max:70",
+            'scaffale'=>"required|max:70",
+            'quantita_rimanente'=> 'required|integer'
+             
+                ],
+    [
+        'codice_prodotto.required'=> 'Inserisci il codice prodotto',
+        'codice_prodotto.max'=> 'Codice prodotto troppo lungo',
+        'codice_stock.required'=> 'Inserisci il Codice Stock',
+        'codice_stock.max'=> 'Codice Stock troppo lungo',
+        'data_di_scadenza.required'=> 'Inserisci la data di scadenza',
+        'data_di_scadenza.date'=> 'Devi inserire una data valida',
+        'name.required'=> 'Inserisci il nome del prodotto',
+        'name.max' => 'Nome troppo lungo inserisci le informazioni nella descrizione',
+        'costo.required'=> 'inserisci il prezzo',
+        'costo.integer'=> 'inserisci un numero maggiore di zero',
+        'costo.min'=> 'inserisci un numero maggiore di zero',
+        'settore.required'=> 'inserisci il settore',
+        'settore.max'=> 'nome settore troppo grande',
+        'scaffale.required'=> 'inserisci lo scaffale',
+        'scaffale.max'=> 'inserimento troppo grande accorcia il nome',
+        'quantita_rimanente.required'=> 'Inserisci la quantità',
+        'quantita_rimanente.integer'=> 'Devi inserire un numero',
+           
+    
+    ]);
         $product = Product::with('sector')->find($id);
         $product->codice_prodotto = $product->codice_prodotto;
         $product->codice_stock = $product->codice_stock;

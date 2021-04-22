@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Product;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,15 +19,16 @@ Route::get('/', function () {
     $products = Product::all();
     return view('welcome', ['products' => $products]);
 });
-
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');
 Route::get('worker/home', 'HomeController@workerHome')->name('worker.home')->middleware('is_worker');
 
+    Route::any ( 'worker/search', 'ProductController@search' )->name('worker.search')->middleware('is_worker');
 
     Route::get('worker/home', 'ProductController@home')->name('worker.home')->middleware('is_worker');
     Route::resource('worker', 'ProductController')->except([
         'index'
     ]);
+
     Route::get('worker', 'ProductController@index')->name('worker.spostamento');
