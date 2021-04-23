@@ -20,7 +20,9 @@ class Product extends Model
     public $sortable = [
         "id",
         "codice_prodotto",
+        "codice_stock",
         "name",
+        "lotto",
         "created_at",
         "updated_at",
         "data_di_scadenza"

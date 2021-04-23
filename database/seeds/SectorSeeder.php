@@ -1,4 +1,4 @@
-<?php
+$<?php
 
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
@@ -58,7 +58,8 @@ class SectorSeeder extends Seeder
             $newSector->codice_stock = $stockArray[$i];
             $newSector->settore = $key;
             $newSector->scaffale = $randomScaffale[$sectors];
-            $newSector->quantita_rimanente = $faker->numberBetween(1, 50);
+            $newSector->quantita_al_cartone = $faker->numberBetween(1,10);
+            $newSector->quantita_rimanente = $faker->numberBetween(10, 50);
             $newSector->save();
             $i++;
         }

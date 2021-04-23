@@ -18,9 +18,11 @@ class CreateProductsTable extends Migration
             $table->string('codice_prodotto');
             $table->string('codice_stock');
             $table->date('data_di_scadenza');
+            $table->string('lotto');
             $table->string('name');
             $table->text('description');
-            $table->decimal('costo', 10, 2);
+            $table->decimal('prezzo_al_pezzo', 10, 2);
+            $table->decimal('prezzo_al_kg', 10, 2);
             $table->timestamps();
         });
     }

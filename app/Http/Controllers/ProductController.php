@@ -53,12 +53,15 @@ class ProductController extends Controller
             'codice_prodotto' => "required|max:191",
             'codice_stock' => "required|max:191",
             'data_di_scadenza' => "required|date",
+            'lotto'=> "required|max:25",
             'name'=> "required|max:191",
             'description'=> "nullable",
-            'costo'=> "required|integer|min:0",
+            'prezzo_al_pezzo'=> "required|min:0",
+            'prezzo_al_kg'=>"required|min:0",
             'settore'=>"required|max:70",
             'scaffale'=>"required|max:70",
-            'quantita_rimanente'=> 'required|integer'
+            'quantita_rimanente'=> 'required|integer',
+            'quantita_al_cartone' => 'required|integer'
              
                 ],
     [
@@ -70,9 +73,10 @@ class ProductController extends Controller
         'data_di_scadenza.date'=> 'Devi inserire una data valida',
         'name.required'=> 'Inserisci il nome del prodotto',
         'name.max' => 'Nome troppo lungo inserisci le informazioni nella descrizione',
-        'costo.required'=> 'inserisci il prezzo',
-        'costo.integer'=> 'inserisci un numero maggiore di zero',
-        'costo.min'=> 'inserisci un numero maggiore di zero',
+        'prezzo_al_pezzo.required'=> 'inserisci il prezzo',
+        'prezzo_al_pezzo.min'=> 'inserisci un numero maggiore di zero',
+        'prezzo_al_kg.required'=>'inserisci il prezzo al kg',
+        'prezzo_al_kg.min'=>'inserisci un numero maggiore di zero',
         'settore.required'=> 'inserisci il settore',
         'settore.max'=> 'nome settore troppo grande',
         'scaffale.required'=> 'inserisci lo scaffale',
@@ -89,7 +93,9 @@ class ProductController extends Controller
         $newProduct->data_di_scadenza = $request->data_di_scadenza;
         $newProduct->name = $request->name;
         $newProduct->description = $request->description;
-        $newProduct->costo = $request->costo;
+        $newProduct->prezzo_al_pezzo = $request->prezzo_al_pezzo;
+        $newProduct->prezzo_al_kg = $request->prezzo_al_kg;
+
         $newProduct->save();
         $newSector = new Sector;
         $newSector->product_id = $newProduct->id;
@@ -97,6 +103,8 @@ class ProductController extends Controller
         $newSector->settore = $request->settore;
         $newSector->scaffale = $request->scaffale;
         $newSector->quantita_rimanente = $request->quantita_rimanente;
+        $newSector->quantita_al_cartone = $request->quantita_al_cartone;
+
         $newSector->save();
 
         return redirect()->route('worker.index', $newProduct); 
@@ -146,10 +154,12 @@ class ProductController extends Controller
             'data_di_scadenza' => "required|date",
             'name'=> "required|max:191",
             'description'=> "nullable",
-            'costo'=> "required|integer|min:0",
+            'prezzo_al_pezzo'=> "required|min:0",
+            'prezzo_al_kg'=>"required|min:0",
             'settore'=>"required|max:70",
             'scaffale'=>"required|max:70",
-            'quantita_rimanente'=> 'required|integer'
+            'quantita_rimanente'=> 'required|integer',
+            'quantita_al_cartone' => 'required|integer'
              
                 ],
     [
@@ -161,9 +171,11 @@ class ProductController extends Controller
         'data_di_scadenza.date'=> 'Devi inserire una data valida',
         'name.required'=> 'Inserisci il nome del prodotto',
         'name.max' => 'Nome troppo lungo inserisci le informazioni nella descrizione',
-        'costo.required'=> 'inserisci il prezzo',
-        'costo.integer'=> 'inserisci un numero maggiore di zero',
-        'costo.min'=> 'inserisci un numero maggiore di zero',
+        'prezzo_al_pezzo.required'=> 'inserisci il prezzo',
+        'prezzo_al_pezzo.integer'=> 'inserisci un numero maggiore di zero',
+        'prezzo_al_pezzo.min'=> 'inserisci un numero maggiore di zero',
+        'prezzo_al_kg.required'=>'inserisci il prezzo al kg',
+        'prezzo_al_kg.min'=>'inserisci un numero maggiore di zero',
         'settore.required'=> 'inserisci il settore',
         'settore.max'=> 'nome settore troppo grande',
         'scaffale.required'=> 'inserisci lo scaffale',
@@ -179,10 +191,14 @@ class ProductController extends Controller
         $product->data_di_scadenza = $product->data_di_scadenza;
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->costo = $request->costo;
+        $product->prezzo_al_pezzo = $request->prezzo_al_pezzo;
+        $product->prezzo_al_kg = $request->prezzo_al_kg;
         $product->sector->settore = $request->settore;
         $product->sector->scaffale = $request->scaffale;
         $product->sector->quantita_rimanente = $request->quantita_rimanente;
+        $product->sector->quantita_al_cartone = $request->quantita_al_cartone;
+
+
         $product->push();
 
         $quantita = $product->sector->quantita_rimanente;
