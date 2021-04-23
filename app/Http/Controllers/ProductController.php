@@ -186,9 +186,9 @@ class ProductController extends Controller
     
     ]);
         $product = Product::with('sector')->find($id);
-        $product->codice_prodotto = $product->codice_prodotto;
-        $product->codice_stock = $product->codice_stock;
-        $product->data_di_scadenza = $product->data_di_scadenza;
+        $product->codice_prodotto = $request->codice_prodotto;
+        $product->codice_stock = $request->codice_stock;
+        $product->data_di_scadenza = $request->data_di_scadenza;
         $product->name = $request->name;
         $product->description = $request->description;
         $product->prezzo_al_pezzo = $request->prezzo_al_pezzo;
