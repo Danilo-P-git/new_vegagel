@@ -92,6 +92,7 @@ class ProductController extends Controller
         $newProduct->codice_stock = $request->codice_stock;
         $newProduct->data_di_scadenza = $request->data_di_scadenza;
         $newProduct->name = $request->name;
+        $newProduct->lotto = $request->lotto;
         $newProduct->description = $request->description;
         $newProduct->prezzo_al_pezzo = $request->prezzo_al_pezzo;
         $newProduct->prezzo_al_kg = $request->prezzo_al_kg;
@@ -107,7 +108,7 @@ class ProductController extends Controller
 
         $newSector->save();
 
-        return redirect()->route('worker.index', $newProduct); 
+        return redirect()->route('worker.home', $newProduct); 
     }
 
     /**
@@ -190,6 +191,8 @@ class ProductController extends Controller
         $product->codice_stock = $request->codice_stock;
         $product->data_di_scadenza = $request->data_di_scadenza;
         $product->name = $request->name;
+        $newProduct->lotto = $request->lotto;
+
         $product->description = $request->description;
         $product->prezzo_al_pezzo = $request->prezzo_al_pezzo;
         $product->prezzo_al_kg = $request->prezzo_al_kg;

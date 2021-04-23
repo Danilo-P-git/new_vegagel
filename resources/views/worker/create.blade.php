@@ -227,7 +227,7 @@
 $('#scan-container').codeScanner({
     onScan: function ($element, code) {
         var data_di_scadenza = code.substring(0, 5)
-        $('#data_di_scadenza').val(data_di_scadenza);
+        $('#lotto').val(data_di_scadenza);
     }
 });
 
