@@ -53,7 +53,7 @@
     <div class="form-group col-md-2 col-4">
       
       <label for="lotto">Lotto</label>
-      <input name="lotto" type="number" id="lotto" class="form-control code-scanner" value="{{old("lotto") ? old("lotto") : $product->lotto}}">
+      <input name="lotto" type="text" id="lotto" class="form-control code-scanner" value="{{old("lotto") ? old("lotto") : $product->lotto}}">
       @error('lotto')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -112,11 +112,16 @@
     </div>
     <div class="form-group col-md-4 col-4">
       
-      <label for="quantita_al_cartone">Quantità al cartone</label>
-      <input name="quantita_al_cartone" type="number" id="quantita_al_cartone" class="form-control code-scanner" value="{{old("quantita_al_cartone") ? old("quantita_al_cartone") : $product->sector->quantita_al_cartone}}">
-      @error('quantita_al_cartone')
+
+
+        <label for="quantita_di_cartoni" class="ml-3">Numero di cartoni</label>
+        <input name="quantita_di_cartoni" type="number" id="quantita_di_cartoni" class="form-control code-scanner" value="{{old("quantita_di_cartoni") ? old("quantita_di_cartoni") : $product->sector->quantita_di_cartoni}}">
+
+
+      @error('quantita_di_cartoni')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
+
     </div>
   </div>
 
@@ -126,7 +131,7 @@
     {{-- form row  --}}
 
   <div class="form-row">
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-3 col-3">
       
       <label for="prezzo_al_pezzo">Prezzo al pezzo</label>
       <input name="prezzo_al_pezzo" type="number" id="prezzo_al_pezzo" class="form-control code-scanner" value="{{old("prezzo_al_pezzo") ? old("prezzo_al_pezzo") : $product->prezzo_al_pezzo}}">
@@ -134,7 +139,7 @@
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-3 col-3">
       <label for="prezzo_al_kg">Prezzo al kg</label>
       <input name="prezzo_al_kg" type="number" step=0.01 class="form-control" id="prezzo_al_kg" value="{{old("prezzo_al_kg") ? old("prezzo_al_kg") : $product->prezzo_al_kg}}">
       @error('prezzo_al_kg')
@@ -142,15 +147,24 @@
     @enderror
     </div>
     
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-3 col-3">
       <label for="settore">settore</label>
       <input name="settore" type="text" class="form-control" id="settore" value="{{old("settore") ? old("settore") : $product->sector->settore}}">
       @error('settore')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
+    <div class="form-group col-md-3 col-3">
+      <label for="peso">Peso (KG)</label>
+      <input name="peso" type="text" class="form-control" id="peso" value="{{old("peso") ? old("peso") : $product->peso}}">
+      @error('peso')
+      <div class="alert alert-danger">{{ $message }}</div>
+      @enderror
+    </div>
   </div>
-
+  <div>
+    <input hidden name="quantita_a_cartone" type="number" id="quantita_a_cartone" class="form-control" value="{{old("quantita_a_cartone") ? old("quantita_a_cartone") : $product->sector->quantita_a_cartone}}" >
+  </div>
   <button type="submit" class="btn btn-primary">Sposta</button>
   </form>
 </div>
@@ -164,5 +178,15 @@
            return false;
        }
    });
+
+
+   $("#quantita_di_cartoni").on('change', function () {
+      var quantitaAttuale = $(this).val()
+      var quantitaRimanente = quantitaAttuale * $("#quantita_a_cartone").val();
+      $("#quantita_rimanente").val(quantitaRimanente)
+   });
+
+   
+
   </script>
 @endsection

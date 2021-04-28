@@ -20,7 +20,8 @@ class CreateSectorsTable extends Migration
             $table->string('settore');
             $table->string('scaffale');
             $table->integer('quantita_rimanente');
-            $table->integer('quantita_al_cartone');
+            $table->integer('quantita_di_cartoni');
+            $table->integer('quantita_a_cartone');
             $table->timestamps();
         });
     }

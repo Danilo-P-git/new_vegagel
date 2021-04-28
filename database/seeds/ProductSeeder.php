@@ -57,6 +57,7 @@ class ProductSeeder extends Seeder
             $newProduct->description = $faker->text(60);
             $newProduct->prezzo_al_pezzo = $faker->numberBetween(10, 50);
             $newProduct->prezzo_al_kg = $faker->numberBetween(10, 50);
+            $newProduct->peso = $faker->numberBetween(1,15);
 
             $newProduct->save();
         }

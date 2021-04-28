@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Sector;
 use Sortable;
+use DB;
 class ProductController extends Controller
 {
 
@@ -42,9 +43,39 @@ class ProductController extends Controller
 
     function search (Request $request) {
         $data = $request->all();
-        
+        $searches = DB::table("sectors")
+        ->join("products", function($join){
+            $join->on("product_id", "=", "products.id");
+        })
+        ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.codice_prodotto', 'products.name')
+        ->where("codice_prodotto", 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'products.codice_stock', 'LIKE', '%' . $data['q'] . '%' )
+        ->groupBy("products.codice_prodotto")
+        ->get();
         $products = Product::where( 'codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'codice_prodotto', 'LIKE', '%' . $data['q'] . '%' )->with('sector')->sortable()->get();
-            return view ( 'worker/search', compact('products') );
+            return view ( 'worker/search', compact('products','searches') );
+    }
+    // function shipment ($id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     return view('worker.shipment', compact('product'));
+    // }
+    function test(Request $request, $id)
+    {
+        $product = Product::with('sector')->find($id);
+        $product->sector->quantita_rimanente = $request->quantita_rimanente;
+        $product->sector->quantita_di_cartoni = $request->quantita_di_cartoni;
+        
+        $product->push();
+
+        $quantita = $product->sector->quantita_rimanente;
+
+
+        if ($quantita <= 0) {
+
+            $product->delete();
+        }
+    
+        return redirect()->route('worker.home', $product);
     }
 
     public function store(Request $request)
@@ -61,7 +92,9 @@ class ProductController extends Controller
             'settore'=>"required|max:70",
             'scaffale'=>"required|max:70",
             'quantita_rimanente'=> 'required|integer',
-            'quantita_al_cartone' => 'required|integer'
+            'quantita_di_cartoni' => 'required|integer',
+            'quantita_a_cartone'=> 'required|integer',
+            'peso'=> 'required|decimal',
              
                 ],
     [
@@ -83,6 +116,7 @@ class ProductController extends Controller
         'scaffale.max'=> 'inserimento troppo grande accorcia il nome',
         'quantita_rimanente.required'=> 'Inserisci la quantità',
         'quantita_rimanente.integer'=> 'Devi inserire un numero',
+        'quantita_di_cartoni.integer'=> 'Devi inserire un numero'
            
     
     ]);
@@ -96,6 +130,9 @@ class ProductController extends Controller
         $newProduct->description = $request->description;
         $newProduct->prezzo_al_pezzo = $request->prezzo_al_pezzo;
         $newProduct->prezzo_al_kg = $request->prezzo_al_kg;
+        $newProduct->peso = $request->peso;
+
+        
 
         $newProduct->save();
         $newSector = new Sector;
@@ -104,7 +141,8 @@ class ProductController extends Controller
         $newSector->settore = $request->settore;
         $newSector->scaffale = $request->scaffale;
         $newSector->quantita_rimanente = $request->quantita_rimanente;
-        $newSector->quantita_al_cartone = $request->quantita_al_cartone;
+        $newSector->quantita_di_cartoni = $request->quantita_di_cartoni;
+        $newSector->quantita_a_cartone = $request->quantita_a_cartone;
 
         $newSector->save();
 
@@ -153,6 +191,7 @@ class ProductController extends Controller
             'codice_prodotto' => "required|max:191",
             'codice_stock' => "required|max:191",
             'data_di_scadenza' => "required|date",
+            'lotto'=> "required|max:25",
             'name'=> "required|max:191",
             'description'=> "nullable",
             'prezzo_al_pezzo'=> "required|min:0",
@@ -160,7 +199,8 @@ class ProductController extends Controller
             'settore'=>"required|max:70",
             'scaffale'=>"required|max:70",
             'quantita_rimanente'=> 'required|integer',
-            'quantita_al_cartone' => 'required|integer'
+            'quantita_di_cartoni' => 'required|integer',
+            'peso'=> 'required|decimal',
              
                 ],
     [
@@ -183,6 +223,7 @@ class ProductController extends Controller
         'scaffale.max'=> 'inserimento troppo grande accorcia il nome',
         'quantita_rimanente.required'=> 'Inserisci la quantità',
         'quantita_rimanente.integer'=> 'Devi inserire un numero',
+        'quantita_di_cartoni.integer'=> 'Devi inserire un numero'
            
     
     ]);
@@ -191,15 +232,17 @@ class ProductController extends Controller
         $product->codice_stock = $request->codice_stock;
         $product->data_di_scadenza = $request->data_di_scadenza;
         $product->name = $request->name;
-        $newProduct->lotto = $request->lotto;
+        $product->lotto = $request->lotto;
 
         $product->description = $request->description;
         $product->prezzo_al_pezzo = $request->prezzo_al_pezzo;
         $product->prezzo_al_kg = $request->prezzo_al_kg;
+        $product->peso = $request->peso;
+
         $product->sector->settore = $request->settore;
         $product->sector->scaffale = $request->scaffale;
         $product->sector->quantita_rimanente = $request->quantita_rimanente;
-        $product->sector->quantita_al_cartone = $request->quantita_al_cartone;
+        $product->sector->quantita_di_cartoni = $request->quantita_di_cartoni;
 
 
         $product->push();

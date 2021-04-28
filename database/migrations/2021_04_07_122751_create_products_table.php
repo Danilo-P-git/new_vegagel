@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->decimal('prezzo_al_pezzo', 10, 2);
             $table->decimal('prezzo_al_kg', 10, 2);
+            $table->decimal('peso', 10, 2);
             $table->timestamps();
         });
     }
