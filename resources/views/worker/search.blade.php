@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container">
     @if ($products->count())
 
 
@@ -31,29 +31,29 @@
     @endforeach
 
   </div>
-      <div id="tableScroll" class="overflow-auto">
+      <div id="tableScroll" class="overflow-auto table-responsive-sm">
         <table class="table border shadow  table-bordered table-hover table-sm ">
             <thead class="thead-dark">
               <tr>
-                <th scope="col-1">@sortablelink('sector.settore', 'Settore')</th>
-                <th scope="col-1">@sortablelink('sector.scaffale', 'scaffale')</th>
-                <th scope="col-1">@sortablelink('codice_prodotto', 'Codice Prodotto')</th>
-                <th scope="col-1">@sortablelink('lotto', 'Lotto')</th>
+                <th scope="col" >@sortablelink('sector.settore', 'Settore')</th>
+                <th scope="col">@sortablelink('sector.scaffale', 'scaffale')</th>
+                <th scope="col" data-breakpoints="md">@sortablelink('codice_prodotto', 'Codice Prodotto')</th>
+                <th scope="col" data-breakpoints="md">@sortablelink('lotto', 'Lotto')</th>
 
-                <th scope="col-1">@sortablelink('name', 'Nome')</th>
-                {{-- <th scope="col-1">@sortablelink('created_at', 'Arrivato il')</th>
-                <th scope="col-1">@sortablelink('updated_at', 'Spostato il')</th> --}}
-                <th scope="col-1">@sortablelink('data_di_scadenza', 'scadenza')</th>
-                <th scope="col-1">Quantita totale</th>
-                <th scope="col-1">Quantita di Cartoni</th>
-                <th scope="col-2">Azioni</th>
+                <th scope="col" data-breakpoints="md">@sortablelink('name', 'Nome')</th>
+                {{-- <th scope="col">@sortablelink('created_at', 'Arrivato il')</th>
+                <th scope="col">@sortablelink('updated_at', 'Spostato il')</th> --}}
+                <th scope="col">@sortablelink('data_di_scadenza', 'scadenza')</th>
+                <th scope="col">Quantita totale</th>
+                <th scope="col">Quantita di Cartoni</th>
+                <th scope="col">Azioni</th>
 
               </tr>
             </thead>
             <tbody>
               
                   @foreach ($products as $product)
-                  <tr>
+                  <tr >
                     <td>{{$product->sector->settore}}</td>
                     <td>{{$product->sector->scaffale}}</td>
                     <td>{{$product->codice_prodotto}}</td>
@@ -67,10 +67,10 @@
 
                     <td>
                         <a href="{{route("worker.edit", $product->id)}}" class="btn btn-primary rounded"><i class="fas fa-edit"></i></a>
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal{{$product->id}}">
                           <i class="fas fa-eye"></i>
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modal{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -130,15 +130,17 @@
     @endif
 </div>
 <script type="text/javascript">
+
  $("#quantita_di_cartoni").on('change', function () {
       var quantitaAttuale = $(this).val()
       var quantitaRimanente = quantitaAttuale * $("#quantita_a_cartone").val();
       $("#quantita_rimanente").val(quantitaRimanente)
    });
+  
    $("#button").click(function() {
     $([document.documentElement, document.body]).animate({
         scrollTop: $("#tableScroll").offset().top
     }, 1000);
-});
+  });
 </script>
 @endsection
