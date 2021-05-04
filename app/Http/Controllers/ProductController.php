@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Sector;
+use App\Log;
 use Sortable;
 use DB;
 class ProductController extends Controller
@@ -75,9 +76,25 @@ class ProductController extends Controller
 
         if ($quantita <= 0) {
 
+            $utente = Auth::user();
+            $newLog = new Log;
+            $newLog->nome = $utente->name;
+            $newLog->cognome = $utente->lastname;
+            $newLog->azione = "Uscita merci";
+            $newLog->codice_movimento = $request->codice_stock;
+            $newLog->save();
+
             $product->delete();
+        } else {
+            $utente = Auth::user();
+            $newLog = new Log;
+            $newLog->nome = $utente->name;
+            $newLog->cognome = $utente->lastname;
+            $newLog->azione = "Uscita Merci";
+            $newLog->codice_movimento = $product->codice_stock;
+            $newLog->save();
+
         }
-    
         return redirect()->route('worker.home', $product);
     }
 
@@ -148,6 +165,14 @@ class ProductController extends Controller
         $newSector->quantita_a_cartone = $request->quantita_a_cartone;
 
         $newSector->save();
+
+        $utente = Auth::user();
+        $newLog = new Log;
+        $newLog->nome = $utente->name;
+        $newLog->cognome = $utente->lastname;
+        $newLog->azione = "carico merci";
+        $newLog->codice_movimento = $request->codice_stock;
+        $newLog->save();
 
         return redirect()->route('worker.home', $newProduct); 
     }
@@ -255,7 +280,24 @@ class ProductController extends Controller
 
         if ($quantita <= 0) {
 
+            $utente = Auth::user();
+            $newLog = new Log;
+            $newLog->nome = $utente->name;
+            $newLog->cognome = $utente->lastname;
+            $newLog->azione = "Uscita merci";
+            $newLog->codice_movimento = $request->codice_stock;
+            $newLog->save();
+
             $product->delete();
+        } else {
+            $utente = Auth::user();
+            $newLog = new Log;
+            $newLog->nome = $utente->name;
+            $newLog->cognome = $utente->lastname;
+            $newLog->azione = "Spostamento merci";
+            $newLog->codice_movimento = $request->codice_stock;
+            $newLog->save();
+
         }
     
         return redirect()->route('worker.spostamento', $product);

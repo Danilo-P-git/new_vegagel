@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Log;
+use Sortable;
 
 class HomeController extends Controller
 {
@@ -29,7 +31,8 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        return view('admin.adminhome');
+        $log = Log::sortable()->paginate(10);
+        return view('admin.adminhome', compact('log'));
     }
     public function workerHome()
     {
