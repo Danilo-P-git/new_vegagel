@@ -237,8 +237,8 @@
    $('#scan-container').codeScanner({
     maxEntryTime: 100, // milliseconds
     minEntryChars: 7  // characters
-});
-$('#scan-container').codeScanner({
+    });
+    $('#scan-container').codeScanner({
     onScan: function ($element, code) {
       console.log( code + "  " + "lunghezza" +  code.length);
 
