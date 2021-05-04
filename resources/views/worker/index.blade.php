@@ -15,7 +15,7 @@
             <div class="input-group">
                 <input id="search" type="text" class="form-control" name="q"
                     placeholder="Cerca per codice prodotto"> <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default">
+                    <button id="submit" type="submit" class="btn btn-default">
                         <span class="">Cerca</span>
                     </button>
                 </span>
@@ -94,10 +94,7 @@ $('#scan-container').codeScanner({
   $('#scan-container').codeScanner({
     onScan: function ($element, code) {
         $('#search').val(code);
-        $('#search').change(function (e) { 
-            trigger({type: 'keypress', which: 13, keyCode: 13});
-            
-        });
+        $('#submit').click();        
     }
     })
 </script>
