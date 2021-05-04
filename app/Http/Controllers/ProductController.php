@@ -52,10 +52,10 @@ class ProductController extends Controller
             $join->on("product_id", "=", "products.id");
         })
         ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.codice_prodotto', 'products.name')
-        ->where("codice_prodotto", 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'products.codice_stock', 'LIKE', '%' . $data['q'] . '%' )
+        ->where("codice_prodotto", 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'products.codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')
         ->groupBy("products.codice_prodotto")
         ->get();
-        $products = Product::where( 'codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'codice_prodotto', 'LIKE', '%' . $data['q'] . '%' )->with('sector')->sortable()->get();
+        $products = Product::where( 'codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'codice_prodotto', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')->with('sector')->sortable()->get();
             return view ( 'worker/search', compact('products','searches') );
     }
     // function shipment ($id)

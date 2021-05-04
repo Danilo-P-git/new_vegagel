@@ -33,6 +33,7 @@ class HomeController extends Controller
     {
         $log = Log::sortable()->paginate(10);
         return view('admin.adminhome', compact('log'));
+
     }
     public function workerHome()
     {
