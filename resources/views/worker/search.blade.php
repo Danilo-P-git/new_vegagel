@@ -20,9 +20,9 @@
       <div class="d-flex flex-wrap mx-auto">
          <div class="card shadow " style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Nome prodotto: <br> <span class="text-light bg-dark"> {{$item->name}}.</span></h5>
-            <p class="card-text">Totale in magazzino: {{$item->quantita}}</p>
-            <p class="card-text">Codice prodotto: {{$item->codice_prodotto}}</p>
+            <h5 class="card-title">Nome prodotto: <br>  <b>{{$item->name}}.</b></h5>
+            <p class="card-text">Totale in magazzino: <b>{{$item->quantita}}</b></p>
+            <p class="card-text">Codice prodotto: <b>{{$item->codice_prodotto}}</b></p>
           </div>
         </div>
       </div>
@@ -37,15 +37,15 @@
               <tr>
                 <th scope="col" >@sortablelink('sector.settore', 'Settore')</th>
                 <th scope="col">@sortablelink('sector.scaffale', 'scaffale')</th>
-                <th scope="col" data-breakpoints="md">@sortablelink('codice_prodotto', 'Codice Prodotto')</th>
+                {{-- <th scope="col" data-breakpoints="md">@sortablelink('codice_prodotto', 'Codice Prodotto')</th> --}}
                 <th scope="col" data-breakpoints="md">@sortablelink('lotto', 'Lotto')</th>
 
-                <th scope="col" data-breakpoints="md">@sortablelink('name', 'Nome')</th>
+                {{-- <th scope="col" data-breakpoints="md">@sortablelink('name', 'Nome')</th> --}}
                 {{-- <th scope="col">@sortablelink('created_at', 'Arrivato il')</th>
                 <th scope="col">@sortablelink('updated_at', 'Spostato il')</th> --}}
                 <th scope="col">@sortablelink('data_di_scadenza', 'scadenza')</th>
-                <th scope="col">Quantita totale</th>
-                <th scope="col">Quantita di Cartoni</th>
+                {{-- <th scope="col">Quantita totale</th> --}}
+                {{-- <th scope="col">Quantita di Cartoni</th> --}}
                 <th scope="col">Azioni</th>
 
               </tr>
@@ -56,20 +56,21 @@
                   <tr >
                     <td>{{$product->sector->settore}}</td>
                     <td>{{$product->sector->scaffale}}</td>
-                    <td>{{$product->codice_prodotto}}</td>
+                    {{-- <td>{{$product->codice_prodotto}}</td> --}}
                     <td>{{$product->lotto}}</td>
-                    <td>{{$product->name}}</td>
+                    {{-- <td>{{$product->name}}</td> --}}
                     {{-- <td>{{$product->created_at}}</td>
                     <td>{{$product->updated_at}}</td> --}}
                     <td>{{$product->data_di_scadenza}}</td>
-                    <td id="loop">{{$product->sector->quantita_rimanente}}</td>
-                    <td id="loop2">{{$product->sector->quantita_di_cartoni}}</td>
+                    {{-- <td id="loop">{{$product->sector->quantita_rimanente}}</td> --}}
+                    {{-- <td id="loop2">{{$product->sector->quantita_di_cartoni}}</td> --}}
 
                     <td>
                         <a href="{{route("worker.edit", $product->id)}}" class="btn btn-primary rounded"><i class="fas fa-edit"></i></a>
                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal{{$product->id}}">
-                          <i class="fas fa-eye"></i>
+                          <i class="fas fa-truck"></i>
                         </button>
+                        {{-- modal  --}}
                         <div class="modal fade" id="modal{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -114,6 +115,8 @@
                             </div>
                           </div>
                         </div>
+                        {{-- modal  --}}
+
                         {{-- <a href="{{route("worker.test", $product->id)}}" class="btn btn-secondary mt-1"><i class="fas fa-eye"></i></a> --}}
                     </td>
                 </tr>
@@ -130,6 +133,7 @@
     @endif
 </div>
 <script type="text/javascript">
+  
 
  $("#quantita_di_cartoni").on('change', function () {
       var quantitaAttuale = $(this).val()

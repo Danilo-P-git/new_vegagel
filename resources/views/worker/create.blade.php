@@ -12,7 +12,7 @@
       @method('POST')
 
 
-      <div class="card">
+      {{-- <div class="card">
         
         <div class="card-body">
         
@@ -36,7 +36,7 @@
         
         </div>
       
-      </div>
+      </div> --}}
     
       {{-- form row  --}}
 
@@ -44,14 +44,14 @@
     <div class="form-group col-md-5 col-4">
       
       <label for="codice_prodotto">codice prodotto</label>
-      <input name="codice_prodotto" type="number" id="codice_prodotto" class="form-control code-scanner" value="">
+      <input name="codice_prodotto" type="text" id="codice_prodotto" class="form-control code-scanner" value="">
       @error('codice_prodotto')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
     <div class="form-group col-md-5 col-4">
       <label for="codice_stock">codice stock</label>
-      <input name="codice_stock" type="number" id="codice_stock" class="form-control code-scanner" value="">
+      <input name="codice_stock" type="text" id="codice_stock" class="form-control code-scanner" value="">
       @error('codice_stock')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
@@ -59,7 +59,7 @@
     <div class="form-group col-md-2 col-4">
       
       <label for="lotto">Lotto</label>
-      <input name="lotto" type="number" id="lotto" class="form-control code-scanner" value="">
+      <input name="lotto" type="text" id="lotto" class="form-control code-scanner" value="">
       @error('lotto')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -165,12 +165,16 @@
     </div>
   </div>
     {{-- form row  --}}
-
+    <div class="alert alert-warning my-2" role="alert">
+      <i class="fas fa-exclamation-circle"></i>
+      Si ricorda di compilare tutti i campi per poter andare avanti con l'inserimento
+    </div>
     
     <input hidden  name="quantita_a_cartone" type="number" id="quantita_a_cartone" class="form-control" value="" >
-    <a id="test" class="btn btn-success"> TESTAMI</a>
+    {{-- <a id="test" class="btn btn-success"> TESTAMI</a> --}}
   <button id="submit" type="submit" class="btn btn-primary">Scarica</button>
   </form>
+
 </div>
 
 <script type="text/javascript">
@@ -188,7 +192,7 @@
                 var keycode = (e.which) ? e.which : e.keyCode;
                 if ((keycode >= 65 && keycode <= 90) ||
                     (keycode >= 97 && keycode <= 122) ||
-                    (keycode >= 48 && keycode <= 57)
+                    (keycode >= 45 && keycode <= 57) // modifica dei caratteri presi dalla funzione codeScanner
                 ) {
                     chars.push(String.fromCharCode(e.which));
                 }
@@ -236,8 +240,58 @@
 });
 $('#scan-container').codeScanner({
     onScan: function ($element, code) {
-        var data_di_scadenza = code.substring(0, 5)
-        $('#lotto').val(data_di_scadenza);
+      console.log( code + "  " + "lunghezza" +  code.length);
+
+       if (code.length > 24 && code.length < 28) {
+      $('#codice_stock').val(code);
+
+         console.log( code + "  " + "lunghezza" +  code.length);
+         var frazione1 = code.substr(18, 7) ;
+         console.log(frazione1);
+         $('#lotto').val(frazione1);
+        
+
+       } else if (code.length > 39 && code.length < 46) {
+      $('#codice_stock').val(code);
+
+        //  inserimento lotto 
+          var lotto = code.substr(37, 5);
+         console.log(lotto);
+         $('#lotto').val(lotto);
+        //  !inserimento lotto 
+        // inserimento peso
+         var peso = code.substr(28, 6);
+         console.log(peso);
+         var pesoConDot = peso.substr(0,3) + '.' + peso.substr(3, peso.length) ;
+         console.log(pesoConDot);
+        $('#peso').val(pesoConDot);
+        // !inserimento peso
+        // inserimento data 
+         var data = code.substr(18, 6);
+         console.log(data);
+         var dataCorretta =  "20" + data.substr(0, 2) + "-" + data.substr(2,2) + "-" + data.substr(4,2) ;
+         console.log(dataCorretta);
+          $('#data_di_scadenza').val(dataCorretta)
+        // !inserimento data 
+
+       } else if (code.length > 13 && code.length < 16) {
+        $('#codice_stock').val(code);
+        var codice_prodotto = code.substr(1, (code.length -2 ));
+        console.log(codice_prodotto);
+        $('#codice_prodotto').val(codice_prodotto);
+        //peso
+        var peso = codice_prodotto.substr(7, (codice_prodotto.length - 1) )
+        var pesoConDot = peso.substr(0,2) + '.' + peso.substr(2, peso.length) ;
+        $('#peso').val(pesoConDot);
+
+
+       }else if (code.length > 7 && code.length <= 13 ){
+        $('#codice_prodotto').val(code);
+        var lunghezzaPeso = code.length -1 ;
+        var peso = code.substr(7, 5 );
+        var pesoConDot = peso.substr(0,2) + '.' + peso.substr(2, peso.length) ;
+        $('#peso').val(pesoConDot);
+       }
     }
 });
 

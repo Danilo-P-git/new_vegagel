@@ -38,14 +38,14 @@
     <div class="form-group col-md-5 col-4">
       
       <label for="codice_prodotto">codice prodotto</label>
-      <input name="codice_prodotto" type="number" id="codice_prodotto" class="form-control code-scanner" value="{{old("codice_prodotto") ? old("codice_prodotto") : $product->codice_prodotto}}">
+      <input name="codice_prodotto" type="text" id="codice_prodotto" class="form-control code-scanner" value="{{old("codice_prodotto") ? old("codice_prodotto") : $product->codice_prodotto}}">
       @error('codice_prodotto')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
     <div class="form-group col-md-5 col-4">
       <label for="codice_stock">codice stock</label>
-      <input name="codice_stock" type="number" id="codice_stock" class="form-control code-scanner" value="{{old("codice_stock") ? old("codice_stock") : $product->codice_stock}}">
+      <input name="codice_stock" type="text" id="codice_stock" class="form-control code-scanner" value="{{old("codice_stock") ? old("codice_stock") : $product->codice_stock}}">
       @error('codice_stock')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror

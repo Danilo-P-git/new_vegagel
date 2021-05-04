@@ -20,10 +20,10 @@ class CreateProductsTable extends Migration
             $table->date('data_di_scadenza');
             $table->string('lotto');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->decimal('prezzo_al_pezzo', 10, 2);
             $table->decimal('prezzo_al_kg', 10, 2);
-            $table->decimal('peso', 10, 2);
+            $table->decimal('peso', 10, 3);
             $table->timestamps();
         });
     }

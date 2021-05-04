@@ -43,6 +43,9 @@ class ProductController extends Controller
 
     function search (Request $request) {
         $data = $request->all();
+        if ($data['q'] == null) {
+            $data['q'] = "";
+        }
         $searches = DB::table("sectors")
         ->join("products", function($join){
             $join->on("product_id", "=", "products.id");
@@ -94,7 +97,7 @@ class ProductController extends Controller
             'quantita_rimanente'=> 'required|integer',
             'quantita_di_cartoni' => 'required|integer',
             'quantita_a_cartone'=> 'required|integer',
-            'peso'=> 'required|decimal',
+            'peso'=> 'required',
              
                 ],
     [
@@ -200,7 +203,7 @@ class ProductController extends Controller
             'scaffale'=>"required|max:70",
             'quantita_rimanente'=> 'required|integer',
             'quantita_di_cartoni' => 'required|integer',
-            'peso'=> 'required|decimal',
+            'peso'=> 'required',
              
                 ],
     [
