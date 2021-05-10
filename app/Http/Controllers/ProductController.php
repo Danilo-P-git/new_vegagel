@@ -22,6 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('sector')->sortable()->get();
+        
         return view('worker.index', compact('products'));
     }
 
@@ -43,6 +44,7 @@ class ProductController extends Controller
      */
 
     function search (Request $request) {
+        
         $data = $request->all();
         if ($data['q'] == null) {
             $data['q'] = "";
@@ -55,8 +57,8 @@ class ProductController extends Controller
         ->where("codice_prodotto", 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'products.codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')
         ->groupBy("products.codice_prodotto")
         ->get();
-        $products = Product::where( 'codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'codice_prodotto', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')->with('sector')->sortable()->get();
-            return view ( 'worker/search', compact('products','searches') );
+        $products = Product::where( 'codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'codice_prodotto', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')->with('sector')->sortable('data_di_scadenza', 'asc')->get();
+            return view('worker.search', compact('products','searches') );
     }
     // function shipment ($id)
     // {

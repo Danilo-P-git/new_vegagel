@@ -72,11 +72,17 @@
                                 </div>
                             </li>
                         @endguest
-                        @if (Auth::user('is_worker'))
+                        @auth
+                            
+                        
+                        @php
+                            $user = Auth::user()->is_worker;
+                        @endphp
+                        @if ($user == 1)
                     <a class="nav-link" href="{{route('worker.home')}}">Zona Worker</a>
                             
                         @endif
-
+                        @endauth
                     </ul>
                 </div>
             </div>
