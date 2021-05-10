@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -53,8 +54,24 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'lastname' =>['required', 'string', 'max:255'],
-            'address' =>['required', 'string', 'max:255']
+            'pec' =>['string', 'email', 'max:255'],
+            'telefono' =>['integer'],
+            'indirizzo' =>['string', 'max:255'],
+            'codice_fiscale' =>['string', 'max:255'],
+            'citta' =>['string', 'max:255'],
+            'cap' =>['integer'],
+            'comune' =>['string', 'max:255'],
+            'provincia' =>['string', 'max:255'],
+            'ragione_sociale' =>['string', 'max:255'],
+            'is_admin' => ['boolean'],
+            'is_worker' => ['boolean'],
+            
+
+
+
+
+
+
         ]);
     }
 
@@ -66,12 +83,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'date_of_birth'=> $data['data_of_birth'],
-            'indirizzo'=> $data['inidirizzo']
+            'pec'=> $data['pec'],
+            'telefono'=> $data['telefono'],
+            'indirizzo'=> $data['indirizzo'],
+            'codice_fiscale'=> $data['codice_fiscale'],
+            'citta'=> $data['citta'],
+            'cap'=> $data['cap'],
+            'comune'=> $data['comune'],
+            'provincia'=> $data['provincia'],
+            'partita_iva'=> $data['partita_iva'],
+            'ragione_sociale'=> $data['ragione_sociale'],
+            'is_admin'=> null,
+            'is_worker' => null
+
+
+
+
+
+
+
+
+            
         ]);
     }
 }
