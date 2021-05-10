@@ -1842,7 +1842,10 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-$(document).ready(function () {// var AppQuagga = {
+$(document).ready(function () {
+  $('#sidebarCollapse').on('click', function () {
+    $('#admin-nav').toggleClass('active');
+  }); // var AppQuagga = {
   //     init: function() {
   //         var self = this;
   //         Quagga.init(this.state, function(err) {

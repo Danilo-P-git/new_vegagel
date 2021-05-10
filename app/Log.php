@@ -11,7 +11,6 @@ class Log extends Model
     public $sortable = [
         "id",
         "nome",
-        "cognome",
         "azione",
         "codice_movimento",
         "created_at"

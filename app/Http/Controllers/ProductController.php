@@ -75,15 +75,14 @@ class ProductController extends Controller
 
         $quantita = $product->sector->quantita_rimanente;
 
-
+        
         if ($quantita <= 0) {
 
             $utente = Auth::user();
             $newLog = new Log;
             $newLog->nome = $utente->name;
-            $newLog->cognome = $utente->lastname;
             $newLog->azione = "Uscita merci";
-            $newLog->codice_movimento = $request->codice_stock;
+            $newLog->codice_movimento = "cancellazione";
             $newLog->save();
 
             $product->delete();
@@ -91,7 +90,6 @@ class ProductController extends Controller
             $utente = Auth::user();
             $newLog = new Log;
             $newLog->nome = $utente->name;
-            $newLog->cognome = $utente->lastname;
             $newLog->azione = "Uscita Merci";
             $newLog->codice_movimento = $product->codice_stock;
             $newLog->save();
@@ -285,7 +283,6 @@ class ProductController extends Controller
             $utente = Auth::user();
             $newLog = new Log;
             $newLog->nome = $utente->name;
-            $newLog->cognome = $utente->lastname;
             $newLog->azione = "Uscita merci";
             $newLog->codice_movimento = $request->codice_stock;
             $newLog->save();
@@ -295,7 +292,6 @@ class ProductController extends Controller
             $utente = Auth::user();
             $newLog = new Log;
             $newLog->nome = $utente->name;
-            $newLog->cognome = $utente->lastname;
             $newLog->azione = "Spostamento merci";
             $newLog->codice_movimento = $request->codice_stock;
             $newLog->save();

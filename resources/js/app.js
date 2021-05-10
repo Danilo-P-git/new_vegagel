@@ -1,6 +1,9 @@
 require('./bootstrap');
 
 $(document).ready(function() {
+    $('#sidebarCollapse').on('click', function () {
+        $('#admin-nav').toggleClass('active');
+    });
     // var AppQuagga = {
     //     init: function() {
     //         var self = this;
