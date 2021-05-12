@@ -33,17 +33,47 @@ $("#cercaAziende").on('click', function() {
         }
     });
 })
+
+$("#cercaUtente").on('click', function() {
+    var filter = $("#filterUtente").val();
+    console.log(filter);
+    var protocol = window.location.protocol;
+    var url = window.location.host;
+    var webSite = protocol + '//' + url
+    console.log(webSite);
+    $.ajax({
+        
+        "url": "http://localhost:8000/api/admin/searchUtente",
+        "data": {
+            "filter": filter
+        },
+        "method": "GET",
+        "success": function (response) {
+            console.log(response);
+            $(".utente-wrapper").empty();
+
+                renderUtente(response);
+           
+
+        }
+    });
+})
     
-    
+    $("#lavoratoreCreate").on('change', function() {
+        console.log('change');
+        $("#aziendeCreate").toggle('fast');
+    })
 
 
 
-
+// FUNZIONI
 
 function renderAzienda(data) {
     var source = $("#azienda-template").html();
     console.log(source);
     var template = Handlebars.compile(source);
+
+    // for
     for (var i = 0; i < data.length; i++) {
         context = {
             "id": data[i].id,
@@ -63,9 +93,48 @@ function renderAzienda(data) {
         }
     
     
-    var html = template(context)
+        var html = template(context)
 
-    $(".azienda-wrapper").append(html);
-}
+        $(".azienda-wrapper").append(html);
+
+    }
+    // for
+
   }
+
+
+  function renderUtente(data) {
+    var source = $("#user-template").html();
+    console.log(source);
+    var template = Handlebars.compile(source);
+        // for
+    for (var i = 0; i < data.length; i++) {
+        context = {
+            "id": data[i].id,
+            "name": data[i].name,
+            "email": data[i].email,
+            "pec": data[i].pec,
+            "telefono": data[i].telefono,
+            "indirizzo": data[i].indirizzo,
+            "codice_fiscale": data[i].codice_fiscale,
+            "citta": data[i].citta,
+            "cap": data[i].cap,
+            "comune": data[i].comune,
+            "provincia": data[i].provincia,
+            "partita_iva": data[i].partita_iva,
+            "ragione_sociale": data[i].ragione_sociale,
+
+        }
+    
+    
+        var html = template(context)
+
+        $(".utente-wrapper").append(html);
+
+    }
+    // for
+
+    }
+
+
 });

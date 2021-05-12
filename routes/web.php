@@ -37,3 +37,4 @@ Route::get('worker', 'ProductController@index')->name('worker.spostamento');
 Route::get('admin/showUser', 'UserModController@showUser')->name('admin.showUser');
 Route::any('admin/editRole/{id}', 'UserModController@editRole')->name('admin.role');
 Route::any('admin/editData/{id}', 'UserModController@editData')->name('admin.data');
+Route::any('admin/createUser', 'UserModController@createUser')->name('admin.create');

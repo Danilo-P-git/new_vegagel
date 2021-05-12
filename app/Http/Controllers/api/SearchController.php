@@ -25,4 +25,20 @@ class SearchController extends Controller
         ->get();
         return response()->json($azienda);
     }
+    
+    public function utente(){
+        $filter = $_GET['filter'];
+        $utente = User::
+        where('is_admin',0)
+        ->where('is_worker',0)
+        ->whereNull('ragione_sociale')
+        ->where('email', 'LIKE', '%'.$filter. '%')
+        ->orWhereNull('is_admin')
+        ->whereNull('is_worker')
+        ->whereNull('ragione_sociale')
+        ->where('email', 'LIKE', '%'.$filter. '%')
+        ->get();
+        return response()->json($utente);
+
+    }
 }

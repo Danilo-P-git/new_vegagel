@@ -24,3 +24,4 @@ Route::post('product', 'api\ProductController@create');
 Route::put('product/{id}', 'api\ProductController@update');
 Route::delete('product/{id}', 'api\ProductController@destroy');
 Route::get('admin/search', 'api\SearchController@aziende')->name('admin.aziendeSearch');
+Route::get('admin/searchUtente', 'api\SearchController@utente')->name('admin.utenteSearch');
