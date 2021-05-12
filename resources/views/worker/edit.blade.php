@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container shadow bg-light p-5 rounded">
     <form action="{{route('worker.update', $product->id)}}" method="post" enctype="multipart/form-data">
       @csrf
       @method('put')

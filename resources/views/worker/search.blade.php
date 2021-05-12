@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container shadow bg-light p-5 rounded">
     @if ($products->count())
 
 
@@ -31,7 +31,7 @@
     @endforeach
 
   </div>
-      <div id="tableScroll" class="overflow-auto table-responsive-sm">
+      <div id="tableScroll" class="overflow-auto table-responsive-sm px-3">
         <table class="table border shadow  table-bordered table-hover table-sm ">
             <thead class="thead-dark">
               <tr>
@@ -103,7 +103,7 @@
                             </div>
                           </div>
                         </div>
-  {{-- modal  --}}
+                        {{-- modal  --}}
 
                     </td>
                     {{-- action --}}

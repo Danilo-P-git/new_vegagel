@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="manutenzione">
+<div class="manutenzione container shadow bg-light p-5 rounded">
     <div class="manutenzione-inside m-auto">
         <h1>Ci dispiace per l'incoveniente...</h1>
         <p class="inside-paragraph">In questo momento la pagina è in fase di manutenzione vi preghiamo di riprovare più tardi</p>

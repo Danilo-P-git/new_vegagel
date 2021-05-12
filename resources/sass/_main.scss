@@ -1,5 +1,16 @@
 @import '~bootstrap/scss/bootstrap';
+.container {
+    max-width: 80% !important;
+}
+.app-layout {
+    min-height: 100vh;
+    background-color: $gray-200;
 
+}
+.content-section-admin {
+    min-height: 100vh;
+    background-color: $gray-200;
+}
 .container{
     .row {
         .col{
@@ -87,16 +98,30 @@
                 border-bottom: 1px solid #4596d2 ;
                 margin-left: -30px;
                 margin-right: 30px;
-                transition: background-color  .3s;
+                transition: .3s;
                 cursor: pointer;
                 a {
+                    margin-left: 15px;
                     padding: 15px 0px;
                     display: block;
                     line-height: 2.0;
                     color: #fff;
                     text-decoration: none;
+                    transition: .3s;
                 }
+
                 
+            }
+            .active {
+              border: 1px solid #fff;
+              border-radius: 15px;
+              &:hover {
+                
+                background-color: #f4c543;
+                a {
+                    color: #183d78;
+                }
+              }
             }
         }
     }
@@ -108,144 +133,3 @@
 
 // table style 
 
-
-$table-header:#183d78;
-$table-header-border: #183d78;
-$table-border: transparent;
-$row-bg: #f4f2f1;
-
-.table-container {
-  display: block;
-  margin: 2em auto;
-  width: 100%;
-  max-width: 600px;
-}
-
-.flag-icon {
-  margin-right: 0.1em;
-}
-.header {
-  margin-right: -15px;
-  margin-left: -15px;
-}
-.flex-table {
-  display: flex;
-  flex-flow: row wrap;
-  border-left: solid 1px $table-border;
-  transition: 0.5s;
-  &:first-of-type {
-    border-top: solid 1px $table-header-border;
-    border-left: solid 1px $table-header-border;
-  }
-  &:first-of-type .flex-row {
-    background: $table-header;
-    color: white;
-    border-color: $table-header-border;
-  }
-  &.row:nth-child(odd) .flex-row {
-    background: $row-bg;
-  }
-  &:hover {
-    background: #F5F5F5;
-    transition: 500ms;
-  }
-}
-
-.flex-row {
-  width: calc(100% / 4);
-  text-align: center;
-  padding: 0.5em 0.5em;
-  border-right: solid 1px $table-border;
-  border-bottom: solid 1px $table-border;
-}
-
-.rowspan {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.column {
-  display: flex;
-  flex-flow: column wrap;
-  width: 75%;
-  padding: 0;
-  .flex-row {
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    border-bottom: solid 1px $table-border;
-    &:hover {
-      background: #F5F5F5;
-      transition: 500ms;
-    }
-  }
-}
-
-.flex-cell {
-  width: calc(100% / 3); //1px = border right
-  text-align: center;
-  padding: 0.5em 0.5em;
-  border-right: solid 1px $table-border;
-  //flex: 1 1 33.3%;
-  &:last-child {
-    // border-right: 0;
-  }
-}
-
-@media all and (max-width: 767px) {
-  .flex-row {
-    width: calc(100% / 3); //1px = border right
-    
-   &.first {
-     width: 100%;
-   }
-  }
-
-  .column {
-    width: 100%;
-  }
-}
-
-@media all and (max-width: 430px) {
-  
-  .flex-table {
-    .flex-row {
-      border-bottom: 0;
-    }
-    .flex-row:last-of-type {
-      border-bottom: solid 1px $table-border;
-    }
-  }
-  
-  .header {
-    margin-right: -15px;
-    margin-left: -15px;
-    .flex-row {
-      border-bottom: solid 1px;
-    }
-  }
-  
-  .flex-row {
-    width: 100%; //1px = border right
-    
-   &.first {
-     width: 100%;
-     border-bottom: solid 1px $table-border;
-   }
-  }
-
-  .column {
-    width: 100%;
-    .flex-row {
-      border-bottom: solid 1px $table-border;
-    }
-  }
-
-  .flex-cell {
-    width: 100%; //1px = border right
-  }
-}

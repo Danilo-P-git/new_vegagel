@@ -100,14 +100,17 @@
                 <div class="list-menu py-4 px-2">
                     <h1>NewVecagel</h1>
                     <ul>
-                        <li>
-                            <a href="">Attività lavoratori</a>
+                        <li class="{{ (request()->is('admin/showUser*')) ? 'active' : '' }}">
+                            <a href="{{route('admin.showUser')}}">Gestione Utenti</a>
+                        </li>
+                        <li class="{{ (request()->is('admin/home*')) ? 'active' : '' }}">
+                            <a  href="{{route('admin.home')}}">Attività lavoratori</a>
                         </li>
                         <li>
-                            <a href="">Ordini</a>
+                            <a class="" href="">Ordini</a>
                         </li>
                         <li>
-                            <a href="">Fatture</a>
+                            <a class="" href="">Fatture</a>
                         </li>
    
                     </ul>

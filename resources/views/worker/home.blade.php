@@ -3,7 +3,8 @@
 @section('content')
 
 
-<div class="container">
+<div class="container shadow bg-light p-5 rounded">
+  <div class="container ">
     <div class="row">
       <div class="col d-flex">
           <a class="btn  btn_menu shadow  m-auto d-flex" href="{{route("worker.create")}}"><span class="m-auto">Scarico merci</span></a>

@@ -32,4 +32,8 @@ Route::resource('worker', 'ProductController')->except([
     'index'
 ]);
 
-    Route::get('worker', 'ProductController@index')->name('worker.spostamento');
+Route::get('worker', 'ProductController@index')->name('worker.spostamento');
+
+Route::get('admin/showUser', 'UserModController@showUser')->name('admin.showUser');
+Route::any('admin/editRole/{id}', 'UserModController@editRole')->name('admin.role');
+Route::any('admin/editData/{id}', 'UserModController@editData')->name('admin.data');

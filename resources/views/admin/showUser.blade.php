@@ -1,0 +1,683 @@
+@extends('layouts.side')
+
+@section('content')
+
+
+
+<div class="container bg-light shadow border p-5 rounded overflow-auto">
+
+  {{-- AZIENDE  --}}
+  <section>
+    
+    
+
+    <h2 class="py-2"> Aziende</h2>
+    <div class="d-flex flex-column ">
+      <label class="ml-auto form-label" for="filterAzienda">Cerca il nome dell' azienda</label>
+      <input id="filterAzienda" class="ml-auto form-control offset-10 col-2" type="text" placeholder="Cerca">
+      <a class="ml-auto btn btn-primary my-1" id="cercaAziende">Search</a>
+    </div>
+    <table class="table border shadow table-bordered table-hover  rounded" >
+        <thead class="thead-dark rounded">
+            <tr>
+                <th scope="col">@sortablelink('name', 'Nome di riferimento')</th>
+                <th scope="col">@sortablelink('pec', 'Email-pec')</th>
+                <th scope="col">@sortablelink('ragione_sociale', 'Nome azienda')</th>
+                <th scope="col">@sortablelink('indirizzo', 'Indirizzo')</th>
+                <th scope="col">@sortablelink('telefono', 'Telefono di riferimento')</th>
+                <th scope="col">@sortablelink('partita_iva', 'Partita Iva')</th>
+
+                
+
+                
+                <th>Azioni</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody  class="azienda-wrapper">
+            @foreach ($aziende as $item )
+                <tr>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->pec}}</td>
+                    <td>{{$item->ragione_sociale}}</td>
+                    <td>{{$item->indirizzo}}</td>
+                    <td>{{$item->telefono}}</td>
+                    <td>{{$item->partita_iva}}</td>
+
+                    <td>
+
+                        <button type="button" data-toggle="modal" data-target="#edit{{$item->id}}" class="btn btn-secondary">Modifica dati</button>
+                        <!-- Button trigger modal -->
+
+                        
+                        <!-- Modal edit  -->
+                        <div class="modal fade" id="edit{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Modifica dati</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <form action="{{route('admin.data', $item->id)}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
+                                <div class="modal-body">
+
+                                  <div class="form-group row">
+                                    <label for="pec" class="col-md-4 col-form-label text-md-right">{{ __('PEC registrata') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}pec" type="email" class="pers-required form-control @error('pec') is-invalid @enderror" name="pec" value="{{old("pec") ? old("pec") : $item->pec}}"  >
+        
+                                        @error('pec')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('Numero di telefono') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}telefono" type="text" class="pers-required form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{old("telefono") ? old("telefono") : $item->telefono}}"  >
+        
+                                        @error('telefono')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="indirizzo" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo completo') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}indirizzo" type="text" class="pers-required form-control @error('indirizzo') is-invalid @enderror" name="indirizzo" value="{{old("indirizzo") ? old("indirizzo") : $item->indirizzo}}"  >
+        
+                                        @error('indirizzo')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="codice_fiscale" class="col-md-4 col-form-label text-md-right">{{ __('Codice fiscale') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}codice_fiscale" type="text" class=" pers-required form-control @error('codice_fiscale') is-invalid @enderror" name="codice_fiscale" value="{{old("codice_fiscale") ? old("codice_fiscale") : $item->codice_fiscale}}" >
+        
+                                        @error('codice_fiscale')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="citta" class="col-md-4 col-form-label text-md-right">{{ __('Città') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}citta" type="text" class=" pers-required form-control @error('citta') is-invalid @enderror" name="citta"  value="{{old("citta") ? old("citta") : $item->citta}}" >
+        
+                                        @error('citta')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="cap" class="col-md-4 col-form-label text-md-right">{{ __('CAP') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}cap" type="number" class="pers-required form-control @error('cap') is-invalid @enderror" name="cap" value="{{old("cap") ? old("cap") : $item->cap}}" >
+        
+                                        @error('cap')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="comune" class="col-md-4 col-form-label text-md-right">{{ __('Comune') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}comune" type="text" class="pers-required form-control @error('comune') is-invalid @enderror" name="comune" value="{{old("comune") ? old("comune") : $item->comune}}" >
+        
+                                        @error('comune')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="provincia" class="col-md-4 col-form-label text-md-right">{{ __('Provincia') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}provincia" type="text" class="pers-required form-control @error('provincia') is-invalid @enderror" name="provincia" value="{{old("provincia") ? old("provincia") : $item->provincia}}" >
+        
+                                        @error('provincia')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="partita_iva" class="col-md-4 col-form-label text-md-right">{{ __('Partita iva') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}partita_iva" type="text" class="pers-required form-control @error('partita_iva') is-invalid @enderror" name="partita_iva" value="{{old("partita_iva") ? old("partita_iva") : $item->partita_iva}}" >
+        
+                                        @error('partita_iva')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="ragione_sociale" class="col-md-4 col-form-label text-md-right">{{ __('Ragione sociale') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}ragione_sociale" type="text" class="pers-required form-control @error('ragione_sociale') is-invalid @enderror" name="ragione_sociale" value="{{old("ragione_sociale") ? old("ragione_sociale") : $item->ragione_sociale}}" >
+        
+                                        @error('ragione_sociale')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Modal edit  -->
+
+                    </td>
+
+
+                </tr>
+            @endforeach
+        </tbody>
+
+    </table>
+    {!! $aziende->appends(Request::except('page'))->render() !!}
+    <p>
+        Mostra {{$aziende->count()}} di {{ $aziende->total() }} Aziende registrati.
+    </p>
+  </section>
+
+  {{-- UTENTI REGISTRATI  --}}
+  <section>
+
+  
+      <h2 class="py-2"> Utenti registrati</h2>
+    <table class="table border shadow table-bordered table-hover  rounded" >
+        <thead class="thead-dark rounded">
+            <tr>
+                <th scope="col">@sortablelink('name', 'Nome')</th>
+                <th scope="col">@sortablelink('email', 'Email')</th>
+                <th scope="col">ID</th>
+                <th>Azioni</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @foreach ($users as $item )
+                <tr>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->email}}</td>
+                    <td>{{$item->id}}</td>
+                    <td>
+                        <button type="button" data-toggle="modal" data-target="#modal{{$item->id}}" class="btn btn-primary">Rendi Lavoratore</button>
+                        {{-- MODAL RENDI LAVORATORE  --}}
+                        <div class="modal fade" id="modal{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Sei sicuro?</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="{{route('admin.role', $item->id)}}" method="post" enctype="multipart/form-data">
+                                  @csrf
+                                  @method('put')
+                                  <div class="modal-body">
+
+                                    <p>
+                                        Attiva lo switch per far diventare un lavoratore questo utente.
+                                    </p>
+                                    <div class="custom-control custom-switch">
+                                      <input name="is_worker" type="checkbox" class="custom-control-input" id="is_worker{{$item->id}}">
+                                      <label class="custom-control-label" for="is_worker{{$item->id}}"> Utente lavoratore? </label>
+                                    </div>
+                                    
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        {{-- MODAL RENDI LAVORATORE  --}}
+
+                        <button type="button" data-toggle="modal" data-target="#edit{{$item->id}}" class="btn btn-secondary">Modifica dati</button>
+                        <!-- Button trigger modal -->
+
+                        
+                        <!-- Modal edit  -->
+                        <div class="modal fade" id="edit{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Modifica dati</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <form action="{{route('admin.data', $item->id)}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
+                                <div class="modal-body">
+
+                                  <div class="form-group row">
+                                    <label for="pec" class="col-md-4 col-form-label text-md-right">{{ __('PEC registrata') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="pec" type="email" class="pers-required form-control @error('pec') is-invalid @enderror" name="pec" value="{{ old('pec') }}"  >
+        
+                                        @error('pec')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('Numero di telefono') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="telefono" type="text" class="pers-required form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}"  >
+        
+                                        @error('telefono')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="indirizzo" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo completo') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="indirizzo" type="text" class="pers-required form-control @error('indirizzo') is-invalid @enderror" name="indirizzo" value="{{ old('indirizzo') }}"  >
+        
+                                        @error('indirizzo')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="codice_fiscale" class="col-md-4 col-form-label text-md-right">{{ __('Codice fiscale') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="codice_fiscale" type="text" class=" pers-required form-control @error('codice_fiscale') is-invalid @enderror" name="codice_fiscale" value="{{ old('codice_fiscale') }}" >
+        
+                                        @error('codice_fiscale')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="citta" class="col-md-4 col-form-label text-md-right">{{ __('Città') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="citta" type="text" class=" pers-required form-control @error('citta') is-invalid @enderror" name="citta"  value="{{ old('citta') }}" >
+        
+                                        @error('citta')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="cap" class="col-md-4 col-form-label text-md-right">{{ __('CAP') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="cap" type="number" class="pers-required form-control @error('cap') is-invalid @enderror" name="cap" value="{{ old('cap') }}" >
+        
+                                        @error('cap')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="comune" class="col-md-4 col-form-label text-md-right">{{ __('Comune') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="comune" type="text" class="pers-required form-control @error('comune') is-invalid @enderror" name="comune" value="{{ old('comune') }}" >
+        
+                                        @error('comune')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="provincia" class="col-md-4 col-form-label text-md-right">{{ __('Provincia') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="provincia" type="text" class="pers-required form-control @error('provincia') is-invalid @enderror" name="provincia" value="{{ old('provincia') }}" >
+        
+                                        @error('provincia')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="partita_iva" class="col-md-4 col-form-label text-md-right">{{ __('Partita iva') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="partita_iva" type="text" class="pers-required form-control @error('partita_iva') is-invalid @enderror" name="partita_iva" value="{{ old('partita_iva') }}" >
+        
+                                        @error('partita_iva')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="ragione_sociale" class="col-md-4 col-form-label text-md-right">{{ __('Ragione sociale') }}</label>
+        
+                                    <div class="col-md-6">
+                                        <input id="ragione_sociale" type="text" class="pers-required form-control @error('ragione_sociale') is-invalid @enderror" name="ragione_sociale" value="{{ old('ragione_sociale') }}" >
+        
+                                        @error('ragione_sociale')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Modal edit  -->
+
+                    </td>
+
+
+                </tr>
+            @endforeach
+        </tbody>
+
+    </table>
+    {!! $users->appends(Request::except('page'))->render() !!}
+    <p>
+        Mostra {{$users->count()}} di {{ $users->total() }} Utenti registrati.
+    </p>
+  </section>
+  {{-- UTENTI REGISTRATI  --}}
+
+  {{-- Lavoratori --}}
+<section>
+  <h2 class="py-2"> Utenti Lavoratori</h2>
+  <table class="table border shadow table-bordered table-hover  rounded" >
+      <thead class="thead-dark rounded">
+          <tr>
+              <th scope="col">@sortablelink('name', 'Nome')</th>
+              <th scope="col">@sortablelink('email', 'Email')</th>
+              <th scope="col">ID</th>
+              <th scope="col">Azioni</th>
+
+          </tr>
+
+      </thead>
+
+      <tbody>
+          @foreach ($worker as $item )
+              <tr>
+                  <td>{{$item->name}}</td>
+                  <td>{{$item->email}}</td>
+                  <td>{{$item->id}}</td>
+                  <td class="d-flex">
+
+
+                      <button type="button" data-toggle="modal" data-target="#edit{{$item->id}}" class="btn btn-secondary ml-auto">Modifica dati</button>
+                      <!-- Button trigger modal -->
+
+                      
+                      <!-- Modal edit  -->
+                      <div class="modal fade" id="edit{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Modifica dati</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{route('admin.data', $item->id)}}" method="post" enctype="multipart/form-data">
+                              @csrf
+                              @method('put')
+                              <div class="modal-body">
+
+                                <div class="form-group row">
+                                  <label for="pec" class="col-md-4 col-form-label text-md-right">{{ __('PEC registrata') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="pec" type="email" class="pers-required form-control @error('pec') is-invalid @enderror" name="pec" value="{{ old('pec') }}"  >
+      
+                                      @error('pec')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('Numero di telefono') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="telefono" type="text" class="pers-required form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}"  >
+      
+                                      @error('telefono')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="indirizzo" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo completo') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="indirizzo" type="text" class="pers-required form-control @error('indirizzo') is-invalid @enderror" name="indirizzo" value="{{ old('indirizzo') }}"  >
+      
+                                      @error('indirizzo')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="codice_fiscale" class="col-md-4 col-form-label text-md-right">{{ __('Codice fiscale') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="codice_fiscale" type="text" class=" pers-required form-control @error('codice_fiscale') is-invalid @enderror" name="codice_fiscale" value="{{ old('codice_fiscale') }}" >
+      
+                                      @error('codice_fiscale')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="citta" class="col-md-4 col-form-label text-md-right">{{ __('Città') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="citta" type="text" class=" pers-required form-control @error('citta') is-invalid @enderror" name="citta"  value="{{ old('citta') }}" >
+      
+                                      @error('citta')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="cap" class="col-md-4 col-form-label text-md-right">{{ __('CAP') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="cap" type="number" class="pers-required form-control @error('cap') is-invalid @enderror" name="cap" value="{{ old('cap') }}" >
+      
+                                      @error('cap')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="comune" class="col-md-4 col-form-label text-md-right">{{ __('Comune') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="comune" type="text" class="pers-required form-control @error('comune') is-invalid @enderror" name="comune" value="{{ old('comune') }}" >
+      
+                                      @error('comune')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="provincia" class="col-md-4 col-form-label text-md-right">{{ __('Provincia') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="provincia" type="text" class="pers-required form-control @error('provincia') is-invalid @enderror" name="provincia" value="{{ old('provincia') }}" >
+      
+                                      @error('provincia')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="partita_iva" class="col-md-4 col-form-label text-md-right">{{ __('Partita iva') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="partita_iva" type="text" class="pers-required form-control @error('partita_iva') is-invalid @enderror" name="partita_iva" value="{{ old('partita_iva') }}" >
+      
+                                      @error('partita_iva')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="ragione_sociale" class="col-md-4 col-form-label text-md-right">{{ __('Ragione sociale') }}</label>
+      
+                                  <div class="col-md-6">
+                                      <input id="ragione_sociale" type="text" class="pers-required form-control @error('ragione_sociale') is-invalid @enderror" name="ragione_sociale" value="{{ old('ragione_sociale') }}" >
+      
+                                      @error('ragione_sociale')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+                                
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal edit  -->
+
+                  </td>
+
+
+              </tr>
+          @endforeach
+      </tbody>
+
+  </table>
+  {!! $users->appends(Request::except('page'))->render() !!}
+  <p>
+      Mostra {{$users->count()}} di {{ $users->total() }} Utenti registrati.
+  </p>
+</section>
+  @include('layouts.handlebars_layout.aziendaHandle')
+@endsection

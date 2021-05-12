@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="scan-container" class="container">
+<div id="scan-container" class="container shadow bg-light p-5 rounded">
 
 
     

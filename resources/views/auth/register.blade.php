@@ -88,7 +88,7 @@
                         {{-- AZIENDE  --}}
                         <a id="show"  class="btn btn-outline-primary">Sei un azienda?</a>
 
-                        {{-- <div  id="show-hide" style="display: none"> --}}
+                        <div  id="show-hide" style="display: none">
 
 
                             <div class="form-group row">
@@ -232,7 +232,7 @@
                             </div>
 
 
-                        {{-- </div> --}}
+                        </div>
 
                         {{-- AZIENDE  --}}
 
