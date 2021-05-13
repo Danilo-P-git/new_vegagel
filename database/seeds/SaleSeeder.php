@@ -20,10 +20,15 @@ class SaleSeeder extends Seeder
             $product = Product::inRandomOrder()->first();
             $user = User::inRandomOrder()->first();
             $newSale = new Sale;
-            $newSale->id_prodotto = $product->id;
-            $newSale->quantita = $faker->numberBetween(2,5);
             $newSale->users_id = $user->id;
+            $newSale->pivot->quantity = 1;
+
             $newSale->save();
+            $saleId = $newSale->id;
+            $secondSale = Sale::find($saleId);
+            $newSale->product()->attach($product->id);
+            $newSale->product()->attach($secondSale);
+
         }
     }
 }
