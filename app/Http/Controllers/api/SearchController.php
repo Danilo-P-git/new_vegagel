@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Sortable;
 
@@ -40,5 +41,12 @@ class SearchController extends Controller
         ->get();
         return response()->json($utente);
 
+    }
+
+    public function prodottoSingolo(){
+        $cod_prodotto = $_GET['codice_prodotto'];
+        $prodotto = Product::where('codice_prodotto' = $cod_prodotto)->get();
+
+        return return response()->json($prodotto);
     }
 }

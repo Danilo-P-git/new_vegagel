@@ -20,9 +20,9 @@
       <div class="d-flex flex-wrap mx-auto">
          <div class="card shadow " style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Nome prodotto: <br>  <b>{{$item->name}}.</b></h5>
-            <p class="card-text">Totale in magazzino: <b>{{$item->quantita}}</b></p>
-            <p class="card-text">Codice prodotto: <b>{{$item->codice_prodotto}}</b></p>
+            <h5 class="card-title">Nome prodotto: <br>  <strong>{{$item->name}}.</strong></h5>
+            <p class="card-text">Quantità Bloccata <strong>{{$item->quantita_bloccata}}</strong> su <strong>{{$item->quantita}} Totale</strong></p>
+            <p class="card-text">Codice prodotto: <strong>{{$item->codice_prodotto}}</strong></p>
           </div>
         </div>
       </div>
@@ -69,12 +69,17 @@
                                 </button>
                               </div>
                               <div class="modal-body">
+                                
                                 <form action="{{route('worker.test', $product->id)}}" method="post" enctype="multipart/form-data">
                                   @csrf
                                   @method('put')
                                   <div class="form-row">
                                     <div class="form-group">
-                                      
+                                      @if ($product->sector->quantita_bloccata > 0)
+                                      <div class="alert alert-danger">
+                                        <strong> <i class="fas fa-marker"></i> Attenzione {{$product->sector->quantita_bloccata}} pezzi sono stati già ordinati. <br> In caso i pezzi non bastassere per completere il tuo ordine prendine da un altro stock. </strong>
+                                      </div>
+                                      @endif
                                       <label for="quantita_rimanente">Quantità rimanente</label>
                                       <input name="quantita_rimanente" type="number"  class="form-control code-scanner quantita_rimanente" value="{{$product->sector->quantita_rimanente}}">
                                       @error('quantita_rimanente')

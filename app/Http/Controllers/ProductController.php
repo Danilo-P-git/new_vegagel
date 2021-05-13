@@ -53,7 +53,7 @@ class ProductController extends Controller
         ->join("products", function($join){
             $join->on("product_id", "=", "products.id");
         })
-        ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.codice_prodotto', 'products.name')
+        ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.codice_prodotto', 'products.name', 'sectors.quantita_bloccata')
         ->where("codice_prodotto", 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'products.codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')
         ->groupBy("products.codice_prodotto")
         ->get();

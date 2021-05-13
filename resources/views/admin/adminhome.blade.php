@@ -11,7 +11,6 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">@sortablelink('nome', 'Nome')</th>
-                    <th scope="col">@sortablelink('cognome', 'Cognome')</th>
                     <th scope="col">@sortablelink('azione', 'Azione')</th>
                     <th scope="col">@sortablelink('codice_movimento', 'Codice a 23 cifre scannerizzato')</th>
                     <th scope="col">@sortablelink('created_at', 'Orario')</th>
@@ -23,7 +22,6 @@
                 @foreach ($log as $item )
                     <tr>
                         <td>{{$item->nome}}</td>
-                        <td>{{$item->cognome}}</td>
                         <td>{{$item->azione}}</td>
                         <td>{{$item->codice_movimento}}</td>
                         <td>{{$item->created_at}}</td>

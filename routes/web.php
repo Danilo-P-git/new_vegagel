@@ -38,3 +38,5 @@ Route::get('admin/showUser', 'UserModController@showUser')->name('admin.showUser
 Route::any('admin/editRole/{id}', 'UserModController@editRole')->name('admin.role');
 Route::any('admin/editData/{id}', 'UserModController@editData')->name('admin.data');
 Route::any('admin/createUser', 'UserModController@createUser')->name('admin.create');
+Route::get('admin/orders', 'AdminCartController@index')->name('admin.orders');
+Route::get('admin/ordersCreate', 'AdminCartController@displayProducts')->name('admin.ordersCreate');

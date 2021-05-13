@@ -56,11 +56,13 @@ class SectorSeeder extends Seeder
             $newSector = new Sector;
             $newSector->product_id = $idArray[$i];
             $newSector->codice_stock = $stockArray[$i];
+            $newSector->codice_prodotto = $stockArray[$i];
             $newSector->settore = $key;
             $newSector->scaffale = $randomScaffale[$sectors];
             $newSector->quantita_di_cartoni = 5;
             $newSector->quantita_rimanente = 50;
             $newSector->quantita_a_cartone = 10;
+            $newSector->quantita_bloccata = 10;
             $newSector->save();
             $i++;
         }
