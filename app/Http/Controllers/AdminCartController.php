@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Sortable;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminCartController extends Controller
 {
@@ -34,5 +35,14 @@ class AdminCartController extends Controller
         ->get();
 
         return view('admin.ordersCreate', compact('products') );
+   }
+   public function quantitaBloccata(Request $request, $id)
+   {
+       $products = Product::with('sector')->find($id);
+        // dd($request->quantita_bloccata);
+       $products->sector->quantita_bloccata = $products->sector->quantita_bloccata + $request->quantita_bloccata;
+        $products->push();
+        // dd($products);
+       return redirect()->back() ;
    }
 }

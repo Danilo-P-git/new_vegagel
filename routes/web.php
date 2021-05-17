@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCartController;
 use Illuminate\Support\Facades\Route;
 use App\Product;
 use Illuminate\Http\Request;
@@ -40,3 +41,4 @@ Route::any('admin/editData/{id}', 'UserModController@editData')->name('admin.dat
 Route::any('admin/createUser', 'UserModController@createUser')->name('admin.create');
 Route::get('admin/orders', 'AdminCartController@index')->name('admin.orders');
 Route::get('admin/ordersCreate', 'AdminCartController@displayProducts')->name('admin.ordersCreate');
+Route::any('admin/ordersQuantity/{id}', 'AdminCartController@quantitaBloccata')->name('admin.ordersQuantity');

@@ -13,7 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js" integrity="sha512-bCsBoYoW6zE0aja5xcIyoCDPfT27+cGr7AOCqelttLVRGay6EKGQbR6wm6SUcUGOMGXJpj+jrIpMS6i80+kZPw==" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,7 +24,7 @@
 
 </head>
 <body>
-    
+
     <div id="app">
         <nav class="navbar navbar-expand-md sticky-top navbar-light bg-white shadow-sm">
             <div class="container">
@@ -73,14 +73,27 @@
                             </li>
                         @endguest
                         @auth
-                            
-                        
+
+
                         @php
                             $user = Auth::user()->is_worker;
                         @endphp
                         @if ($user == 1)
-                    <a class="nav-link" href="{{route('worker.home')}}">Zona Worker</a>
-                            
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{route('worker.home')}}">Zona Worker</a>
+                        </li>
+
+                        @endif
+
+                        @php $admin = Auth::user()->is_admin;
+                        @endphp
+                        @if ($admin==1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('admin.home')}}">Admin dashboard</a>
+
+                        </li>
+
                         @endif
                         @endauth
                     </ul>
@@ -94,10 +107,10 @@
     </div>
 
     <script>
-                 
 
-                
-    
+
+
+
     </script>
 </body>
 </html>
