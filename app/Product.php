@@ -13,9 +13,11 @@ class Product extends Model
     public function sector(){
         return $this->hasOne('App\Sector');
     }
-    public function sale(){
-        return $this->hasOne('App\Sale');
+    public function order_product()
+    {
+        return $this->belongsTo(Order_Product::class);
     }
+
 
     public $sortable = [
         "id",

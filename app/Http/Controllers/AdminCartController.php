@@ -33,6 +33,7 @@ class AdminCartController extends Controller
         ->orderBy('products.data_di_scadenza', 'desc')
         ->get();
 
-        return view('admin.ordersCreate', compact('products') );
+        $sector = Sector::all();
+        return view('admin.ordersCreate', compact('products', 'sector') );
    }
 }

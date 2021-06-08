@@ -5,6 +5,9 @@ use Faker\Generator as Faker;
 use illuminate\support\str;
 use App\Product;
 use App\Sector;
+use App\Order;
+use App\User;
+use App\Order_Product;
 
 class SectorSeeder extends Seeder
 {
@@ -56,16 +59,52 @@ class SectorSeeder extends Seeder
             $newSector = new Sector;
             $newSector->product_id = $idArray[$i];
             $newSector->codice_stock = $stockArray[$i];
-            $newSector->codice_prodotto = $stockArray[$i];
+            // $newSector->codice_prodotto = $stockArray[$i];
             $newSector->settore = $key;
             $newSector->scaffale = $randomScaffale[$sectors];
             $newSector->quantita_di_cartoni = 5;
             $newSector->quantita_rimanente = 50;
             $newSector->quantita_a_cartone = 10;
-            $newSector->quantita_bloccata = 10;
+            $newSector->quantita_bloccata = 0;
             $newSector->save();
             $i++;
+            // $idSector = $newSector->id;
+            // $appoggio = Sector::with('product')->inRandomOrder()->first();
+
+            // $appoggioId = $appoggio->id;
+
+            // $findOrder = Order_Product::find($appoggioId);
+            
+            // $quantitaOrder = $findOrder->quantita;
+            // $orderId = $findOrder->product_id;
+            // dd($orderId);
+
+            // $sector = Sector::where('product_id', '=', $orderId)->firstOrFail();
+            // $sector->quantita_bloccata =  $sector->quantita_bloccata + $quantitaOrder;
+            // $sector->push();
         }
+        // $appoggios = Sector::with('product')->get();
+        // // dd($appoggios);
+        // foreach ($appoggios as $appoggio) {
+        //     $appoggioId = $appoggio->product->id;
+        //     // dd($appoggioId);
+        //     $findOrder = Order_Product::where('product_id', '=', $appoggioId)->first();
+            
+
+        //     if ($findOrder!=null) {
+               
+
+        //         $quantitaOrder = $findOrder->quantita;
+        //         $orderId = $findOrder->product_id;
+                
+        //         $sector = Sector::where('product_id', '=', $orderId)->first();
+        //         $sector->quantita_bloccata += $quantitaOrder;
+        //         $sector->push();
+        //     }
+            
+
+        // }
+
 
 
     }
