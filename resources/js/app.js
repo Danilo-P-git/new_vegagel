@@ -8,7 +8,7 @@ $(document).ready(function() {
     $('#sidebarCollapse').on('click', function () {
         $('#admin-nav').toggleClass('active');
     });
-   
+
 $("#cercaAziende").on('click', function() {
     var filter = $("#filterAzienda").val();
     console.log(filter);
@@ -17,7 +17,7 @@ $("#cercaAziende").on('click', function() {
     var webSite = protocol + '//' + url
     console.log(webSite);
     $.ajax({
-        
+
         "url": "http://localhost:8000/api/admin/search",
         "data": {
             "filter": filter
@@ -28,7 +28,7 @@ $("#cercaAziende").on('click', function() {
             $(".azienda-wrapper").empty();
 
                 renderAzienda(response);
-           
+
 
         }
     });
@@ -42,8 +42,8 @@ $("#cercaUtente").on('click', function() {
     var webSite = protocol + '//' + url
     console.log(webSite);
     $.ajax({
-        
-        "url": "http://localhost:8000/api/admin/searchUtente",
+
+        "url": webSite + "/api/admin/searchUtente",
         "data": {
             "filter": filter
         },
@@ -53,15 +53,38 @@ $("#cercaUtente").on('click', function() {
             $(".utente-wrapper").empty();
 
                 renderUtente(response);
-           
+
 
         }
     });
 })
-    
+
     $("#lavoratoreCreate").on('change', function() {
         console.log('change');
         $("#aziendeCreate").toggle('fast');
+    })
+
+    $(".products").on('click', function () {
+        var codProdotto = $(this).val();
+        var protocol = window.location.protocol;
+        var url = window.location.host;
+        var webSite = protocol + '//' + url
+        $.ajax({
+
+            "url": webSite + "/api/admin/searchProdotto",
+            "data": {
+                "codice_prodotto": codProdotto
+            },
+            "method": "GET",
+            "success": function (response) {
+                console.log(response);
+                $(".element-wrapper").empty();
+
+                renderProdotti(response);
+
+
+            }
+        });
     })
 
 
@@ -91,8 +114,8 @@ function renderAzienda(data) {
             "ragione_sociale": data[i].ragione_sociale,
 
         }
-    
-    
+
+
         var html = template(context)
 
         $(".azienda-wrapper").append(html);
@@ -101,6 +124,7 @@ function renderAzienda(data) {
     // for
 
   }
+
 
 
   function renderUtente(data) {
@@ -125,8 +149,8 @@ function renderAzienda(data) {
             "ragione_sociale": data[i].ragione_sociale,
 
         }
-    
-    
+
+
         var html = template(context)
 
         $(".utente-wrapper").append(html);
@@ -135,6 +159,25 @@ function renderAzienda(data) {
     // for
 
     }
+
+    function renderProdotti(data) {
+        var source = $("#products-template").html();
+        var template = Handlebars.compile(source);
+        for(var i=0; i < data.length; i++){
+            context = {
+                "id": data[i].id,
+                "codice_stock": data[i].codice_stock,
+                "name": data[i].name,
+                "data_di_scadenza": data[i].data_di_scadenza,
+                "lotto": data[i].lotto,
+                "quantita": data[i].sector.quantita_rimanente,
+                "quantita_bloccata": data[i].sector.quantita_bloccata
+
+            }
+            var html = template(context);
+            $(".element-wrapper").append(html);
+        }
+      }
 
 
 });

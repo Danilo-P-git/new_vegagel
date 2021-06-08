@@ -26,7 +26,7 @@ class SearchController extends Controller
         ->get();
         return response()->json($azienda);
     }
-    
+
     public function utente(){
         $filter = $_GET['filter'];
         $utente = User::
@@ -45,8 +45,8 @@ class SearchController extends Controller
 
     public function prodottoSingolo(){
         $cod_prodotto = $_GET['codice_prodotto'];
-        $prodotto = Product::where('codice_prodotto' = $cod_prodotto)->get();
+        $prodotto = Product::with('sector')->where('codice_prodotto', "=", $cod_prodotto)->get();
 
-        return return response()->json($prodotto);
+         return response()->json($prodotto);
     }
 }
