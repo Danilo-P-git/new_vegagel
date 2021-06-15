@@ -1,13 +1,55 @@
 @extends('layouts.side')
 
 @section('content')
-
+{{-- @dd(session()->get('cart')) --}}
 <div class="container bg-light shadow p-5 rounded">
 
 
     <div class="overflow-auto p-2">
+        @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+        @endif
+        @if (Session::has('cart'))
+            
+        
+        @php $cart = session()->get('cart')
+        @endphp
 
+        
+        <h2>Ordine in creazione</h2>
+        <div class="overflow-auto p-2" style="width: 50%">
+            <table class="table border shadow table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nome prodotto</th>
+                        <th>Codice prodotto</th>
+                        <th>Quantita</th>
+                        <th>Lotto</th>
 
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    @foreach ($cart as $item)
+                    <tr>
+                        <td>{{$item['nome']}}</td>
+                        <td>{{$item['codice_prodotto']}}</td>
+                        <td>{{$item['quantita']}}</td>
+                        <td>{{$item['lotto']}}</td>
+                    </tr>
+                    @endforeach   
+                </tbody>
+            </table>
+            
+        </div>
+        <form action="{{route('admin.orderSend')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+        <label for="data_di_consegna">data_di_consegna</label>
+        <input name="data_di_consegna" type="date" id="data_di_consegna" class="form-control" style="width: 25%" required value="" >
+        <button type="submit" class="btn btn-primary">Invia ordine</button>
+        </form>
+        @endif
         <table class="table border shadow table-bordered table-hover" >
             <thead class="thead-dark">
                 <tr>
@@ -25,6 +67,7 @@
 
             <tbody>
                 @foreach ($products as $item )
+                    
                     <tr>
                         <td>{{$item->name}}</td>
                         <td>{{$item->codice_prodotto}}</td>

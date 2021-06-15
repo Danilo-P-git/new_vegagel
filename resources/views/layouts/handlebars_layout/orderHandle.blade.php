@@ -4,7 +4,7 @@
     <h5> lotto @{{lotto}}</h5>
     <form action="http://localhost:8000/admin/ordersQuantity/@{{id}}" method="post">
         @csrf
-        @method('put')
+        @method('PUT')
 
         <h5>Quantita totale  @{{quantita}}</h5>
         <div class="alert alert-warning" role="alert">

@@ -7,7 +7,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --blue: #f4c543;
+  --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -10116,6 +10116,15 @@ h3 {
   width: 100%;
 }
 
+.orders-card {
+  width: 47%;
+}
+
+@media (max-width: 500px) {
+  .orders-card {
+    width: 100%;
+  }
+}
 .col_home {
   margin-left: 0px !important;
   padding-left: 0px !important;
@@ -10152,7 +10161,7 @@ h3 {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --blue: #f4c543;
+  --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;

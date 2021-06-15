@@ -135,6 +135,14 @@
   width: 100%;
 }
 
+.orders-card {
+    width: 47%;
+}
+@media (max-width: 500px) {
+    .orders-card {
+        width: 100%;
+    }
+}
 
 // table style
 

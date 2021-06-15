@@ -16,6 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->boolean('completato')->default(0);
+            $table->date('data_di_consegna')->nullable();
             $table->timestamps();
         });
     }

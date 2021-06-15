@@ -18,7 +18,7 @@
       <div class="w-100 py-3"></div>
       <div class="col">
           
-        <a class="btn  btn_menu shadow m-auto d-flex" href=""><span class="m-auto">WIP Ordini</span></a>
+        <a class="btn  btn_menu shadow m-auto d-flex" href="{{route("worker.orders")}}"><span class="m-auto">WIP Ordini</span></a>
 
       </div>
       <div class="col">
