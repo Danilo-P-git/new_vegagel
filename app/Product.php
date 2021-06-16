@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use App\Observers\ProductObserver;
 
 class Product extends Model
 {

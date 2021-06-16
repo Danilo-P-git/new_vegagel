@@ -157,7 +157,8 @@
       @enderror
     </div>
     <div class="form-group col-md-3 col-3">
-      <label for="peso">Peso (KG)</label>
+
+      <label for="peso">Peso pezzo singolo <strong>(Kg/l)</strong></label>
       <input name="peso" type="text" class="form-control" id="peso" value="">
       @error('peso')
       <div class="alert alert-danger">{{ $message }}</div>

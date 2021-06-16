@@ -8,7 +8,7 @@
       </div>
     <h1 class="text-center">ORDINI DA SMISTARE</h1>
     @foreach ($orders as $order)
-    @if ($order->user->username != null)
+    @if ($order->user->ragione_sociale != null)
         @php
             $nome = $order->user->ragione_sociale
         @endphp

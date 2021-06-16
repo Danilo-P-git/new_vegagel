@@ -48,3 +48,4 @@ Route::get('admin/ordersCreate', 'AdminCartController@displayProducts')->name('a
 Route::any('admin/ordersQuantity/{id}', 'AdminCartController@quantitaBloccata')->name('admin.ordersQuantity');
 Route::any('admin/ordersNew/{id}', 'AdminCartController@addOrder')->name('admin.addOrder');
 Route::any('admin/orderSend','AdminCartController@orderSend')->name('admin.orderSend');
+Route::any('admin/orderDelete/{id}', 'AdminCartController@deleteCart')->name('admin.orderDelete');

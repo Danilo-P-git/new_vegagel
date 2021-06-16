@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container bg-light shadow p-5 rounded">
-
-    <a href="{{route('admin.ordersCreate')}}" class="btn btn-primary">crea un nuovo ordine</a>
-
+    <div class="text-center">
+        <a href="{{route('admin.ordersCreate')}}" class="btn btn-primary">Crea un nuovo Ordine</a>
+    </div>
     <div class="overflow-auto p-2">
         <table class="table border shadow table-bordered table-hover">
             <thead class="thead-dark">
@@ -17,12 +17,26 @@
             </thead>
             <tbody>
                 @foreach ($orders as $order)
-               
+
+                @if ($order->user->ragione_sociale != null)
+                    @php
+                        $nome = $order->user->ragione_sociale
+                    @endphp
+                @else
+                    @php
+                        $nome = $order->user->name;
+                    @endphp
+                @endif
                     <tr>
                         <td>{{$order->id}}</td>
-                        <td>{{$order->user_id}}</td>
+                        <td>{{$nome}}</td>
                         <td>{{$order->created_at}}</td>
-                        <td>In lavorazione</td>
+                        <td>@if ($order->completato == 1)
+                            Completato
+                            @else
+                            In lavorazione
+                            
+                        @endif</td>
 
                     </tr>
                 @endforeach

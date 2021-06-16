@@ -66,7 +66,7 @@
 
   <div class="form-row">
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-3 col-3">
       <label for="scaffale">scaffale</label>
       <input name="scaffale" type="text"  id="scaffale" class="form-control" value="{{old("scaffale") ? old("scaffale") : $product->sector->scaffale}}">
       @error('scaffale')
@@ -74,14 +74,21 @@
     @enderror
     </div>
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-3 col-3">
       <label for="quantita_rimanente">Quantità totale</label>
       <input name="quantita_rimanente" type="number"  id="quantita_rimanente" class="form-control" value="{{old("quantita_rimanente") ? old("quantita_rimanente") : $product->sector->quantita_rimanente}}"> 
       @error('quantita_rimanente')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-3 col-3">
+      <label for="quantita_bloccata">Quantità Bloccata attualmente</label>
+      <input name="quantita_bloccata" type="number"  id="quantita_bloccata" max="{{old("quantita_rimanente") ? old("quantita_rimanente") : $product->sector->quantita_rimanente}}" class="form-control" value="{{old("quantita_bloccata") ? old("quantita_bloccata") : $product->sector->quantita_bloccata}}"> 
+      @error('quantita_bloccata')
+      <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    </div>
+    <div class="form-group col-md-3 col-3">
       <label for="data_di_scadenza">data_di_scadenza</label>
       <input name="data_di_scadenza" type="date" id="data_di_scadenza" class="form-control" value="{{old("data_di_scadenza") ? old("data_di_scadenza") : $product->data_di_scadenza}}" >
       @error('data_di_scadenza')
@@ -155,7 +162,7 @@
       @enderror
     </div>
     <div class="form-group col-md-3 col-3">
-      <label for="peso">Peso (KG)</label>
+      <label for="peso">Peso pezzo singolo <strong>(Kg/l)</label>
       <input name="peso" type="text" class="form-control" id="peso" value="{{old("peso") ? old("peso") : $product->peso}}">
       @error('peso')
       <div class="alert alert-danger">{{ $message }}</div>

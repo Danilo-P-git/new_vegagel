@@ -171,7 +171,8 @@ function renderAzienda(data) {
                 "data_di_scadenza": data[i].data_di_scadenza,
                 "lotto": data[i].lotto,
                 "quantita": data[i].sector.quantita_rimanente,
-                "quantita_bloccata": data[i].sector.quantita_bloccata
+                "quantita_bloccata": data[i].sector.quantita_bloccata,
+                "quantita_dif": data[i].sector.quantita_rimanente - data[i].sector.quantita_bloccata
 
             }
             var html = template(context);

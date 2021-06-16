@@ -15,13 +15,19 @@
 
     @foreach ($searches as $item)
 
-
+      @php
+        $pesoSingolo = $item->peso;
+        $pesoTotale = $item->peso * $item->quantita; 
+      @endphp
 
       <div class="d-flex flex-wrap mx-auto">
          <div class="card shadow " style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Nome prodotto: <br>  <strong>{{$item->name}}.</strong></h5>
             <p class="card-text">Quantità Bloccata <strong>{{$item->quantita_bloccata}}</strong> su <strong>{{$item->quantita}} Totale</strong></p>
+            <p class="card-text">Peso al pezzo <strong>{{$item->peso}} kg/l</strong></p>
+            <p class="card-text">Peso Totale <strong>{{$pesoTotale}} kg/l</strong></p>
+            
             <p class="card-text">Codice prodotto: <strong>{{$item->codice_prodotto}}</strong></p>
           </div>
         </div>

@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->decimal('prezzo_al_pezzo', 10, 2);
             $table->decimal('prezzo_al_kg', 10, 2);
             $table->decimal('peso', 10, 3);
+            $table->boolean('esaurito')->default(0);
             $table->timestamps();
         });
     }

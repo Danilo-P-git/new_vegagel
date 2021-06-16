@@ -63,23 +63,23 @@ class ProductSeeder extends Seeder
 
             $newProduct->save();
             $user = User::inRandomOrder()->first();
-            $newOrder = new Order;
-            $newOrder->user_id = $user->id;
+            // $newOrder = new Order;
+            // $newOrder->user_id = $user->id;
             
-            $newOrder->save();
+            // $newOrder->save();
 
             
 
         }
-        for ($i=0; $i < 10; $i++) { 
-            $product = Product::inRandomOrder()->first();
-            $order = Order::inRandomOrder()->first();
+        // for ($i=0; $i < 10; $i++) { 
+        //     $product = Product::inRandomOrder()->first();
+        //     $order = Order::inRandomOrder()->first();
 
-            $newPivot = new Order_Product;
-            $newPivot->order_id = $order->id;
-            $newPivot->product_id = $product->id;
-            $newPivot->quantita = $faker->numberBetween(1,15);
-            $newPivot->save();
-        }
+        //     $newPivot = new Order_Product;
+        //     $newPivot->order_id = $order->id;
+        //     $newPivot->product_id = $product->id;
+        //     $newPivot->quantita = $faker->numberBetween(1,15);
+        //     $newPivot->save();
+        // }
     }
 }
