@@ -31,7 +31,7 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        $log = Log::sortable()->paginate(10);
+        $log = Log::orderBy('created_at', 'DESC')->sortable()->paginate(10);
         return view('admin.adminhome', compact('log'));
 
     }

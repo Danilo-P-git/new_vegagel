@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     ];
 
-    public function sale(){
-        return $this->hasMany('App\Sale');
+    public function order(){
+        return $this->hasMany(Order::class);
     }
 }

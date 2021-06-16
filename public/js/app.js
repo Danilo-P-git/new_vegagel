@@ -1840,6 +1840,7 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
@@ -1880,7 +1881,7 @@ $(document).ready(function () {
     var webSite = protocol + '//' + url;
     console.log(webSite);
     $.ajax({
-      "url": "http://localhost:8000/api/admin/searchUtente",
+      "url": webSite + "/api/admin/searchUtente",
       "data": {
         "filter": filter
       },
@@ -1895,6 +1896,24 @@ $(document).ready(function () {
   $("#lavoratoreCreate").on('change', function () {
     console.log('change');
     $("#aziendeCreate").toggle('fast');
+  });
+  $(".products").on('click', function () {
+    var codProdotto = $(this).val();
+    var protocol = window.location.protocol;
+    var url = window.location.host;
+    var webSite = protocol + '//' + url;
+    $.ajax({
+      "url": webSite + "/api/admin/searchProdotto",
+      "data": {
+        "codice_prodotto": codProdotto
+      },
+      "method": "GET",
+      "success": function success(response) {
+        console.log(response);
+        $(".element-wrapper").empty();
+        renderProdotti(response);
+      }
+    });
   }); // FUNZIONI
 
   function renderAzienda(data) {
@@ -1949,6 +1968,26 @@ $(document).ready(function () {
       $(".utente-wrapper").append(html);
     } // for
 
+  }
+
+  function renderProdotti(data) {
+    var source = $("#products-template").html();
+    var template = Handlebars.compile(source);
+
+    for (var i = 0; i < data.length; i++) {
+      context = {
+        "id": data[i].id,
+        "codice_stock": data[i].codice_stock,
+        "name": data[i].name,
+        "data_di_scadenza": data[i].data_di_scadenza,
+        "lotto": data[i].lotto,
+        "quantita": data[i].sector.quantita_rimanente,
+        "quantita_bloccata": data[i].sector.quantita_bloccata,
+        "quantita_dif": data[i].sector.quantita_rimanente - data[i].sector.quantita_bloccata
+      };
+      var html = template(context);
+      $(".element-wrapper").append(html);
+    }
   }
 });
 

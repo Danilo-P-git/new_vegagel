@@ -53,11 +53,38 @@ class ProductController extends Controller
         ->join("products", function($join){
             $join->on("product_id", "=", "products.id");
         })
-        ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.codice_prodotto', 'products.name')
-        ->where("codice_prodotto", 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'products.codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')
+        ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.codice_prodotto', 'products.name', 'sectors.quantita_bloccata', 'products.esaurito','products.peso')
+        ->where([
+            ["codice_prodotto", 'LIKE', '%' . $data['q'] . '%' ],
+            ['products.esaurito', '=',  0],
+            ])
+        ->orWhere ([
+                 ['products.codice_stock', 'LIKE', '%' . $data['q'] . '%'],
+                 ['products.esaurito', '=', 0], 
+        ])
+        ->orWhere([
+            ['name', 'LIKE', '%'. $data['q'] . '%'],
+            ['products.esaurito', '=', 0],
+            ])
         ->groupBy("products.codice_prodotto")
         ->get();
-        $products = Product::where( 'codice_stock', 'LIKE', '%' . $data['q'] . '%' )->orWhere ( 'codice_prodotto', 'LIKE', '%' . $data['q'] . '%' )->orWhere('name', 'LIKE', '%'. $data['q'] . '%')->with('sector')->sortable('data_di_scadenza', 'asc')->get();
+
+
+        $products = Product::where([
+            [ 'codice_stock', 'LIKE', '%' . $data['q'] . '%' ],
+            ['esaurito', 0],
+             ])
+        ->orWhere([
+             ['codice_prodotto', 'LIKE', '%' . $data['q'] . '%' ],
+             ['esaurito', 0],
+             ])
+        ->orWhere([
+            ['name', 'LIKE', '%'. $data['q'] . '%'],
+            ['esaurito', 0],
+            ])
+        ->with('sector')->sortable('data_di_scadenza', 'asc')->get();
+
+
             return view('worker.search', compact('products','searches') );
     }
     // function shipment ($id)
@@ -67,7 +94,7 @@ class ProductController extends Controller
     // }
     function test(Request $request, $id)
     {
-        $product = Product::with('sector')->find($id);
+        $product = Product::with('sector')->where('esaurito', 0)->find($id);
         $product->sector->quantita_rimanente = $request->quantita_rimanente;
         $product->sector->quantita_di_cartoni = $request->quantita_di_cartoni;
         
@@ -85,7 +112,7 @@ class ProductController extends Controller
             $newLog->codice_movimento = "cancellazione";
             $newLog->save();
 
-            $product->delete();
+            // $product->delete();
         } else {
             $utente = Auth::user();
             $newLog = new Log;
@@ -227,6 +254,7 @@ class ProductController extends Controller
             'settore'=>"required|max:70",
             'scaffale'=>"required|max:70",
             'quantita_rimanente'=> 'required|integer',
+            'quantita_bloccata' =>'required|integer',
             'quantita_di_cartoni' => 'required|integer',
             'peso'=> 'required',
              
@@ -287,7 +315,7 @@ class ProductController extends Controller
             $newLog->codice_movimento = $request->codice_stock;
             $newLog->save();
 
-            $product->delete();
+            // $product->delete();
         } else {
             $utente = Auth::user();
             $newLog = new Log;
