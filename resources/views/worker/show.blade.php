@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container shadow bg-light">
+<div class="container shadow bg-light p-1 px-md-5">
 
     
     <h2 class="text-align-center">{{$product->name}}</h2>

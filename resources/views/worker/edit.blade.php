@@ -2,40 +2,16 @@
 
 @section('content')
 
-<div class="container shadow bg-light p-5 rounded">
+<div class="container shadow bg-light p-1 px-md-5 rounded">
     <form action="{{route('worker.update', $product->id)}}" method="post" enctype="multipart/form-data">
       @csrf
       @method('put')
-      <div class="card">
-        
-        <div class="card-body">
-        
-          <div class="row">
-        
-            <div class="col-xs-12 col-sm-12 col-md-6">
-        
-              <div id="interactive" class="viewport"></div>
-        
-            </div>
-        
-            <div class="col-xs-12 col-sm-12 col-md-6">
-        
-              <div id="result_strip">
-        
-              </div>
-        
-            </div>
-        
-          </div>
-        
-        </div>
-      
-      </div>
+
     
       {{-- form row  --}}
 
-  <div class="form-row">
-    <div class="form-group col-md-5 col-4">
+  <div class="form-row ">
+    <div class="form-group col-md-5 col-12">
       
       <label for="codice_prodotto">codice prodotto</label>
       <input name="codice_prodotto" type="text" id="codice_prodotto" class="form-control code-scanner" value="{{old("codice_prodotto") ? old("codice_prodotto") : $product->codice_prodotto}}">
@@ -43,14 +19,14 @@
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-5 col-4">
+    <div class="form-group col-md-5 col-12">
       <label for="codice_stock">codice stock</label>
       <input name="codice_stock" type="text" id="codice_stock" class="form-control code-scanner" value="{{old("codice_stock") ? old("codice_stock") : $product->codice_stock}}">
       @error('codice_stock')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
-    <div class="form-group col-md-2 col-4">
+    <div class="form-group col-md-2 col-12">
       
       <label for="lotto">Lotto</label>
       <input name="lotto" type="text" id="lotto" class="form-control code-scanner" value="{{old("lotto") ? old("lotto") : $product->lotto}}">
@@ -66,7 +42,7 @@
 
   <div class="form-row">
 
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
       <label for="scaffale">scaffale</label>
       <input name="scaffale" type="text"  id="scaffale" class="form-control" value="{{old("scaffale") ? old("scaffale") : $product->sector->scaffale}}">
       @error('scaffale')
@@ -74,21 +50,21 @@
     @enderror
     </div>
 
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
       <label for="quantita_rimanente">Quantità totale</label>
       <input name="quantita_rimanente" type="number"  id="quantita_rimanente" class="form-control" value="{{old("quantita_rimanente") ? old("quantita_rimanente") : $product->sector->quantita_rimanente}}"> 
       @error('quantita_rimanente')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
       <label for="quantita_bloccata">Quantità Bloccata attualmente</label>
       <input name="quantita_bloccata" type="number"  id="quantita_bloccata" max="{{old("quantita_rimanente") ? old("quantita_rimanente") : $product->sector->quantita_rimanente}}" class="form-control" value="{{old("quantita_bloccata") ? old("quantita_bloccata") : $product->sector->quantita_bloccata}}"> 
       @error('quantita_bloccata')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
       <label for="data_di_scadenza">data_di_scadenza</label>
       <input name="data_di_scadenza" type="date" id="data_di_scadenza" class="form-control" value="{{old("data_di_scadenza") ? old("data_di_scadenza") : $product->data_di_scadenza}}" >
       @error('data_di_scadenza')
@@ -102,7 +78,7 @@
 
   <div class="form-row">
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       <label for="name">name</label>
       <input name="name" type="text" class="form-control" id="name" value="{{old("name") ? old("name") : $product->name}}">
       @error('name')
@@ -110,14 +86,14 @@
       @enderror
     </div>
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       <label for="description">description</label>
       <input name="description" type="text" class="form-control" id="description" value="{{old("description") ? old("description") : $product->description}}">
       @error('description')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       
 
 

@@ -1,7 +1,7 @@
 @extends('layouts.side')
 
 @section('content')
-<div class="container bg-light shadow p-5 rounded">
+<div class="container-sm bg-light shadow p-1 px-lg-5 rounded">
 
 
     <div class="overflow-auto p-2">

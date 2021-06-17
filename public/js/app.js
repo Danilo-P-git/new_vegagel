@@ -1841,6 +1841,8 @@ module.exports = {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
@@ -1893,6 +1895,14 @@ $(document).ready(function () {
       }
     });
   });
+  var d = new Date();
+  var month = d.getMonth() + 1;
+  var day = d.getDate();
+  var today = d.getFullYear() + '-' + (('' + month).length < 2 ? '0' : '') + month + '-' + (('' + day).length < 2 ? '0' : '') + day;
+  var d2 = new Date();
+  var month2 = d.getMonth() + 2;
+  var day2 = d.getDate();
+  var oneMonth = d.getFullYear() + '-' + (('' + month2).length < 2 ? '0' : '') + month2 + '-' + (('' + day).length < 2 ? '0' : '') + day;
   $("#lavoratoreCreate").on('change', function () {
     console.log('change');
     $("#aziendeCreate").toggle('fast');
@@ -1912,6 +1922,22 @@ $(document).ready(function () {
         console.log(response);
         $(".element-wrapper").empty();
         renderProdotti(response);
+        setTimeout(function () {
+          for (var index = 0; index < response.length; index++) {
+            console.log(response[index].data_di_scadenza);
+
+            if (response[index].data_di_scadenza < today) {
+              $('#stato' + response[index].id).addClass('bg-danger');
+              $('#scaduto' + response[index].id).removeClass('d-none');
+              console.log('scaduto');
+            } else if (response[index].data_di_scadenza > today && response[index].data_di_scadenza < oneMonth) {
+              $('#stato' + response[index].id).addClass('bg-warning');
+              $('#quasi-scaduto' + response[index].id).removeClass('d-none');
+              console.log('quasi');
+            }
+          }
+        }, 2000); // response.forEach(element => {
+        // });
       }
     });
   }); // FUNZIONI
@@ -1975,7 +2001,7 @@ $(document).ready(function () {
     var template = Handlebars.compile(source);
 
     for (var i = 0; i < data.length; i++) {
-      context = {
+      context = _defineProperty({
         "id": data[i].id,
         "codice_stock": data[i].codice_stock,
         "name": data[i].name,
@@ -1984,7 +2010,7 @@ $(document).ready(function () {
         "quantita": data[i].sector.quantita_rimanente,
         "quantita_bloccata": data[i].sector.quantita_bloccata,
         "quantita_dif": data[i].sector.quantita_rimanente - data[i].sector.quantita_bloccata
-      };
+      }, "data_di_scadenza", data[i].data_di_scadenza);
       var html = template(context);
       $(".element-wrapper").append(html);
     }

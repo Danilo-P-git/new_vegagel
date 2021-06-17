@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- @dd(session()->get('cart')) --}}
-<div class="container bg-light shadow p-5 rounded">
+<div class="container-sm bg-light shadow p-1 px-lg-5 rounded">
 
 
     <div class="overflow-auto p-2">
@@ -16,8 +16,8 @@
         @endphp
 
         <h2>Ordine in creazione</h2>
-        <div class="overflow-auto p-2" style="width: 50%">
-            <table class="table border shadow table-bordered table-hover">
+        <div class="overflow-auto p-2" style="width: 80%">
+            <table class="table border shadow table-bordered table-hover table-sm">
                 <thead class="thead-dark">
                     <tr>
                         <th>Nome prodotto</th>
@@ -64,18 +64,32 @@
             <button type="submit" class="btn btn-primary my-2">Invia ordine</button>
         </form>
         @endif
+        <div class="p-2">
+            <div class="card border-primary">
+              <div class="card-body">
+                <h4 class="card-title text-center">Leggenda</h4>
+                <p class="card-text"><span class="dot  bg-warning mr-2 mt-1"></span> <strong> Meno di un mese alla scadenza </strong></p>
+                <p class="card-text"><span class="dot bg-danger mr-2 mt-1"></span><strong>Scaduto</strong></p>
+                <p class="card-text"><a href="" class="btn btn-primary"><i class="fa fa-truck" aria-hidden="true"></i></a> <strong>Inserisci nell'ordine</strong></p>
+                <p class="card-text"><a href="" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> <strong>Ulteriori informazioni</strong></p>
+    
+                {{-- <p class="card-text"><span class="dot"></span></p> --}}
+    
+              </div>
+            </div>
+        </div>
         <div class="form-row mt-5">
             <div class="form-group col-md-4 col-6">
             
                 <input type="text" class="form-control" id="search" placeholder="Type to search..." />
             </div>
         </div>
-        <table id="table" class="table border shadow table-bordered table-hover" >
+        <table id="table" class="table border shadow table-bordered table-hover table-sm" >
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nome prodotto</th>
-                    <th scope="col">Codice prodotto</th>
-                    <th scope="col">Data di scadenza</th>
+                    <th class="d-none d-md-table-cell" scope="col">Codice prodotto</th>
+                    {{-- <th scope="col">Data di scadenza</th> --}}
                     <th scope="col">Quantita disponibile</th>
                     <th scope="col">Quantita bloccata</th>
                     <th>
@@ -88,10 +102,23 @@
             <tbody>
                 @foreach ($products as $item )
                     
-                    <tr>
+                    {{-- @php
+                        $scadenza = $item->data_di_scadenza;
+                        
+                        if ($scadenza<$today) {
+                            $classe = 'table-danger';
+                        } else if ($scadenza>$today && $scadenza < $traUnMese)
+                        {
+                            $classe = 'table-warning';
+                        } else {
+                            $classe= '';
+                        }
+                        
+                    @endphp --}}
+                    <tr class="">
                         <td>{{$item->name}}</td>
-                        <td>{{$item->codice_prodotto}}</td>
-                        <td>{{$item->data_di_scadenza}}</td>
+                        <td class="d-none d-md-table-cell">{{$item->codice_prodotto}}</td>
+                        {{-- <td>{{$item->data_di_scadenza}}</td> --}}
                         <td>{{$item->quantita}}</td>
                         <td>{{$item->bloccata}}</td>
                         <td>
@@ -160,6 +187,7 @@
         </table>
 
     </div>
+
 </div>
 
 <script>

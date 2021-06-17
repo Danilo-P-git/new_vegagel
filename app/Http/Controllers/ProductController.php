@@ -299,6 +299,7 @@ class ProductController extends Controller
         $product->sector->scaffale = $request->scaffale;
         $product->sector->quantita_rimanente = $request->quantita_rimanente;
         $product->sector->quantita_di_cartoni = $request->quantita_di_cartoni;
+        $product->sector->quantita_bloccata = $request->quantita_bloccata;
 
 
         $product->push();

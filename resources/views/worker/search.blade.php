@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container shadow bg-light p-5 rounded">
+<div class="container shadow bg-light p-1 px-md-5 rounded">
     @if ($products->count())
 
 

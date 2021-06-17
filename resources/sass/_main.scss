@@ -18,17 +18,17 @@
 }
 .container{
     .row {
-        .col{
+        .col-6{
             .btn_menu {
                 width: 100%;
                 height: 20rem;
                 background-color: $gray-400;
                 transition: 0.5s;
-                font-size: 20px;
+                font-size: 16px;
                 &:hover {
                     background-color: $yellow;
                     color: black;
-                    font-size: 40px;
+                    font-size: 20px;
                 }
             }
         }
@@ -144,5 +144,12 @@
     }
 }
 
+.dot {
+    height: 25px;
+    width: 25px;
+    // background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
 // table style
 

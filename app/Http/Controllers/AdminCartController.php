@@ -10,7 +10,7 @@ use App\User;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Sortable;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,12 +23,18 @@ class AdminCartController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::orderBy('created_at', 'DESC')->get();
         return view('admin.orders', compact('orders'));
     }
 
     public function displayProducts()
     {
+        $today = Carbon::now()->format('Y-m-d');
+        // $today = Carbon::createFromFormat('Y-m-d', $date);
+        $todayFormat = Carbon::now();
+        $traUnMeseFormat = $todayFormat->addMonth();
+        $traUnMese = $traUnMeseFormat->format('Y-m-d');
+        // dd($traUnMese);
         $products = DB::table("sectors")
         ->join("products", function($join){
             $join->on("product_id", "=", "products.id");
@@ -42,7 +48,7 @@ class AdminCartController extends Controller
         $sector = Sector::all();
         $observerCall = Product::all();
         $users = User::where('ragione_sociale', '!=', NULL)->get();
-        return view('admin.ordersCreate', compact('products', 'sector', 'users') );
+        return view('admin.ordersCreate', compact('products', 'sector', 'users','today', 'traUnMese') );
    }
 
 

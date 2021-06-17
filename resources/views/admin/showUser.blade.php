@@ -4,7 +4,7 @@
 
 
 
-<div class="container bg-light shadow border p-5 rounded overflow-auto">
+<div class="container-sm bg-light shadow border p-1 px-lg-5 rounded overflow-auto">
   {{-- Crea AZIENDE  --}}
 
   <section>
@@ -228,18 +228,18 @@
     <h2 class="py-2"> Aziende</h2>
     <div class="d-flex flex-column ">
       <label class="ml-auto form-label" for="filterAzienda">Cerca il nome dell' azienda</label>
-      <input id="filterAzienda" class="ml-auto form-control offset-10 col-2" type="text" placeholder="Cerca">
+      <input id="filterAzienda" class="ml-auto form-control offset-10 col-6 col-md-2" type="text" placeholder="Cerca">
       <a class="ml-auto btn btn-primary my-1" id="cercaAziende">Search</a>
     </div>
     <table class="table border shadow table-bordered table-hover  rounded" >
         <thead class="thead-dark rounded">
             <tr>
                 <th scope="col">@sortablelink('name', 'Nome di riferimento')</th>
-                <th scope="col">@sortablelink('pec', 'Email-pec')</th>
+                <th class="d-none d-md-table-cell" scope="col">@sortablelink('pec', 'Email-pec')</th>
                 <th scope="col">@sortablelink('ragione_sociale', 'Nome azienda')</th>
                 <th scope="col">@sortablelink('indirizzo', 'Indirizzo')</th>
                 <th scope="col">@sortablelink('telefono', 'Telefono di riferimento')</th>
-                <th scope="col">@sortablelink('partita_iva', 'Partita Iva')</th>
+                <th class="d-none d-md-table-cell" scope="col">@sortablelink('partita_iva', 'Partita Iva')</th>
 
 
 
@@ -254,11 +254,11 @@
             @foreach ($aziende as $item )
                 <tr>
                     <td>{{$item->name}}</td>
-                    <td>{{$item->pec}}</td>
+                    <td class="d-none d-md-table-cell">{{$item->pec}}</td>
                     <td>{{$item->ragione_sociale}}</td>
                     <td>{{$item->indirizzo}}</td>
                     <td>{{$item->telefono}}</td>
-                    <td>{{$item->partita_iva}}</td>
+                    <td class="d-none d-md-table-cell">{{$item->partita_iva}}</td>
 
                     <td>
 
@@ -454,7 +454,7 @@
 
       <div class="d-flex flex-column ">
         <label class="ml-auto form-label" for="filterUtente">Cerca l'email dell'utente</label>
-        <input id="filterUtente" class="ml-auto form-control offset-10 col-2" type="text" placeholder="Cerca">
+        <input id="filterUtente" class="ml-auto form-control offset-10 col-6 col-md-2" type="text" placeholder="Cerca">
         <a class="ml-auto btn btn-primary my-1" id="cercaUtente">Search</a>
       </div>
 
@@ -463,7 +463,7 @@
             <tr>
                 <th scope="col">@sortablelink('name', 'Nome')</th>
                 <th scope="col">@sortablelink('email', 'Email')</th>
-                <th scope="col">ID</th>
+                <th class="d-none d-md-table-cell" scope="col">ID</th>
                 <th>Azioni</th>
 
             </tr>
@@ -475,7 +475,7 @@
                 <tr>
                     <td>{{$item->name}}</td>
                     <td>{{$item->email}}</td>
-                    <td>{{$item->id}}</td>
+                    <td class="d-none d-md-table-cell">{{$item->id}}</td>
                     <td>
                         <button type="button" data-toggle="modal" data-target="#worker{{$item->id}}" class="btn btn-primary">Rendi Lavoratore</button>
                         {{-- MODAL RENDI LAVORATORE  --}}
@@ -703,7 +703,7 @@
           <tr>
               <th scope="col">@sortablelink('name', 'Nome')</th>
               <th scope="col">@sortablelink('email', 'Email')</th>
-              <th scope="col">ID</th>
+              <th class="d-none d-md-table-cell" scope="col">ID</th>
               <th scope="col">Azioni</th>
 
           </tr>
@@ -715,7 +715,7 @@
               <tr>
                   <td>{{$item->name}}</td>
                   <td>{{$item->email}}</td>
-                  <td>{{$item->id}}</td>
+                  <td class="d-none d-md-table-cell">{{$item->id}}</td>
                   <td class="d-flex">
 
 

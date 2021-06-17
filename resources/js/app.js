@@ -59,11 +59,28 @@ $("#cercaUtente").on('click', function() {
     });
 })
 
+var d = new Date();
+
+var month = d.getMonth()+1;
+var day = d.getDate();
+
+var today = d.getFullYear() + '-' + ((''+month).length<2 ? '0' : '') + month + '-' + ((''+day).length<2 ? '0' : '') + day;
+
+var d2 = new Date();
+
+var month2 = d.getMonth()+2;
+
+var day2 = d.getDate();
+
+var oneMonth = d.getFullYear() + '-' + ((''+month2).length<2 ? '0' : '') + month2 + '-' + ((''+day).length<2 ? '0' : '') + day;
+
+
+
     $("#lavoratoreCreate").on('change', function() {
         console.log('change');
         $("#aziendeCreate").toggle('fast');
     })
-
+    
     $(".products").on('click', function () {
         var codProdotto = $(this).val();
         var protocol = window.location.protocol;
@@ -81,7 +98,27 @@ $("#cercaUtente").on('click', function() {
                 $(".element-wrapper").empty();
 
                 renderProdotti(response);
+                setTimeout(() => {
+                    for (let index = 0; index < response.length; index++) {
+                        console.log(response[index].data_di_scadenza);
+                        if (response[index].data_di_scadenza < today) {
+                            $('#stato'+response[index].id).addClass('bg-danger');
+                            $('#scaduto'+response[index].id).removeClass('d-none');
+                            console.log('scaduto');
+    
+                        } else if (response[index].data_di_scadenza>today && response[index].data_di_scadenza < oneMonth) {
+                            $('#stato'+response[index].id).addClass('bg-warning');
+                            $('#quasi-scaduto'+response[index].id).removeClass('d-none');
+                            console.log('quasi');
+                        } 
+                        
+                    }
+                }, 2000);
 
+
+                // response.forEach(element => {
+                   
+                // });
 
             }
         });
@@ -172,7 +209,8 @@ function renderAzienda(data) {
                 "lotto": data[i].lotto,
                 "quantita": data[i].sector.quantita_rimanente,
                 "quantita_bloccata": data[i].sector.quantita_bloccata,
-                "quantita_dif": data[i].sector.quantita_rimanente - data[i].sector.quantita_bloccata
+                "quantita_dif": data[i].sector.quantita_rimanente - data[i].sector.quantita_bloccata,
+                "data_di_scadenza":data[i].data_di_scadenza
 
             }
             var html = template(context);

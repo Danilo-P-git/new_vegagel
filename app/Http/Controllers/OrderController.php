@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('user')->where('completato', 0)->get();
+        $orders = Order::with('user')->where('completato', 0)->orderBy('created_at')->get();
         return view('worker.orders', compact('orders'));
     }
     public function show($id)
@@ -75,6 +75,17 @@ class OrderController extends Controller
     }
     public function done($id)
     {
+        $pivot = Order_Product::where('order_id', $id)->get();
+        foreach ($pivot as $key => $value) {
+            $confermato = $value->completato;
+
+            if ($confermato == 0) {
+                $validation = false;
+            } else {
+                $validation = true;
+            }
+        }
+
         $order = Order::find($id);
         $order->completato = 1;
         $order->push();

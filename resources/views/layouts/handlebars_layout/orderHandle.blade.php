@@ -1,7 +1,13 @@
 <script id="products-template" type="text/x-handlebars-template">
-<div class="py-3">
 
-    <h5> lotto @{{lotto}}</h5>
+
+    
+<div class="py-3">
+    <h3> lotto @{{lotto}}</h5>
+        
+    <h4 id="stato@{{id}}">Data di scadenza <strong> @{{data_di_scadenza}} </strong></h4>
+    <h5 id="scaduto@{{id}}" class="d-none text-danger">Attenzione il prodotto è scaduto è consigliato cancellarlo manualmente</h5>
+    <h5 id="quasi-scaduto@{{id}}"  class="d-none text-danger">Attenzione il prodotto sta per scadere.</h5>
     
     <form action="http://localhost:8000/admin/ordersQuantity/@{{id}}" method="post">
         @csrf

@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="scan-container" class="container shadow bg-light p-5 rounded">
+<div id="scan-container" class="container shadow bg-light p-1 px-md-5 rounded">
 
 
     
@@ -41,7 +41,7 @@
       {{-- form row  --}}
 
   <div class="form-row">
-    <div class="form-group col-md-5 col-4">
+    <div class="form-group col-md-5 col-12">
       
       <label for="codice_prodotto">codice prodotto</label>
       <input name="codice_prodotto" type="text" id="codice_prodotto" class="form-control code-scanner" value="">
@@ -49,14 +49,14 @@
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-5 col-4">
+    <div class="form-group col-md-5 col-12">
       <label for="codice_stock">codice stock</label>
       <input name="codice_stock" type="text" id="codice_stock" class="form-control code-scanner" value="">
       @error('codice_stock')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
-    <div class="form-group col-md-2 col-4">
+    <div class="form-group col-md-2 col-12">
       
       <label for="lotto">Lotto</label>
       <input name="lotto" type="text" id="lotto" class="form-control code-scanner" value="">
@@ -72,7 +72,7 @@
 
   <div class="form-row">
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       <label for="scaffale">scaffale</label>
       <input name="scaffale" type="text"  id="scaffale" class="form-control" value="">
       @error('scaffale')
@@ -80,14 +80,14 @@
     @enderror
     </div>
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       <label for="quantita_rimanente">Quantità totale</label>
       <input name="quantita_rimanente" type="number"  id="quantita_rimanente" class="form-control" value=""> 
       @error('quantita_rimanente')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       <label for="data_di_scadenza">data_di_scadenza</label>
       <input name="data_di_scadenza" type="date" id="data_di_scadenza" class="form-control" value="" >
       @error('data_di_scadenza')
@@ -102,7 +102,7 @@
 
   <div class="form-row">
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       <label for="name">name</label>
       <input name="name" type="text" class="form-control" id="name" value="">
       @error('name')
@@ -110,14 +110,14 @@
       @enderror
     </div>
 
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       <label for="description">description</label>
       <input name="description" type="text" class="form-control" id="description" value="">
       @error('description')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
-    <div class="form-group col-md-4 col-4">
+    <div class="form-group col-md-4 col-12">
       
       <label for="quantita_di_cartoni">Numero di Cartoni</label>
       <input name="quantita_di_cartoni" type="number" id="quantita_di_cartoni" class="form-control code-scanner" value="">
@@ -133,7 +133,7 @@
     {{-- form row  --}}
 
   <div class="form-row">
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
       
       <label for="prezzo_al_pezzo">Prezzo al pezzo</label>
       <input name="prezzo_al_pezzo" type="number" id="prezzo_al_pezzo" class="form-control code-scanner" value="">
@@ -141,7 +141,7 @@
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
       <label for="prezzo_al_kg">Prezzo al kg</label>
       <input name="prezzo_al_kg" type="number" step=0.01 class="form-control" id="prezzo_al_kg" value="">
       @error('prezzo_al_kg')
@@ -149,14 +149,14 @@
     @enderror
     </div>
     
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
       <label for="settore">settore</label>
       <input name="settore" type="text" class="form-control" id="settore" value="">
       @error('settore')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
-    <div class="form-group col-md-3 col-3">
+    <div class="form-group col-md-3 col-6">
 
       <label for="peso">Peso pezzo singolo <strong>(Kg/l)</strong></label>
       <input name="peso" type="text" class="form-control" id="peso" value="">

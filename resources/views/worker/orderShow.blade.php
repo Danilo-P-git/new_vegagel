@@ -53,16 +53,17 @@
         };
     })(jQuery);
 </script>
-<div class="container d-flex justify-content-center">
+
+<div class="container d-flex ">
     <a class="btn btn-primary" href="{{route("worker.orders")}}">Torna alla pagina degli ordini</a>
 
 </div>
-<div class="container d-flex justify-content-center flex-wrap">
+<div class="container d-flex shadow bg-light p-1 px-md-5 rounded justify-content-center flex-wrap">
 
 @foreach ($pivot as $value => $key)
 
 
-    <div class="card m-2 orders-card" style=" @if ($key->completato == 1) background-color: rgba(25, 255, 0, 0.34); @endif" id="{{$products[$value]->id}}">
+    <div class="card m-2 orders-card p-4" style=" @if ($key->completato == 1) background-color: rgba(25, 255, 0, 0.34); @endif" id="{{$products[$value]->id}}">
         <div class="card-body position-relative">
             <h5 class="card-title">Prodotto {{$products[$value]->codice_prodotto}}</h5>
             <p class="card-text"> Settore più vicino {{$products[$value]->sector->settore}}</p>
@@ -70,7 +71,7 @@
 
            <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" id="test{{$key->id}}" data-target="#modal{{$key->id}}">
-                Launch demo modal
+                Carica
             </button>
             
             <!-- Modal -->

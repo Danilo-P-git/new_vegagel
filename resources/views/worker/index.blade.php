@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="scan-container" class="container d-flex flex-wrap flex-column shadow bg-light p-5 rounded">
+<div id="scan-container" class="container d-flex flex-wrap flex-column shadow bg-light p-1 px-md-5rounded">
     <h2 class="mx-auto my-5">
         Cerca il tuo prodotto
     </h2>

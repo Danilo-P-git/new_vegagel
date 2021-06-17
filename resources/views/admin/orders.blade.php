@@ -1,12 +1,12 @@
 @extends('layouts.side')
 
 @section('content')
-<div class="container bg-light shadow p-5 rounded">
+<div class="container bg-light shadow p-1 px-lg-5 rounded">
     <div class="text-center">
         <a href="{{route('admin.ordersCreate')}}" class="btn btn-primary">Crea un nuovo Ordine</a>
     </div>
     <div class="overflow-auto p-2">
-        <table class="table border shadow table-bordered table-hover">
+        <table class="table border shadow table-bordered table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
                     <th>N° Ordine</th>
