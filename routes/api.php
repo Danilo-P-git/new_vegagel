@@ -26,3 +26,5 @@ Route::delete('product/{id}', 'api\ProductController@destroy');
 Route::get('admin/search', 'api\SearchController@aziende')->name('admin.aziendeSearch');
 Route::get('admin/searchUtente', 'api\SearchController@utente')->name('admin.utenteSearch');
 Route::get('admin/searchProdotto', 'api\SearchController@prodottoSingolo')->name('admin.prodottoCerca');
+Route::get('admin/cercaDuplicato', 'api\SearchController@scanDuplicate')->name('admin.duplicaProdotto');
+

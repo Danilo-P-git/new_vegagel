@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- @dd(session()->get('cart')) --}}
-<div class="container-sm bg-light shadow p-1 px-lg-5 rounded">
+<div class="container-sm  bg-light shadow p-1 px-lg-5 rounded">
 
 
     <div class="overflow-auto p-2">
@@ -133,7 +133,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Elementi</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button class="close" type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                         </div>

@@ -3,12 +3,14 @@
 
     
 <div class="py-3">
-    <h3> lotto @{{lotto}}</h5>
+    <h3> Lotto <strong>@{{lotto}} </strong></h3>
         
-    <h4 id="stato@{{id}}">Data di scadenza <strong> @{{data_di_scadenza}} </strong></h4>
-    <h5 id="scaduto@{{id}}" class="d-none text-danger">Attenzione il prodotto è scaduto è consigliato cancellarlo manualmente</h5>
-    <h5 id="quasi-scaduto@{{id}}"  class="d-none text-danger">Attenzione il prodotto sta per scadere.</h5>
-    
+    <h4><span class="d-none dot stato@{{id}} mr-2 mt-1"></span><strong> Data di scadenza  @{{data_di_scadenza}} </strong></h4>
+    <h5 class="d-none text-danger scaduto@{{id}}">Attenzione il prodotto è scaduto è consigliato cancellarlo manualmente. <br>
+    Il prodotto si trova attualmente nel settore @{{settore}} all'interno dell'area @{{area}}</h5>
+    <h5   class="d-none text-danger quasi-scaduto@{{id}}">Attenzione il prodotto sta per scadere.</h5>
+    <h5>Prezzo al pezzo <strong> @{{prezzo_al_pezzo}}</strong> €</h5>
+    <h5>Un singolo elemento equivale a <strong> @{{peso}} kg/l</strong></h5>
     <form action="http://localhost:8000/admin/ordersQuantity/@{{id}}" method="post">
         @csrf
         @method('PUT')

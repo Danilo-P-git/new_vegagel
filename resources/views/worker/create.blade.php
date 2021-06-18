@@ -265,7 +265,8 @@
          console.log(peso);
          var pesoConDot = peso.substr(0,3) + '.' + peso.substr(3, peso.length) ;
          console.log(pesoConDot);
-        $('#peso').val(pesoConDot);
+         
+        // $('#peso').val(pesoConDot);
         // !inserimento peso
         // inserimento data 
          var data = code.substr(18, 6);
@@ -293,6 +294,31 @@
         var pesoConDot = peso.substr(0,2) + '.' + peso.substr(2, peso.length) ;
         $('#peso').val(pesoConDot);
        }
+      var ajaxProdotto = $('#codice_prodotto').val();
+      var protocol = window.location.protocol;
+      var url = window.location.host;
+      var webSite = protocol + '//' + url;
+      $.ajax({
+
+        "url": webSite + "/api/admin/cercaDuplicato",
+        "data": {
+            "codice_prodotto": ajaxProdotto
+        },
+        "method": "GET",
+        "success": function (response) {
+          console.log(response);
+          $('#name').val(response.name);
+          $('#prezzo_al_pezzo').val(response.prezzo_al_pezzo);
+          $('#prezzo_al_kg').val(response.prezzo_al_kg);
+          $('#description').val(response.description);
+          $('#peso').val(response.peso);
+          
+          
+
+
+        },
+
+      });
     }
 });
 
@@ -317,6 +343,9 @@
      var quantitaCartone = quantitaTotale / quantitaDiCartoni;
      $("#quantita_a_cartone").val(quantitaCartone);
    });
+
+   
+  
 
  </script>
 @endsection

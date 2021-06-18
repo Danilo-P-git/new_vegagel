@@ -258,7 +258,7 @@ $('#show').on('click', function () {
     $('#show-hide').toggle('slow');
     var required =  $('.pers-required'); 
     if (required.attr('required')) {
-        required.removeAttr('required');
+        required.prop('required', false);
     } else {
         required.prop('required', true);
     }

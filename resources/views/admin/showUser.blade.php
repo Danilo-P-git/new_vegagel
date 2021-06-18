@@ -511,7 +511,7 @@
                           </div>
                         {{-- MODAL RENDI LAVORATORE  --}}
 
-                        <button type="button" data-toggle="modal" data-target="#edit{{$item->id}}" class="btn btn-secondary">Modifica dati</button>
+                        <button type="button" data-toggle="modal" data-target="#edit{{$item->id}}" class="btn btn-secondary">Rendi azienda</button>
                         <!-- Button trigger modal -->
 
 
@@ -520,7 +520,7 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title">Modifica dati</h5>
+                                <h5 class="modal-title">Rendi azienda</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>

@@ -80,7 +80,10 @@ var oneMonth = d.getFullYear() + '-' + ((''+month2).length<2 ? '0' : '') + month
         console.log('change');
         $("#aziendeCreate").toggle('fast');
     })
-    
+    $(".close").on('click', function(){
+        $(".element-wrapper").empty();
+
+    })
     $(".products").on('click', function () {
         var codProdotto = $(this).val();
         var protocol = window.location.protocol;
@@ -98,22 +101,25 @@ var oneMonth = d.getFullYear() + '-' + ((''+month2).length<2 ? '0' : '') + month
                 $(".element-wrapper").empty();
 
                 renderProdotti(response);
-                setTimeout(() => {
                     for (let index = 0; index < response.length; index++) {
                         console.log(response[index].data_di_scadenza);
                         if (response[index].data_di_scadenza < today) {
-                            $('#stato'+response[index].id).addClass('bg-danger');
-                            $('#scaduto'+response[index].id).removeClass('d-none');
+                            $('.stato'+response[index].id).addClass('bg-danger');
+                            $('.stato'+response[index].id).removeClass('d-none');
+
+                            $('.scaduto'+response[index].id).removeClass('d-none');
                             console.log('scaduto');
     
                         } else if (response[index].data_di_scadenza>today && response[index].data_di_scadenza < oneMonth) {
-                            $('#stato'+response[index].id).addClass('bg-warning');
-                            $('#quasi-scaduto'+response[index].id).removeClass('d-none');
+                            $('.stato'+response[index].id).addClass('bg-warning');
+                            $('.stato'+response[index].id).removeClass('d-none');
+
+                            $('.quasi-scaduto'+response[index].id).removeClass('d-none');
                             console.log('quasi');
                         } 
                         
                     }
-                }, 2000);
+                
 
 
                 // response.forEach(element => {
@@ -207,10 +213,15 @@ function renderAzienda(data) {
                 "name": data[i].name,
                 "data_di_scadenza": data[i].data_di_scadenza,
                 "lotto": data[i].lotto,
+                "settore": data[i].sector.settore,
+                "area": data[i].sector.scaffale,
                 "quantita": data[i].sector.quantita_rimanente,
                 "quantita_bloccata": data[i].sector.quantita_bloccata,
                 "quantita_dif": data[i].sector.quantita_rimanente - data[i].sector.quantita_bloccata,
-                "data_di_scadenza":data[i].data_di_scadenza
+                "data_di_scadenza":data[i].data_di_scadenza,
+                "peso": data[i].peso,
+                "prezzo_al_pezzo":data[i].prezzo_al_pezzo
+
 
             }
             var html = template(context);

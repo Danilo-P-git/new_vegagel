@@ -9,6 +9,7 @@ use App\User;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Sortable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SearchController extends Controller
 {
@@ -48,5 +49,18 @@ class SearchController extends Controller
         $prodotto = Product::with('sector')->where('codice_prodotto', "=", $cod_prodotto)->get();
 
          return response()->json($prodotto);
+    }
+
+    public function scanDuplicate(){
+        $cod_prodotto = $_GET['codice_prodotto'];
+        try {
+
+            $prodotto = Product::with('sector')->where('codice_prodotto', "=", $cod_prodotto)->firstOrFail();
+        }
+
+        catch(ModelNotFoundException $e) {
+            $prodotto = "Nessun prodotto con questo codice;";
+        }
+        return response()->json($prodotto);
     }
 }
