@@ -9,6 +9,8 @@ use App\Sector;
 use App\Log;
 use App\Order_Product;
 use Illuminate\Support\Facades\Auth;
+use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -96,6 +98,22 @@ class OrderController extends Controller
         $newLog->codice_movimento = "Ordine n°".$id;
         $newLog->save();
         return redirect()->back();
+
+    }
+    public function savePdf($id)
+    {
+        $pivot = Order_Product::where('order_id', $id)->get();
+        $order = Order::with('user')->find($id);
+        $arrayProduct = array();
+        foreach ($pivot as $key) {
+            array_push($arrayProduct, $key->product_id);
+            
+        }
+        $products = Product::with('sector')->whereIn('id', $arrayProduct)->get();
+
+        $pdf = PDF::loadView('pdf.bolla', compact('pivot', 'order', 'products') )->setOptions(['defaultFont' => 'sans-serif']);
+        Storage::put('public/order'.$order->id.'.pdf', $pdf->output());
+        return $pdf->download('bolla_di_carico'.$order->id.'.pdf');
 
     }
 }

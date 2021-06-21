@@ -49,3 +49,4 @@ Route::any('admin/ordersQuantity/{id}', 'AdminCartController@quantitaBloccata')-
 Route::any('admin/ordersNew/{id}', 'AdminCartController@addOrder')->name('admin.addOrder');
 Route::any('admin/orderSend','AdminCartController@orderSend')->name('admin.orderSend');
 Route::any('admin/orderDelete/{id}', 'AdminCartController@deleteCart')->name('admin.orderDelete');
+Route::any('pdf/bolla/{id}', 'OrderController@savePdf')->name('pdf.bolla');

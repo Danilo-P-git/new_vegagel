@@ -36,7 +36,9 @@
                             @else
                             In lavorazione
                             
-                        @endif</td>
+                        @endif
+                        <a target="_blank" class="btn btn-primary" href="{{route('pdf.bolla', $order->id)}}">Salva pdf</a>
+                        </td>
 
                     </tr>
                 @endforeach
