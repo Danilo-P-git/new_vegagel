@@ -218,6 +218,20 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="num_documento" class="col-md-4 col-form-label text-md-right">{{ __('N° documento') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="num_documento" type="text" class="pers-required form-control @error('num_documento') is-invalid @enderror" name="num_documento" value="{{ old('num_documento') }}" >
+    
+                                    @error('num_documento')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="ragione_sociale" class="col-md-4 col-form-label text-md-right">{{ __('Ragione sociale') }}</label>
     
                                 <div class="col-md-6">

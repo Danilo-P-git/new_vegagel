@@ -78,7 +78,7 @@
 
   <div class="form-row">
 
-    <div class="form-group col-md-4 col-12">
+    <div class="form-group col-md-3 col-12">
       <label for="name">name</label>
       <input name="name" type="text" class="form-control" id="name" value="{{old("name") ? old("name") : $product->name}}">
       @error('name')
@@ -86,14 +86,14 @@
       @enderror
     </div>
 
-    <div class="form-group col-md-4 col-12">
+    <div class="form-group col-md-3 col-12">
       <label for="description">description</label>
       <input name="description" type="text" class="form-control" id="description" value="{{old("description") ? old("description") : $product->description}}">
       @error('description')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
-    <div class="form-group col-md-4 col-12">
+    <div class="form-group col-md-3 col-12">
       
 
 
@@ -105,6 +105,14 @@
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
 
+    </div>
+    <div class="form-group col-md-3 col-12">
+      <label for="category_id">Categoria</label>
+      <select class="custom-select custom-select-lg" name="category_id" id="category_id">
+          @foreach ($categories as $category )
+              <option value="{{$category->id}}" @if ($product->category_id == $category->id) selected @endif>{{$category->tipo}}</option>
+          @endforeach
+      </select>
     </div>
   </div>
 

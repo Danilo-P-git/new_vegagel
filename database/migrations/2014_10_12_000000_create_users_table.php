@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('provincia')->nullable();
             $table->string('partita_iva')->nullable();
             $table->string('ragione_sociale')->nullable();
+            $table->string('num_documento')->nullable();
             $table->boolean('is_admin')->nullable();
             $table->boolean('is_worker')->nullable();
             $table->rememberToken();

@@ -72,7 +72,7 @@
 
   <div class="form-row">
 
-    <div class="form-group col-md-4 col-12">
+    <div class="form-group col-md-3 col-12">
       <label for="scaffale">scaffale</label>
       <input name="scaffale" type="text"  id="scaffale" class="form-control" value="">
       @error('scaffale')
@@ -80,21 +80,28 @@
     @enderror
     </div>
 
-    <div class="form-group col-md-4 col-12">
+    <div class="form-group col-md-3 col-12">
       <label for="quantita_rimanente">Quantità totale</label>
       <input name="quantita_rimanente" type="number"  id="quantita_rimanente" class="form-control" value=""> 
       @error('quantita_rimanente')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    <div class="form-group col-md-4 col-12">
+    <div class="form-group col-md-3 col-12">
       <label for="data_di_scadenza">data_di_scadenza</label>
       <input name="data_di_scadenza" type="date" id="data_di_scadenza" class="form-control" value="" >
       @error('data_di_scadenza')
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
-
+    <div class="form-group col-md-3 col-12">
+      <label for="category_id">Categoria</label>
+      <select class="custom-select custom-select-lg" name="category_id" id="category_id">
+          @foreach ($categories as $category )
+              <option value="{{$category->id}}" >{{$category->tipo}}</option>
+          @endforeach
+      </select>
+    </div>
   </div>
       {{-- form row  --}}
 

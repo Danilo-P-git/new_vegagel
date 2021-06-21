@@ -193,6 +193,20 @@
                 </div>
 
                 <div class="form-group row">
+                  <label for="create-num_documento" class="col-md-4 col-form-label text-md-right">{{ __('N° documento') }}</label>
+
+                  <div class="col-md-6">
+                      <input id="create-num_documento" type="text" class="pers-required form-control @error('num_documento') is-invalid @enderror" name="num_documento" value="{{old("num_documento")}}" >
+
+                      @error('num_documento')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                  </div>
+                </div>
+                
+                <div class="form-group row">
                   <label for="create-ragione_sociale" class="col-md-4 col-form-label text-md-right">{{ __('Ragione sociale') }}</label>
 
                   <div class="col-md-6">
@@ -400,6 +414,20 @@
                                         <input id="azienda-{{$item->id}}-partita_iva" type="text" class="pers-required form-control @error('partita_iva') is-invalid @enderror" name="partita_iva" value="{{old("partita_iva") ? old("partita_iva") : $item->partita_iva}}" >
 
                                         @error('partita_iva')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="azienda-{{$item->id}}-num_documento" class="col-md-4 col-form-label text-md-right">{{ __('N° documento') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="azienda-{{$item->id}}-num_documento" type="text" class="pers-required form-control @error('num_documento') is-invalid @enderror" name="num_documento" value="{{old("num_documento") ? old("num_documento") : $item->num_documento}}" >
+
+                                        @error('num_documento')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -657,6 +685,20 @@
                                   </div>
 
                                   <div class="form-group row">
+                                    <label for="{{$item->id}}num_documento" class="col-md-4 col-form-label text-md-right">{{ __('N° documento') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="{{$item->id}}num_documento" type="text" class="pers-required form-control @error('num_documento') is-invalid @enderror" name="num_documento" value="{{ old('num_documento') }}" >
+
+                                        @error('num_documento')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
                                     <label for="{{$item->id}}ragione_sociale" class="col-md-4 col-form-label text-md-right">{{ __('Ragione sociale') }}</label>
 
                                     <div class="col-md-6">
@@ -857,6 +899,20 @@
                                       <input id="{{$item->id}}partita_iva" type="text" class="pers-required form-control @error('partita_iva') is-invalid @enderror" name="partita_iva" value="{{ old('partita_iva') }}" >
 
                                       @error('partita_iva')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="{{$item->id}}num_documento" class="col-md-4 col-form-label text-md-right">{{ __('N° documento') }}</label>
+
+                                  <div class="col-md-6">
+                                      <input id="{{$item->id}}num_documento" type="text" class="pers-required form-control @error('num_documento') is-invalid @enderror" name="num_documento" value="{{ old('num_documento') }}" >
+
+                                      @error('num_documento')
                                           <span class="invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
                                           </span>

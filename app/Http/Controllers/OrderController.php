@@ -112,7 +112,9 @@ class OrderController extends Controller
         $products = Product::with('sector')->whereIn('id', $arrayProduct)->get();
 
         $pdf = PDF::loadView('pdf.bolla', compact('pivot', 'order', 'products') )->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf->setPaper('A4', 'portrait');
         Storage::put('public/order'.$order->id.'.pdf', $pdf->output());
+
         return $pdf->download('bolla_di_carico'.$order->id.'.pdf');
 
     }

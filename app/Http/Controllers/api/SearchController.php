@@ -46,7 +46,11 @@ class SearchController extends Controller
 
     public function prodottoSingolo(){
         $cod_prodotto = $_GET['codice_prodotto'];
-        $prodotto = Product::with('sector')->where('codice_prodotto', "=", $cod_prodotto)->get();
+        $prodotto = Product::with('sector')->where([
+            ['codice_prodotto', "=", $cod_prodotto],
+            ['esaurito', "=", 0],
+            ]
+            )->get();
 
          return response()->json($prodotto);
     }

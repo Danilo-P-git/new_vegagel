@@ -8,6 +8,48 @@
 </head>
 <body>
     <style>
+        .text-center {
+            text-align: center;
+        }
+        .clearfix::after {
+        content: "";
+        clear: both;
+        display: block;
+        }
+        .info {
+            width: 70%;
+
+        }
+        .float-left {
+            float: left;
+        }
+        .float-right{
+            float: right;
+        }
+        .text-left {
+            text-align: left;
+
+        }
+        .text-right{
+            text-align: right;
+        }
+        .info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .user {
+            width: 30%;
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .user ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
         .table {
         width: 100%;
         margin-bottom: 1rem;
@@ -295,25 +337,148 @@
     
 
     </style>
+    <div class="clearfix">
+        <div class="info float-left">
+            <ul>
+                <li><h3>NEW VECAGEL SRL</h3></li>
+                <li>VIA NUOVALUCE 38</li>
+                <li>95030 TREMESTIERI ETNEO (CT)</li>
+                <li>Tel: 095516977   Fax:095511565</li>
+                <li>Email: info@newvecagel.it - Site: Info@newvecagel.it</li>
+                <li>Partita IVA 03707860874 - Codice Fiscale: 03707860874</li>
+            </ul>
+        </div>
+        <div class="float-right text-left user">
+            <ul>
+                <li> <p>SPETT.LE</p> </li>
+                <li> <strong>{{$order->user->ragione_sociale}}</strong></li>
+                <li> <strong>{{$order->user->indirizzo}}</strong></li>
+                <li> <strong>{{$order->user->cap}} {{$order->user->provincia}} ({{$order->user->comune}})</strong></li>
+            </ul>
+        </div>
+    </div>
+    
+    <br>
+    <hr>
+    <br>
     <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Partita IVA</th>
+            <th scope="col">Codice Fiscale</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">N° documento</th>
+            <th scope="col">Data documento</th>
+            
+            
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <th scope="row">{{$order->user->partita_iva}}</th>
+            <td>{{$order->user->codice_fiscale}}</td>
+            <td>{{$order->user->telefono}}</td>
+            <td>{{$order->user->num_documento}}</td>
+            <td>{{$order->created_at}}</td>
+
           </tr>
          
         </tbody>
-      </table>
+    </table>
+      <br>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Codice articolo</th>
+            <th scope="col">Lotto</th>
+            <th scope="col">Scadenza</th>
+            <th scope="col">Descrizione</th>
+            <th>Colli</th>
+            <th>Quantita</th>
+            <th>Peso</th>
+
+            <th>QTA prelevata</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach ($products as $product)
+                @php
+                    $quantitaACartone = $product->sector->quantita_a_cartone;
+                    $pivot = App\Order_Product::where('product_id', $product->id)->first();
+                    
+                    $quantitaOrdinata = $pivot->quantita;
+
+                    if (is_int($quantitaOrdinata/$quantitaACartone)) {
+                        $collo = $quantitaOrdinata/$quantitaACartone;
+                    } else {
+                        $collo = "quantita frazionaria";
+                    }
+
+                    $peso = $product->peso * $quantitaOrdinata;
+
+
+                @endphp
+          <tr>
+            <th scope="row">{{$product->codice_prodotto}}</th>
+            <td>{{$product->lotto}}</td>
+            <td>{{$product->data_di_scadenza}}</td>
+            <td>{{$product->name}}</td>
+            <td>{{$collo}}</td>
+            <td>{{$quantitaOrdinata}}</td>
+            <td>{{$peso}} KG/L</td>
+            <td>___________</td>
+
+          </tr>
+          @endforeach
+         
+        </tbody>
+    </table>
+
+    {{-- <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Codice articolo</th>
+            <th scope="col">Lotto</th>
+            <th scope="col">Scadenza</th>
+            <th scope="col">Descrizione</th>
+            <th>Colli</th>
+            <th>Quantita</th>
+            <th>QTA prelevata</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach ($products as $product)
+                @php
+                    $quantitaACartone = $product->sector->quantita_a_cartone;
+                    $pivot = App\Order_Product::where('product_id', $product->id)->first();
+                    
+                    $quantitaOrdinata = $pivot->quantita;
+
+                    if (is_int($quantitaOrdinata/$quantitaACartone)) {
+                        $collo = $quantitaOrdinata/$quantitaACartone;
+                    } else {
+                        $collo = "quantita frazionaria";
+                    }
+
+                    $peso = $product->peso * $quantitaOrdinata;
+
+
+                @endphp
+          <tr>
+            <th scope="row">{{$product->codice_prodotto}}</th>
+            <td>{{$product->lotto}}</td>
+            <td>{{$product->data_di_scadenza}}</td>
+            <td>{{$product->name}}</td>
+            <td>{{$collo}}</td>
+            <td>{{$quantitaOrdinata}}</td>
+            <td>___________</td>
+
+          </tr>
+          @endforeach
+         
+        </tbody>
+    </table> --}}
+
       
 </body>
 </html>

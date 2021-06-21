@@ -97,6 +97,8 @@ class RegisterController extends Controller
             'comune'=> $data['comune'],
             'provincia'=> $data['provincia'],
             'partita_iva'=> $data['partita_iva'],
+            'partita_iva'=> $data['num_documento'],
+
             'ragione_sociale'=> $data['ragione_sociale'],
             'is_admin'=> null,
             'is_worker' => null

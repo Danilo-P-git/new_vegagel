@@ -50,3 +50,5 @@ Route::any('admin/ordersNew/{id}', 'AdminCartController@addOrder')->name('admin.
 Route::any('admin/orderSend','AdminCartController@orderSend')->name('admin.orderSend');
 Route::any('admin/orderDelete/{id}', 'AdminCartController@deleteCart')->name('admin.orderDelete');
 Route::any('pdf/bolla/{id}', 'OrderController@savePdf')->name('pdf.bolla');
+Route::get('admin/categories', 'CategoryController@index')->name('admin.categories');
+Route::any('admin/categoriesCreate', 'CategoryController@store')->name('admin.categoriesCreate');

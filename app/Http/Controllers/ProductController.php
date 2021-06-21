@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Sector;
 use App\Log;
+use App\Category;
+
 use Sortable;
 use DB;
 class ProductController extends Controller
@@ -33,7 +35,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('worker.create');
+        $categories = Category::all();
+        return view('worker.create', compact('categories'));
     }
 
     /**
@@ -178,7 +181,7 @@ class ProductController extends Controller
         $newProduct->prezzo_al_pezzo = $request->prezzo_al_pezzo;
         $newProduct->prezzo_al_kg = $request->prezzo_al_kg;
         $newProduct->peso = $request->peso;
-
+        $newProduct->category_id = $request->category_id;
         
 
         $newProduct->save();
@@ -230,7 +233,9 @@ class ProductController extends Controller
     {
 
         $product = Product::findOrFail($id);
-        return view('worker.edit', compact('product'));
+        $categories = Category::all();
+
+        return view('worker.edit', compact('product','categories'));
     }
 
     /**
@@ -294,7 +299,7 @@ class ProductController extends Controller
         $product->prezzo_al_pezzo = $request->prezzo_al_pezzo;
         $product->prezzo_al_kg = $request->prezzo_al_kg;
         $product->peso = $request->peso;
-
+        $product->category_id = $request->category_id;
         $product->sector->settore = $request->settore;
         $product->sector->scaffale = $request->scaffale;
         $product->sector->quantita_rimanente = $request->quantita_rimanente;

@@ -109,8 +109,8 @@
                         <li class="{{ (request()->is('admin/orders*')) ? 'active' : '' }}" >
                             <a href="{{route('admin.orders')}}">Ordini</a>
                         </li>
-                        <li>
-                            <a class="" href="">Fatture</a>
+                        <li class="{{ (request()->is('admin/categories*')) ? 'active' : '' }}">
+                            <a href="{{route('admin.categories')}}">Categorie</a>
                         </li>
    
                     </ul>

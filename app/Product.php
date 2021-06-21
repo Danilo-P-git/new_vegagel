@@ -16,7 +16,11 @@ class Product extends Model
     }
     public function order_product()
     {
-        return $this->belongsTo(Order_Product::class);
+        return $this->belongsTo('App\Order_Product');
+    }
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
     }
 
 

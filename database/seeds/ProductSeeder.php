@@ -7,6 +7,8 @@ use App\Product;
 use App\Sector;
 use App\Order;
 use App\User;
+use App\Category;
+
 use App\Order_Product;
 
 class ProductSeeder extends Seeder
@@ -51,6 +53,7 @@ class ProductSeeder extends Seeder
         ];
         for ($i=0; $i <10 ; $i++) { 
             $newProduct = new Product;
+            $category = Category::inRandomOrder()->first();
             $newProduct->codice_prodotto = $randomCodeProduct[$i];
             $newProduct->codice_stock = $randomStockCode[$i];
             $newProduct->lotto =  substr($randomStockCode[$i], -5);
@@ -60,7 +63,7 @@ class ProductSeeder extends Seeder
             $newProduct->prezzo_al_pezzo = $faker->numberBetween(10, 50);
             $newProduct->prezzo_al_kg = $faker->numberBetween(10, 50);
             $newProduct->peso = $faker->numberBetween(1,15);
-
+            $newProduct->category_id = $category->id;
             $newProduct->save();
             $user = User::inRandomOrder()->first();
             // $newOrder = new Order;

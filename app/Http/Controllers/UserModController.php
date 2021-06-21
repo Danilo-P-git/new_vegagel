@@ -101,6 +101,7 @@ class UserModController extends Controller
         $users->comune = $request->comune;
         $users->provincia = $request->provincia;
         $users->partita_iva = $request->partita_iva;
+        $users->num_documento = $request->num_documento;
         $users->ragione_sociale = $request->ragione_sociale;
         $users->push();
         return redirect()->route('admin.showUser', $users);
@@ -125,6 +126,7 @@ class UserModController extends Controller
         $user->cap = $request->cap;
         $user->provincia = $request->provincia;
         $user->partita_iva = $request->partita_iva;
+        $user->num_documento = $request->num_documento;
         $user->ragione_sociale = $request->ragione_sociale;
         $user->is_worker = $checkbox;
         $user->is_admin = 0;
