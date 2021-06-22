@@ -6,43 +6,43 @@
 <div id="scan-container" class="container shadow bg-light p-1 px-md-5 rounded">
 
 
-    
+
     <form action="{{route('worker.store')}}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('POST')
 
 
       {{-- <div class="card">
-        
+
         <div class="card-body">
-        
+
           <div class="row">
-        
+
             <div class="col-xs-12 col-sm-12 col-md-6">
-        
+
               <div id="interactive" class="viewport"></div>
-        
+
             </div>
-        
+
             <div class="col-xs-12 col-sm-12 col-md-6">
-        
+
               <div id="result_strip">
-        
+
               </div>
-        
+
             </div>
-        
+
           </div>
-        
+
         </div>
-      
+
       </div> --}}
-    
+
       {{-- form row  --}}
 
   <div class="form-row">
     <div class="form-group col-md-5 col-12">
-      
+
       <label for="codice_prodotto">codice prodotto</label>
       <input name="codice_prodotto" type="text" id="codice_prodotto" class="form-control code-scanner" value="">
       @error('codice_prodotto')
@@ -57,15 +57,15 @@
       @enderror
     </div>
     <div class="form-group col-md-2 col-12">
-      
+
       <label for="lotto">Lotto</label>
       <input name="lotto" type="text" id="lotto" class="form-control code-scanner" value="">
       @error('lotto')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    
-    
+
+
   </div>
 
       {{-- form row  --}}
@@ -82,7 +82,7 @@
 
     <div class="form-group col-md-3 col-12">
       <label for="quantita_rimanente">Quantità totale</label>
-      <input name="quantita_rimanente" type="number"  id="quantita_rimanente" class="form-control" value=""> 
+      <input name="quantita_rimanente" type="number"  id="quantita_rimanente" class="form-control" value="">
       @error('quantita_rimanente')
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -125,7 +125,7 @@
       @enderror
     </div>
     <div class="form-group col-md-4 col-12">
-      
+
       <label for="quantita_di_cartoni">Numero di Cartoni</label>
       <input name="quantita_di_cartoni" type="number" id="quantita_di_cartoni" class="form-control code-scanner" value="">
       @error('quantita_di_cartoni')
@@ -141,7 +141,7 @@
 
   <div class="form-row">
     <div class="form-group col-md-3 col-6">
-      
+
       <label for="prezzo_al_pezzo">Prezzo al pezzo</label>
       <input name="prezzo_al_pezzo" type="number" id="prezzo_al_pezzo" class="form-control code-scanner" value="">
       @error('prezzo_al_pezzo')
@@ -155,7 +155,7 @@
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     </div>
-    
+
     <div class="form-group col-md-3 col-6">
       <label for="settore">settore</label>
       <input name="settore" type="text" class="form-control" id="settore" value="">
@@ -177,7 +177,7 @@
       <i class="fas fa-exclamation-circle"></i>
       Si ricorda di compilare tutti i campi per poter andare avanti con l'inserimento
     </div>
-    
+
     <input hidden  name="quantita_a_cartone" type="number" id="quantita_a_cartone" class="form-control" value="" >
     {{-- <a id="test" class="btn btn-success"> TESTAMI</a> --}}
   <button id="submit" type="submit" class="btn btn-primary">Scarica</button>
@@ -186,7 +186,7 @@
 </div>
 
 <script type="text/javascript">
-  // code scanning function 
+  // code scanning function
   (function ($) {
     $.fn.codeScanner = function (options) {
         var settings = $.extend({}, $.fn.codeScanner.defaults, options);
@@ -198,7 +198,7 @@
 
             $(window).keypress(function (e) {
                 var keycode = (e.which) ? e.which : e.keyCode;
-                 
+
                 if ((keycode >= 65 && keycode <= 90) ||
                     (keycode >= 97 && keycode <= 122) ||
                     (keycode >= 45 && keycode <= 58) ||
@@ -242,10 +242,10 @@
 })(jQuery);
 
 
-  // code scanning function 
+  // code scanning function
 
 
-  // TAKING SCAN 
+  // TAKING SCAN
    $('#scan-container').codeScanner({
     maxEntryTime: 100, // milliseconds
     minEntryChars: 7  // characters
@@ -258,35 +258,35 @@
       $('#codice_stock').val(code);
 
          console.log( code + "  " + "lunghezza" +  code.length);
-         
+
          var frazione1 = code.substr(18, 7) ;
          console.log(frazione1);
          $('#lotto').val(frazione1);
-        
+
 
        } else if (code.length > 39 && code.length < 46) {
       $('#codice_stock').val(code);
 
-        //  inserimento lotto 
+        //  inserimento lotto
           var lotto = code.substr(37, 5);
          console.log(lotto);
          $('#lotto').val(lotto);
-        //  !inserimento lotto 
+        //  !inserimento lotto
         // inserimento peso
          var peso = code.substr(28, 6);
          console.log(peso);
          var pesoConDot = peso.substr(0,3) + '.' + peso.substr(3, peso.length) ;
          console.log(pesoConDot);
-         
+
         // $('#peso').val(pesoConDot);
         // !inserimento peso
-        // inserimento data 
+        // inserimento data
          var data = code.substr(18, 6);
          console.log(data);
          var dataCorretta =  "20" + data.substr(0, 2) + "-" + data.substr(2,2) + "-" + data.substr(4,2) ;
          console.log(dataCorretta);
           $('#data_di_scadenza').val(dataCorretta)
-        // !inserimento data 
+        // !inserimento data
 
        } else if (code.length > 13 && code.length < 16) {
         $('#codice_stock').val(code);
@@ -306,13 +306,14 @@
         var pesoConDot = peso.substr(0,2) + '.' + peso.substr(2, peso.length) ;
         $('#peso').val(pesoConDot);
        }
+
       var ajaxProdotto = $('#codice_prodotto').val();
       var protocol = window.location.protocol;
       var url = window.location.host;
       var webSite = protocol + '//' + url;
-     
+
      if (ajaxProdotto != "") {
-       
+
       $.ajax({
 
         "url": webSite + "/api/admin/cercaDuplicato",
@@ -327,8 +328,9 @@
           $('#prezzo_al_kg').val(response.prezzo_al_kg);
           $('#description').val(response.description);
           $('#peso').val(response.peso);
-          
-          
+          $('#category_id').val(response.category_id)
+
+
 
 
         },
@@ -340,7 +342,7 @@
 });
 
 
-  // TAKING SCAN 
+  // TAKING SCAN
 
   // PREVENT SENT FROM CODE SCANNING
   $("form").keydown(function (e) {
@@ -361,8 +363,8 @@
      $("#quantita_a_cartone").val(quantitaCartone);
    });
 
-   
-  
+
+
 
  </script>
 @endsection
