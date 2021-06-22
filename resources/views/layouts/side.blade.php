@@ -112,6 +112,9 @@
                         <li class="{{ (request()->is('admin/categories*')) ? 'active' : '' }}">
                             <a href="{{route('admin.categories')}}">Categorie</a>
                         </li>
+                        <li class="{{ (request()->is('admin/products*')) ? 'active' : '' }}">
+                            <a href="{{route('admin.products')}}">Prodotti</a>
+                        </li>
    
                     </ul>
                 </div>

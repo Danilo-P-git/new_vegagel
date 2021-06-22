@@ -52,3 +52,8 @@ Route::any('admin/orderDelete/{id}', 'AdminCartController@deleteCart')->name('ad
 Route::any('pdf/bolla/{id}', 'OrderController@savePdf')->name('pdf.bolla');
 Route::get('admin/categories', 'CategoryController@index')->name('admin.categories');
 Route::any('admin/categoriesCreate', 'CategoryController@store')->name('admin.categoriesCreate');
+Route::get('admin/products', 'AdminProductController@index')->name('admin.products');
+Route::any('pdf/scaduti', 'AdminProductController@stampaScaduti')->name('pdf.scaduti');
+Route::any('pdf/inScadenza', 'AdminProductController@stampaInScadenza')->name('pdf.inScadenza');
+Route::any('pdf/prodotti', 'AdminProductController@stampaProdotti')->name('pdf.prodotti');
+

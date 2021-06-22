@@ -39,7 +39,7 @@
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="http://localhost:8000/admin/editData/@{{id}}" method="post" enctype="multipart/form-data">
+                            <form action="{{env('APP_URL')}}/admin/editData/@{{id}}" method="post" enctype="multipart/form-data">
                               @csrf
                               @method('put')
                               <div class="modal-body">

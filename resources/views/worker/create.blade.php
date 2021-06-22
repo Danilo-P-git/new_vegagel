@@ -198,9 +198,12 @@
 
             $(window).keypress(function (e) {
                 var keycode = (e.which) ? e.which : e.keyCode;
+                 
                 if ((keycode >= 65 && keycode <= 90) ||
                     (keycode >= 97 && keycode <= 122) ||
-                    (keycode >= 45 && keycode <= 57) // modifica dei caratteri presi dalla funzione codeScanner
+                    (keycode >= 45 && keycode <= 58) ||
+                    (keycode == 40 ) ||
+                    (keycode ==41) // modifica dei caratteri presi dalla funzione codeScanner
                 ) {
                     chars.push(String.fromCharCode(e.which));
                 }
@@ -232,6 +235,7 @@
         minEntryChars: 8,
         maxEntryTime: 100,
         onScan: function ($element, barcode) {
+          console.log(barcode);
             $element.val(barcode);
         }
     };
@@ -254,6 +258,7 @@
       $('#codice_stock').val(code);
 
          console.log( code + "  " + "lunghezza" +  code.length);
+         
          var frazione1 = code.substr(18, 7) ;
          console.log(frazione1);
          $('#lotto').val(frazione1);
@@ -305,6 +310,9 @@
       var protocol = window.location.protocol;
       var url = window.location.host;
       var webSite = protocol + '//' + url;
+     
+     if (ajaxProdotto != "") {
+       
       $.ajax({
 
         "url": webSite + "/api/admin/cercaDuplicato",
@@ -326,6 +334,8 @@
         },
 
       });
+     }
+
     }
 });
 

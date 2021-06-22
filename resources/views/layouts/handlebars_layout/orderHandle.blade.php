@@ -11,7 +11,7 @@
     <h5   class="d-none text-danger quasi-scaduto@{{id}}">Attenzione il prodotto sta per scadere.</h5>
     <h5>Prezzo al pezzo <strong> @{{prezzo_al_pezzo}}</strong> €</h5>
     <h5>Un singolo elemento equivale a <strong> @{{peso}} kg/l</strong></h5>
-    <form action="http://localhost:8000/admin/ordersQuantity/@{{id}}" method="post">
+    <form action="{{env('APP_URL')}}/admin/ordersQuantity/@{{id}}" method="post">
         @csrf
         @method('PUT')
 
@@ -31,7 +31,7 @@
         <button type="submit" class="btn btn-primary">Ordina</button>
     </form>
         <h5 class="py-1">Soltanto in caso di errore cliccare per modificare</h5>
-        <a class="btn btn-primary rounded my-2" href="http://localhost:8000/worker/@{{id}}/edit"><i class="fas fa-edit"></i></a>
+        <a class="btn btn-primary rounded my-2" href="{{env('APP_URL')}}/worker/@{{id}}/edit"><i class="fas fa-edit"></i></a>
       <hr> 
 </div>
 

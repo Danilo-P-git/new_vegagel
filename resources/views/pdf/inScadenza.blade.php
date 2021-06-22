@@ -352,148 +352,37 @@
     
 
     </style>
-    <div class="clearfix">
-        <div class="info float-left">
-            <ul>
-                <li><h3>NEW VECAGEL SRL</h3></li>
-                <li>VIA NUOVALUCE 38</li>
-                <li>95030 TREMESTIERI ETNEO (CT)</li>
-                <li>Tel: 095516977   Fax:095511565</li>
-                <li>Email: info@newvecagel.it - Site: Info@newvecagel.it</li>
-                <li>Partita IVA 03707860874 - Codice Fiscale: 03707860874</li>
-            </ul>
-        </div>
-        <div class="float-right text-left user">
-            <ul>
-                <li> <p>SPETT.LE</p> </li>
-                <li> <strong>{{$order->user->ragione_sociale}}</strong></li>
-                <li> <strong>{{$order->user->indirizzo}}</strong></li>
-                <li> <strong>{{$order->user->cap}} {{$order->user->provincia}} ({{$order->user->comune}})</strong></li>
-            </ul>
-        </div>
-    </div>
+  <h1 style="text-align: center">Prodotti in magazzino</h1>
+  <p style="text-align: center">Meno  di un mese alla data di scadenza</p>    
+
     
-    <br>
-    <hr>
-    <br>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Partita IVA</th>
-            <th scope="col">Codice Fiscale</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">N° documento</th>
-            <th scope="col">Data documento</th>
-            
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">{{$order->user->partita_iva}}</th>
-            <td>{{$order->user->codice_fiscale}}</td>
-            <td>{{$order->user->telefono}}</td>
-            <td>{{$order->user->num_documento}}</td>
-            <td>{{$order->created_at}}</td>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome prodotto</th>
+        <th scope="col">Lotto</th>
+        <th scope="col">Data di scadenza</th>
+        <th scope="col">Settore</th>
+        <th scope="col">scaffale</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+        @foreach ($inScadenza as $item )
+        <tr>
+            <td>{{$item->name}}</td>
+            <td>{{$item->lotto}}</td>
+            <td>{{$item->data_di_scadenza}}</td>
+            <td>{{$item->sector->settore}}</td>
+            <td>{{$item->sector->scaffale}}</td>
 
-          </tr>
-         
-        </tbody>
-    </table>
-      <br>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Codice articolo</th>
-            <th scope="col">Lotto</th>
-            <th scope="col">Scadenza</th>
-            <th scope="col">Descrizione</th>
-            <th>Colli</th>
-            <th>Quantita</th>
-            <th>Peso</th>
+        </tr>
+    @endforeach
+     
+    </tbody>
+</table>
+ 
 
-            <th>QTA prelevata</th>
-          </tr>
-        </thead>
-        <tbody>
-            @foreach ($products as $product)
-                @php
-                    $quantitaACartone = $product->sector->quantita_a_cartone;
-                    $pivot = App\Order_Product::where('product_id', $product->id)->first();
-                    
-                    $quantitaOrdinata = $pivot->quantita;
-
-                    if (is_int($quantitaOrdinata/$quantitaACartone)) {
-                        $collo = $quantitaOrdinata/$quantitaACartone;
-                    } else {
-                        $collo = "quantita frazionaria";
-                    }
-
-                    $peso = $product->peso * $quantitaOrdinata;
-
-
-                @endphp
-          <tr>
-            <th scope="row">{{$product->codice_prodotto}}</th>
-            <td>{{$product->lotto}}</td>
-            <td>{{$product->data_di_scadenza}}</td>
-            <td>{{$product->name}}</td>
-            <td>{{$collo}}</td>
-            <td>{{$quantitaOrdinata}}</td>
-            <td>{{$peso}} KG/L</td>
-            <td>___________</td>
-
-          </tr>
-          @endforeach
-         
-        </tbody>
-    </table>
-
-    {{-- <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Codice articolo</th>
-            <th scope="col">Lotto</th>
-            <th scope="col">Scadenza</th>
-            <th scope="col">Descrizione</th>
-            <th>Colli</th>
-            <th>Quantita</th>
-            <th>QTA prelevata</th>
-          </tr>
-        </thead>
-        <tbody>
-            @foreach ($products as $product)
-                @php
-                    $quantitaACartone = $product->sector->quantita_a_cartone;
-                    $pivot = App\Order_Product::where('product_id', $product->id)->first();
-                    
-                    $quantitaOrdinata = $pivot->quantita;
-
-                    if (is_int($quantitaOrdinata/$quantitaACartone)) {
-                        $collo = $quantitaOrdinata/$quantitaACartone;
-                    } else {
-                        $collo = "quantita frazionaria";
-                    }
-
-                    $peso = $product->peso * $quantitaOrdinata;
-
-
-                @endphp
-          <tr>
-            <th scope="row">{{$product->codice_prodotto}}</th>
-            <td>{{$product->lotto}}</td>
-            <td>{{$product->data_di_scadenza}}</td>
-            <td>{{$product->name}}</td>
-            <td>{{$collo}}</td>
-            <td>{{$quantitaOrdinata}}</td>
-            <td>___________</td>
-
-          </tr>
-          @endforeach
-         
-        </tbody>
-    </table> --}}
-
-      
 </body>
 </html>
