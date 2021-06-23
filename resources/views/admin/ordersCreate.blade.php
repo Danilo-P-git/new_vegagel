@@ -191,7 +191,7 @@
 </div>
 
 <script>
-               
+     
     // Write on keyup event of keyword input element
     $("#search").keyup(function(){
         var searchText = $(this).val().toLowerCase();

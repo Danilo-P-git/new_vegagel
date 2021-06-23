@@ -76,11 +76,26 @@
                             
                         
                         @php
-                            $user = Auth::user()->is_worker;
-                        @endphp
-                        @if ($user == 1)
-                    <a class="nav-link" href="{{route('worker.home')}}">Zona Worker</a>
                             
+                        $user = Auth::user()->is_worker;
+                        $admin = Auth::user()->is_admin;
+                        @endphp
+                        @if ($user == 1 || $admin == 1)
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{route('worker.home')}}">Zona Worker</a>
+                        </li>
+                        
+                        @endif
+
+                        @php $admin = Auth::user()->is_admin;
+                        @endphp
+                        @if ($admin==1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('admin.home')}}">Admin dashboard</a>
+
+                        </li>
+
                         @endif
                         @endauth
                     </ul>
