@@ -14,11 +14,14 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
+    // mostra tutti gli ordini in pending 
     public function index()
     {
         $orders = Order::with('user')->where('completato', 0)->orderBy('created_at')->get();
         return view('worker.orders', compact('orders'));
     }
+
+    // mostra l'ordine singolo con all'interno i prodotti
     public function show($id)
     {
         $orders = Order::find($id);
@@ -33,6 +36,8 @@ class OrderController extends Controller
         $products = Product::with('sector')->whereIn('id', $arrayProduct)->get();
         return view('worker.orderShow', compact('pivot','orders','products'));
     }
+
+    // Conferma scansione del prodotto
     public function confirm(Request $request, $id) 
     {
         $pivot = Order_Product::find($id);
@@ -75,6 +80,7 @@ class OrderController extends Controller
         return redirect()->back();
         
     }
+    // conferma dell'ordine 
     public function done($id)
     {
         $pivot = Order_Product::where('order_id', $id)->get();
@@ -100,6 +106,8 @@ class OrderController extends Controller
         return redirect()->back();
 
     }
+
+    // Salva pdf con bolla di carica dell'ordine 
     public function savePdf($id)
     {
         $pivot = Order_Product::where('order_id', $id)->get();

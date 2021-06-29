@@ -8,6 +8,11 @@ use App\Product;
 use App\Sector;
 class ProductController extends Controller
 {
+    // ****OLD***** //
+
+    // BASE API PER MOBILE-APP 
+    
+
     /**
      * Display a listing of the resource.
      *

@@ -12,28 +12,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // mostra tutte le categorie
     public function index()
     {
         $categories = Category::all();
         return view('admin.categories', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // creazione e storing della categoria
     public function store(Request $request)
     {
 

@@ -12,7 +12,7 @@ use Sortable;
 use DB;
 class ProductController extends Controller
 {
-
+    // Home worker 
     public function home() {
         return view('worker.home');
     }
@@ -21,6 +21,8 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    
     public function index()
     {
         $products = Product::with('sector')->sortable()->get();
@@ -33,6 +35,8 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // Pagina di creazione dell' prodotto 
     public function create()
     {
         $categories = Category::all();
@@ -45,7 +49,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
+    // Funzione di ricerca del prodotto dal codice prodotto con query che va a prendere la somma di tutti i prodotti
     function search (Request $request) {
         
         $data = $request->all();
@@ -95,6 +99,8 @@ class ProductController extends Controller
     //     $product = Product::findOrFail($id);
     //     return view('worker.shipment', compact('product'));
     // }
+
+
     function test(Request $request, $id)
     {
         $product = Product::with('sector')->where('esaurito', 0)->find($id);
@@ -127,7 +133,7 @@ class ProductController extends Controller
         }
         return redirect()->route('worker.home', $product);
     }
-
+    // funzione di salvataggio dell'oggetto
     public function store(Request $request)
     {
         $request->validate([

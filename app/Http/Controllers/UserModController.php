@@ -12,6 +12,7 @@ use Sortable;
 
 class UserModController extends Controller
 {
+    // separazione degli utenti in base ai loro dati 
     public function showUser() {
         // $users = User::where('users.is_worker AND users.is_admin', '=', '0')->orWhere('users.is_worker  && users.is_admin', '=', 'null')->get();
         
@@ -44,7 +45,7 @@ class UserModController extends Controller
         
         return view('admin.showUser', compact('users', 'aziende', 'worker'));
     }
-
+    // possibilità di poter far diventare un utente lavoratore e viceversa
     public function editRole(Request $request, $id) {
         if ($request->is_worker == "on") {
             $checkbox = 1;
@@ -57,7 +58,7 @@ class UserModController extends Controller
         $users->push();
         return redirect()->route('admin.showUser', $users);
     }
-
+    // Possibilità di far diventare un azienda un lavoratore o un utente
     public function editData(Request $request, $id) {
         $request->validate([
             'pec' => "required|max:191",
@@ -106,7 +107,9 @@ class UserModController extends Controller
         $users->push();
         return redirect()->route('admin.showUser', $users);
     }
+
     
+    // Creazione da zero dell'user 
     public function createUser(Request $request){
         
         if ($request->is_worker == "on") {

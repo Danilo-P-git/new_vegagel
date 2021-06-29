@@ -1,14 +1,28 @@
 require('./bootstrap');
+// utilizzo di handlebar e di chiamate api al controller API SearchController
 const Handlebars = require('handlebars/dist/cjs/handlebars');
 
 if (screen.width < 980) {
     $("#admin-nav").addClass('active')
 }
+// admin sidebar 
 $(document).ready(function() {
     $('#sidebarCollapse').on('click', function () {
         $('#admin-nav').toggleClass('active');
     });
+// /admin sidebar 
+// stile
+$("#lavoratoreCreate").on('change', function() {
+    console.log('change');
+    $("#aziendeCreate").toggle('fast');
+})
+$(".close").on('click', function(){
+    $(".element-wrapper").empty();
 
+})
+// stile
+
+// ajax ricerca azienda api 
 $("#cercaAziende").on('click', function() {
     var filter = $("#filterAzienda").val();
     console.log(filter);
@@ -33,6 +47,9 @@ $("#cercaAziende").on('click', function() {
         }
     });
 })
+// ajax ricerca azienda api 
+
+// ajax ricerca utente ADMIN  api 
 
 $("#cercaUtente").on('click', function() {
     var filter = $("#filterUtente").val();
@@ -58,6 +75,9 @@ $("#cercaUtente").on('click', function() {
         }
     });
 })
+// ajax ricerca utente ADMIN  api 
+
+// impostazione data e mese per date di scadenza in orderCreate lato ADMIN 
 
 var d = new Date();
 
@@ -74,16 +94,10 @@ var day2 = d.getDate();
 
 var oneMonth = d.getFullYear() + '-' + ((''+month2).length<2 ? '0' : '') + month2 + '-' + ((''+day).length<2 ? '0' : '') + day;
 
+// impostazione data e mese per date di scadenza in orderCreate lato ADMIN 
 
+// Ricerca nei prodotti il singolo lotto 
 
-    $("#lavoratoreCreate").on('change', function() {
-        console.log('change');
-        $("#aziendeCreate").toggle('fast');
-    })
-    $(".close").on('click', function(){
-        $(".element-wrapper").empty();
-
-    })
     $(".products").on('click', function () {
         var codProdotto = $(this).val();
         var protocol = window.location.protocol;
@@ -130,10 +144,11 @@ var oneMonth = d.getFullYear() + '-' + ((''+month2).length<2 ? '0' : '') + month
         });
     })
 
+// Ricerca nei prodotti il singolo lotto 
 
 
 // FUNZIONI
-
+// stampa azienda 
 function renderAzienda(data) {
     var source = $("#azienda-template").html();
     console.log(source);
@@ -167,8 +182,10 @@ function renderAzienda(data) {
     // for
 
   }
+// stampa azienda 
 
 
+// stampa utente handelbars 
 
   function renderUtente(data) {
     var source = $("#user-template").html();
@@ -202,6 +219,9 @@ function renderAzienda(data) {
     // for
 
     }
+// stampa utente handelbars 
+
+// stampa prodotti handlebars 
 
     function renderProdotti(data) {
         var source = $("#products-template").html();
@@ -229,6 +249,7 @@ function renderAzienda(data) {
         }
       }
 
+// stampa prodotti handlebars 
 
 
 

@@ -27,6 +27,7 @@ class AdminCartController extends Controller
         return view('admin.orders', compact('orders'));
     }
 
+    // Questa funzione raggruppa tutti i prodotti in base al loro codice prodotto e somma la loro quantita e le loro informazioni 
     public function displayProducts()
     {
         $today = Carbon::now()->format('Y-m-d');
@@ -35,23 +36,25 @@ class AdminCartController extends Controller
         $traUnMeseFormat = $todayFormat->addMonth();
         $traUnMese = $traUnMeseFormat->format('Y-m-d');
         // dd($traUnMese);
+        // Vecchia query da fare refactoring
         $products = DB::table("sectors")
         ->join("products", function($join){
             $join->on("product_id", "=", "products.id");
         })
-        ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.id','products.codice_prodotto', 'products.name', 'products.codice_stock', 'products.data_di_scadenza', 'products.esaurito','products.peso', DB::raw('sum(quantita_bloccata) AS bloccata'))
-        ->where('esaurito', '=', 0)
+        ->select(DB::raw('sum(quantita_rimanente) AS quantita' ),'products.id','products.codice_prodotto', 'products.name', 'products.codice_stock', 'products.data_di_scadenza','products.peso', DB::raw('sum(quantita_bloccata) AS bloccata'))
+        
         ->groupBy("products.codice_prodotto")
         ->orderBy('products.data_di_scadenza', 'desc')
         ->get();
+        // Vecchia query da fare refactoring
 
         $sector = Sector::all();
         $observerCall = Product::all();
         $users = User::where('ragione_sociale', '!=', NULL)->get();
         return view('admin.ordersCreate', compact('products', 'sector', 'users','today', 'traUnMese') );
-   }
+    }
 
-
+        // TEST 
 //    public function addOrder(Request $request, $id)
 //    {
 //     $products = Product::with('sector')->where('esaurito', '=', 0)->find($id);
@@ -61,9 +64,12 @@ class AdminCartController extends Controller
 //     // dd($products);
 //    return redirect()->back() ;
 //    }
+        // TEST 
 
-   public function quantitaBloccata(Request $request, $id)
-   {
+
+    // blocco di quantita e creazione "carrello nella sessione"
+    public function quantitaBloccata(Request $request, $id)
+    {
     //    dd($id);
        $products = Product::with('sector')->where('esaurito', '=', 0)->find($id);
         // dd($request->quantita_bloccata);
@@ -87,10 +93,13 @@ class AdminCartController extends Controller
         
         // dd($products);
        return redirect()->back() ;
-   }
+    }
 
-   public function orderSend(Request $request)
-   {
+
+
+    // Creazione e invio ordine ai lavoratori e cancellazione CART 
+    public function orderSend(Request $request)
+    {
         $cart = session()->get('cart');
         
         // dd($cart); 
@@ -114,30 +123,34 @@ class AdminCartController extends Controller
 
         return redirect()->back();
 
-   }
+    }
+    // Creazione e invio ordine ai lavoratori e cancellazione CART 
 
-   public function deleteCart($id)
-   {
-    $cart = session()->get('cart');
-    $quantita_bloccata = $cart[$id]['quantita'];
-    $idProduct = $cart[$id]['id'];
-    $products = Product::with('sector')->find($idProduct);
-    
-    $products->sector->quantita_bloccata = $products->sector->quantita_bloccata - $quantita_bloccata;
-    $quantitaTemp = $products->sector->quantita_bloccata;
-    if ( $quantitaTemp >=0    ) {
-    $products->push();
+    // Cancellazione elemento singolo dal cart 
+    public function deleteCart($id)
+    {
+        $cart = session()->get('cart');
+        $quantita_bloccata = $cart[$id]['quantita'];
+        $idProduct = $cart[$id]['id'];
+        $products = Product::with('sector')->find($idProduct);
         
-    }
+        $products->sector->quantita_bloccata = $products->sector->quantita_bloccata - $quantita_bloccata;
+        $quantitaTemp = $products->sector->quantita_bloccata;
+            if ( $quantitaTemp >=0    ) {
+            $products->push();
+                
+            }
 
-    unset($cart[$id]);
-    session()->put('cart', $cart);
-    if (count($cart)==0) {
-        session()->forget('cart');
+        unset($cart[$id]);
+        session()->put('cart', $cart);
+        if (count($cart)==0) {
+            session()->forget('cart');
 
-    }
+        }
 
-    return redirect()->back() ;
+        return redirect()->back() ;
           
-   }
+    }
+    // Cancellazione elemento singolo dal cart 
+
 }

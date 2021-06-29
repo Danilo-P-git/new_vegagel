@@ -29,6 +29,7 @@ class HomeController extends Controller
         return view('home');
     }
 
+    // Mostra di tutto il log dei worker 
     public function adminHome()
     {
         $log = Log::orderBy('created_at', 'DESC')->sortable()->paginate(10);

@@ -15,6 +15,7 @@ use PDF;
 use Illuminate\Support\Facades\Storage;
 class AdminProductController extends Controller
 {
+    // Mostra tutti i prodotti separati per data di scadenza sortable
     public function index(){
         $todayFormat = Carbon::now();
         $oneMonthFormat = Carbon::now()->addMonth();
@@ -39,7 +40,9 @@ class AdminProductController extends Controller
 
         return view('admin.products', compact('inScadenza', 'scaduti', 'products'));
     }
+    // Mostra tutti i prodotti separati per data di scadenza sortable
 
+    // funzione stampa pdf 
     public function stampaScaduti(){
         $today = Carbon::now()->format('Y-m-d');
 
