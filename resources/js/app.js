@@ -208,6 +208,8 @@ function renderAzienda(data) {
             "partita_iva": data[i].partita_iva,
             "ragione_sociale": data[i].ragione_sociale,
 
+
+            
         }
 
 
