@@ -12,8 +12,12 @@
         @if (Session::has('cart'))
             
         
-        @php $cart = session()->get('cart')
+        @php 
+        
+        $cart = session()->get('cart')
+        
         @endphp
+
 
         <h2>Ordine in creazione</h2>
         <div class="overflow-auto p-2" style="width: 80%">
@@ -33,7 +37,7 @@
                     @foreach ($cart as $key =>$item )
                     
                     <tr>
-                        <td>{{$item['nome']}}</td>
+                        {{-- <td>{{$item['nome']}}</td> --}}
                         <td>{{$item['codice_prodotto']}}</td>
                         <td>{{$item['quantita']}}</td>
                         <td>{{$item['lotto']}}</td>
@@ -191,7 +195,7 @@
 </div>
 
 <script>
-               
+     
     // Write on keyup event of keyword input element
     $("#search").keyup(function(){
         var searchText = $(this).val().toLowerCase();

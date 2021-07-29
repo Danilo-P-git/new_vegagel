@@ -62,12 +62,25 @@
 
 @foreach ($pivot as $value => $key)
 
-
+@php
+    $quantitaOrdinata = $key->quantita;
+    $quantitaACartone = $products[$value]->sector->quantita_a_cartone;
+    if (isInt($quantitaOrdinata / $quantittaACartone)) {
+       $collo = $quantitaOrdinata/$quantitaACartone;
+       $verifica = true;
+    } else {
+        $verifca = false;
+    }
+@endphp
     <div class="card m-2 orders-card p-4" style=" @if ($key->completato == 1) background-color: rgba(25, 255, 0, 0.34); @endif" id="{{$products[$value]->id}}">
         <div class="card-body position-relative">
             <h5 class="card-title">Prodotto {{$products[$value]->codice_prodotto}}</h5>
             <p class="card-text"> Settore più vicino {{$products[$value]->sector->settore}}</p>
             <p class="card-text"> Quantita ordinata {{$key->quantita}}</p>
+            @if ($verifca = true)
+                
+            <p class="card-text">Colli ordinati{{$colli}}</p>
+            @endif
 
            <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" id="test{{$key->id}}" data-target="#modal{{$key->id}}">

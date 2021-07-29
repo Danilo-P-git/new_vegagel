@@ -93,7 +93,7 @@ class AdminCartController extends Controller
    {
         $cart = session()->get('cart');
         
-        // dd($cart); 
+        /* dd($request, $cart); */ 
 
         $order = New Order;
         $order->user_id = $request->user;

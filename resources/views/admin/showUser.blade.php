@@ -55,7 +55,7 @@
                 <label for="create-email" class="col-md-4 col-form-label text-md-right">{{ __('Mail di riferimento') }}</label>
 
                 <div class="col-md-6">
-                    <input id="create-email" type="email" class="pers-required form-control @error('email') is-invalid @enderror" name="email" value="{{old("email")}}"  >
+                    <input id="create-email" type="email" class="pers-required form-control @error('email') is-invalid @enderror" name="email" value="{{old("email")}}" required >
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">

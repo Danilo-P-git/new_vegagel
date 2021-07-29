@@ -17,8 +17,9 @@
 
         <h5>Quantita totale  @{{quantita}}</h5>
         <div class="alert alert-warning" role="alert">
-            Attualmente ci sono <strong>@{{quantita_bloccata}} </strong> elementi ordinati su  <strong>@{{quantita}}</strong>
-          </div>
+           <p> Attualmente ci sono <strong>@{{quantita_bloccata}} </strong> elementi ordinati su  <strong>@{{quantita}}</strong></p>
+        </div>
+        <p id="peso@{{id}}"></p>
         <div class="form-group row">
 
             <label for="bloccata@{{id}}" class="col-md-4 col-form-label text-md-right">Inserire il numero di oggetti singoli</label>

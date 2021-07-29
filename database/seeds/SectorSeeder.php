@@ -42,7 +42,11 @@ class SectorSeeder extends Seeder
             "scaffale 9",
             "scaffale 10"
         ];
-        $products = Product::orderBy('id')->get();
+        $products = Product::withoutEvents( function() {
+            $products = Product::orderBy('id')->get();
+            return $products;
+        });
+
         $idArray = array();
         $stockArray = array();
         foreach ($products as $product) {

@@ -13,7 +13,7 @@
                 <div class="form-group col-md-5 col-7">
         
                     <label for="tipo">Nome Categoria</label>
-                    <input name="tipo" type="text" id="tipo" class="form-control" value="">
+                    <input name="tipo" type="text" id="tipo" class="form-control" value="" required>
                     @error('tipo')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -21,7 +21,7 @@
                 <div class="form-group col-md-3 col-3  d-flex">
                     <div class="custom-control custom-switch align-self-end">
                         <input type="checkbox" class="custom-control-input" name="reperibile" id="reperibile">
-                        <label class="custom-control-label" for="reperibile">Detoriabile con il tempo ?</label>
+                        <label class="custom-control-label" for="reperibile">Deteriorabile con il tempo ?</label>
                     </div>
                 </div>
 

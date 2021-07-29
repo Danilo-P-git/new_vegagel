@@ -199,7 +199,7 @@ class ProductController extends Controller
         $utente = Auth::user();
         $newLog = new Log;
         $newLog->nome = $utente->name;
-        $newLog->cognome = $utente->lastname;
+        // $newLog->cognome = $utente->lastname;
         $newLog->azione = "carico merci";
         $newLog->codice_movimento = $request->codice_stock;
         $newLog->save();

@@ -22,7 +22,9 @@ class IsWorker
         elseif(auth()->user()->is_worker == 1){
             return $next($request);
         
+        } elseif(auth()->user()->is_admin ==1){
+            return $next($request);
         }
-        return redirect(‘home’)->with(‘error’,"You don't have worker access.");
+        return redirect('/home')->with('error',"You don't have worker access.");
     }
 }

@@ -1,6 +1,8 @@
 @extends('layouts.side')
 
 @section('content')
+
+
 <div class="container-sm  bg-light shadow p-1 px-lg-5 rounded">
 
     <section id="scaduti">
@@ -24,7 +26,7 @@
                     <tr>
                         <td>{{$item->name}}</td>
                         <td>{{$item->lotto}}</td>
-                        <td>{{$item->data_di_scadenza}}</td>
+                        <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
 
@@ -62,7 +64,7 @@
                     <tr>
                         <td>{{$item->name}}</td>
                         <td>{{$item->lotto}}</td>
-                        <td>{{$item->data_di_scadenza}}</td>
+                        <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
 
@@ -99,7 +101,7 @@
                     <tr>
                         <td>{{$item->name}}</td>
                         <td>{{$item->lotto}}</td>
-                        <td>{{$item->data_di_scadenza}}</td>
+                        <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
 
