@@ -52,9 +52,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('ecommerce.homecommerce') }}">E-Commerce</a>
-                                </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
@@ -105,11 +102,36 @@
                 </div>
             </div>
         </nav>
+        
+        <div class="container shadow mt-5 my-5">
+            <div class="row justify-content-center">
+                @foreach ($products as $product)
+                <div class="col-12 col-md-3 m-5 rounded-3">
+                    <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body shadow">
+                          <h5 class="card-title">Nome articolo: </h5>
+                          <p style="color: #fd0000af"><strong>{{$product->name}}</p></strong>
+                          <h5 class="card-text">Descrizione prodotto: </h5>
+                          <p style="color: #fd0000af"><strong>{{$product->description}}</p></strong><hr>
+                          <h5 class="card-text">Prezzo singolo: <strong><span style="color: #fd0000af">{{$product->prezzo_al_pezzo}} €</span></strong></h5>
+                          <h5 class="card-text">Prezzo al Kg: <strong><span style="color: #fd0000af">{{$product->prezzo_al_kg}} €</span></strong></h5>
+                          <h5 class="card-text">Unità disponibili: <strong><span style="color: #fd0000af">{{$product->sector->quantita_rimanente - $product->sector->quantita_bloccata}}</span></strong></h5>
+                          
+                          <a href="#" class="btn btn-primary">Aggiungi al carrello</a>
+                        </div>
+                      </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
 
         <main class="py-4 bg-grey-100 app-layout">
             @yield('content')
         </main>
     </div>
+
+    
 
     <script>
 

@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminCartController;
-use Illuminate\Support\Facades\Route;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminCartController;
+use App\Http\Controllers\CommerceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +23,10 @@ Route::get('/', function () {
     return view('welcome', ['products' => $products]);
 });
 Auth::routes();
+//ROTTE PER L'E-COMMERCE
+Route::get('/ecommerce', [CommerceController::class,'showCommerce'])->name('ecommerce.homecommerce');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');
 Route::get('worker/home', 'HomeController@workerHome')->name('worker.home')->middleware('is_worker');
