@@ -52,6 +52,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('welcome') }}">E-Commerce</a>
+                                </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
@@ -93,14 +96,11 @@
                         @if ($admin==1)
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('admin.home')}}">Admin dashboard</a>
+
                         </li>
-                        
 
                         @endif
                         @endauth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('welcome') }}">E-Commerce</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -115,27 +115,58 @@
                         <span class="sr-only">Toggle Menu</span>
                         </button>
                 </div>
-                <div class="list-menu py-4 px-2">
-                    <h1>NewVecagel</h1>
-                    <ul>
-                        <li class="{{ (request()->is('admin/showUser*')) ? 'active' : '' }}">
-                            <a href="{{route('admin.showUser')}}">Gestione Utenti</a>
-                        </li>
-                        <li class="{{ (request()->is('admin/home*')) ? 'active' : '' }}">
-                            <a  href="{{route('admin.home')}}">Attività lavoratori</a>
-                        </li>
-                        <li class="{{ (request()->is('admin/orders*')) ? 'active' : '' }}" >
-                            <a href="{{route('admin.orders')}}">Ordini</a>
-                        </li>
-                        <li class="{{ (request()->is('admin/categories*')) ? 'active' : '' }}">
-                            <a href="{{route('admin.categories')}}">Categorie</a>
-                        </li>
-                        <li class="{{ (request()->is('admin/products*')) ? 'active' : '' }}">
-                            <a href="{{route('admin.products')}}">Prodotti</a>
-                        </li>
-   
-                    </ul>
-                </div>
+                <form action="{{route('welcome.filter')}}" method="GET">
+                  @csrf
+                  <div class="list-menu py-4 px-2">
+                      <h1>Filtra Ricerca</h1>
+                      <div id="accordion">
+                          <div class="card">
+                            <div class="card-header" id="headingOne">
+                              <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  Collapsible Group
+                                </button>
+                              </h5>
+                            </div>
+                            <label for="" class="mt-2 text-center" style="color: red">Prezzo Min:
+                            <p><input type="text" class="form-control ml-5"  name="prezzo_min" style="width: 60%" id="prezzo_min" placeholder="€"></label></p>
+                            <label for="" class="mt-2 text-center" style="color: red">Prezzo Max:
+                            <p><input type="text" class="form-control ml-5" style="width: 60%" name="prezzo_max" id="prezzo_max" placeholder="€"></label></p>
+                            <button type="submit" id="buttonfilter" class="btn btn-primary">Applica</button>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                              <div class="card-body">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-header" id="headingTwo">
+                              <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Collapsible Group
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                              <div class="card-body">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-header" id="headingThree">
+                              <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  Collapsible Group
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                              <div class="card-body">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+              </form>
             </aside>
             <section class="py-4 content-section-admin">
                 @yield('content')
@@ -144,11 +175,19 @@
         </main>
     </div>
 
-    <script>
-                 
+{{--     <script type="text/javascript">
+       // FILTRO PER PREZZO          
+                 (function () {
+  function filter() {
+    let min = document.getElementById('prezzo_min').value;
+    let max = document.getElementById('prezzo_max').value;
+    console.log(min, max);
+  }
 
-                
+  document.getElementById('buttonfilter').addEventListener('click', filter, true);
+})();
+           
     
-    </script>
+    </script> --}}
 </body>
 </html>

@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
+use App\filter\ProductFilter;
 use App\Observers\ProductObserver;
+use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -32,7 +34,13 @@ class Product extends Model
         "lotto",
         "created_at",
         "updated_at",
-        "data_di_scadenza"
+        "data_di_scadenza",
+        "photo"
 
     ];
+
+    public function scopeFilter(Builder $builder, $request)
+    {
+        return (new ProductFilter($request))->filter($builder);
+    }
 }

@@ -52,9 +52,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('ecommerce.homecommerce') }}">E-Commerce</a>
-                                </li>
+                                
                             @endif
                         @else
                             <li class="nav-item dropdown">
@@ -101,6 +99,9 @@
 
                         @endif
                         @endauth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('welcome') }}">E-Commerce</a>
+                        </li>
                     </ul>
                 </div>
             </div>

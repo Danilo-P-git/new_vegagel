@@ -175,6 +175,10 @@
       <div class="alert alert-danger">{{ $message }}</div>
       @enderror
     </div>
+    <div class="form-group col-12">
+      <label for="photo">Foto di copertina </label>
+      <input class="form-control" type="file" name="photo" id="photo" accept="image/*" multiple>
+    </div>
   </div>
     {{-- form row  --}}
     <div class="alert alert-warning my-2" role="alert">
@@ -185,7 +189,8 @@
     <input hidden name="quantita_a_cartone" type="number" id="quantita_a_cartone" value="" >
     {{-- <a id="test" class="btn btn-success"> TESTAMI</a> --}}
   <button id="submit" type="submit" class="btn btn-primary">Scarica</button>
-  </form>
+
+
 
 </div>
 

@@ -24,7 +24,9 @@ Route::get('/', function () {
 });
 Auth::routes();
 //ROTTE PER L'E-COMMERCE
-Route::get('/ecommerce', [CommerceController::class,'showCommerce'])->name('ecommerce.homecommerce');
+Route::get('/', [CommerceController::class,'showCommerce'])->name('welcome');
+Route::get('/filter', [CommerceController::class,'index'])->name('welcome.filter');
+Route::get('/filter/{$filtered}', [CommerceController::class,'index'])->name('welcomefiltered');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
