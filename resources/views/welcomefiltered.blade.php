@@ -17,9 +17,10 @@
             <div class="row justify-content-center">
                 @foreach ($filtered as $filter)
                 <div class="col-12 col-md-3 m-5 ">
-                    <div class="card">
-                        <img src="{{asset('storage/'.$filter->photo)}}" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="...">
-                        <div class="card-body shadow">
+                    <div class="card card-round">
+                        {{-- <img src="{{asset('storage/'.$filter->photo)}}" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="..."> --}}
+                        <img src="https://via.placeholder.com/728.png?text=Immagine+segnaposto" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="...">
+                        <div class="card-body">
                           <h5 class="card-title">Nome articolo: </h5>
                           <p style="color: #fd0000af"><strong>{{$filter->name}}</p></strong>
                           <h5 class="card-text">Descrizione prodotto: </h5>

@@ -6,11 +6,12 @@
             <div class="row justify-content-center">
                 @foreach ($products as $product)
                 <div class="col-12 col-md-3 m-5 ">
-                    <div class="card">
-                        <img src="{{asset('storage/'.$product->photo)}}" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="...">
-                        <div class="card-body shadow">
-                          <h5 class="card-title">Nome articolo: </h5>
-                          <p style="color: #fd0000af"><strong>{{$product->name}}</p></strong>
+                    <div class="card card-round">
+                        {{-- <img src="{{asset('storage/'.$product->photo)}}" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="..."> --}}
+                        <img src="https://via.placeholder.com/728.png?text=Immagine+segnaposto" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="...">
+                        <div class="card-body">
+                          <h5 class="">Nome articolo: </h5>
+                          <p style="color: #fd0000af"><strong>{{$product->name}}</strong></p>
                           <h5 class="card-text">Descrizione prodotto: </h5>
                           <p style="color: #fd0000af"><strong>{{$product->description}}</p></strong><hr>
                           <h5 class="card-text">Prezzo singolo: <strong><span style="color: #fd0000af">{{$product->prezzo_al_pezzo}} €</span></strong></h5>

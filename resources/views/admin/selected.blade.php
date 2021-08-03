@@ -3,14 +3,13 @@
 @section('content')
 <div class="container-sm  bg-light shadow p-1 px-lg-5 rounded">
 
-<form action="{{route('admin.selected')}}" method="POST">
-    <select name="logUser" id="logUser">
+
         @foreach ($log->unique('nome') as $item)
-        <option name="logUser" value="{{$item->nome}}">{{$item->nome}}</option>
+        <h2>Logs Trovati per : <span>{{$item->nome}}</span></h2>
         @endforeach
-    </select>
-    <button class="btn bnt-danger" type="submit"> Conferma Scelta</button>
-</form>
+    
+    <button class="btn btn-danger"><a href="{{route('admin.home')}}" style="text-decoration: none">Torna Indietro</a></button>
+
 
     <div class="overflow-auto p-2">
 
@@ -39,10 +38,10 @@
             </tbody>
 
         </table>
-        {!! $log->appends(Request::except('page'))->render() !!}
+        {{-- {!! $log->appends(Request::except('page'))->render() !!}
         <p>
             Displaying {{$log->count()}} of {{ $log->total() }} log(s).
-        </p>
+        </p> --}}
     </div>
 </div>
 @endsection

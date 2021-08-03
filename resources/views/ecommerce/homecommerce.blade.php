@@ -16,8 +16,9 @@
                           <h5 class="card-text">Prezzo singolo: <strong><span style="color: #fd0000af">{{$product->prezzo_al_pezzo}} €</span></strong></h5>
                           <h5 class="card-text">Prezzo al Kg: <strong><span style="color: #fd0000af">{{$product->prezzo_al_kg}} €</span></strong></h5>
                           <h5 class="card-text">Unità disponibili: <strong><span style="color: #fd0000af">{{$product->sector->quantita_rimanente - $product->sector->quantita_bloccata}}</span></strong></h5>
-                          
-                          <a href="#" class="btn btn-primary">Aggiungi al carrello</a>
+                          <form action="{{env('APP_URL')}}/admin/ordersQuantity/@{{id}}" method="POST">
+                            @csrf
+                          <button class="btn btn-primary">Aggiungi al carrello</button></form>
                         </div>
                       </div>
                 </div>
