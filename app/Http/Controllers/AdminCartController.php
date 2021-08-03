@@ -150,7 +150,12 @@ class AdminCartController extends Controller
 
         return redirect()->back() ;
           
+<<<<<<< HEAD
     }
     // Cancellazione elemento singolo dal cart 
+=======
+   }
+
+>>>>>>> main
 
 }

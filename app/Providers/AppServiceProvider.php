@@ -4,7 +4,6 @@ namespace App\Providers;
 use App\Observers\Order_ProductObserver;
 use App\Observers\SectorObserver;
 use App\Observers\ProductObserver;
-
 use App\Order_Product;
 use App\Product;
 use App\Sector;

@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Product;
-use App\Sector;
-use App\Log;
-use App\Category;
-
-use Sortable;
 use DB;
+use App\Log;
+use Sortable;
+use App\Photo;
+use App\Sector;
+use App\Product;
+
+use App\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class ProductController extends Controller
 {
     // Home worker 
@@ -136,6 +138,7 @@ class ProductController extends Controller
     // funzione di salvataggio dell'oggetto
     public function store(Request $request)
     {
+        /* dd($request); */
         $request->validate([
             'codice_prodotto' => "required|max:191",
             'codice_stock' => "required|max:191",
@@ -151,6 +154,7 @@ class ProductController extends Controller
             'quantita_di_cartoni' => 'required|integer',
             'quantita_a_cartone'=> 'required|integer',
             'peso'=> 'required',
+            'photo'=>'nullable',
              
                 ],
     [
@@ -188,9 +192,34 @@ class ProductController extends Controller
         $newProduct->prezzo_al_kg = $request->prezzo_al_kg;
         $newProduct->peso = $request->peso;
         $newProduct->category_id = $request->category_id;
-        
-
+        $newProduct->photo = $request->photo;
         $newProduct->save();
+        $newId= $newProduct->id;
+        $photo = $request->photo->storeAs(
+            "images/".$newId,
+            "photo".$newId.".jpg",
+            "public"
+        );
+    
+        $newProduct->photo=$photo;
+        $newProduct->push();
+
+        if ($request->hasFile('photo')) {
+            $images = $request->file('photo');
+            foreach ($images as $key =>$image) {
+                $path = $image->storeAs(
+                    "images/".$newId,
+                    "image".$key."-".$newId.".jpg",
+                    "public"
+                );
+                $newPhoto = new Photo;
+                $newPhoto->path = $path;
+                $newPhoto->product_id = $newId;
+                $newPhoto->save();
+            }
+        }
+
+
         $newSector = new Sector;
         $newSector->product_id = $newProduct->id;
         $newSector->codice_stock = $request->codice_stock;

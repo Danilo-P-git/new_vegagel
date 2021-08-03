@@ -65,7 +65,7 @@
 @php
     $quantitaOrdinata = $key->quantita;
     $quantitaACartone = $products[$value]->sector->quantita_a_cartone;
-    if (isInt($quantitaOrdinata / $quantittaACartone)) {
+    if (is_Int($quantitaOrdinata/$quantitaACartone)) {
        $collo = $quantitaOrdinata/$quantitaACartone;
        $verifica = true;
     } else {
@@ -79,7 +79,7 @@
             <p class="card-text"> Quantita ordinata {{$key->quantita}}</p>
             @if ($verifca = true)
                 
-            <p class="card-text">Colli ordinati{{$colli}}</p>
+            <p class="card-text">Colli ordinati{{$collo}}</p>
             @endif
 
            <!-- Button trigger modal -->
@@ -109,7 +109,7 @@
 
                             <div class="form-group">
                                       
-                                <label for="codice_prodotto">Scansiona il codice prodotto</label>
+                                <label for="codice_prodotto">Scansiona il codice prodotto singolo</label>
                                 <input name="codice_prodotto" type="text" id="prod{{$key->id}}"  class="form-control" value="" >
 
                                 <input hidden name="quantita" type="text" value="{{$key->quantita}}">

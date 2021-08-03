@@ -18,12 +18,31 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('user')->where('completato', 0)->orderBy('created_at')->get();
+        /* $orders=array(); */
+
+
+        //TEST NUOVA VISTA
+        /* foreach ($orders as $order) {
+            $orders=$order;
+            for ($i=0; $order <=0 ; $i++) { 
+                dd($order);
+            }
+            
+            dd($orders[1]->data_di_consegna);
+            foreach ($order as $key => $value) {
+                
+            }
+            
+        } */
+
+
         return view('worker.orders', compact('orders'));
     }
 
     // mostra l'ordine singolo con all'interno i prodotti
     public function show($id)
     {
+        
         $orders = Order::find($id);
         $pivot = Order_product::where('order_id', $id)->get();
         // dd($pivot);
@@ -33,7 +52,9 @@ class OrderController extends Controller
             
         }
         
+        
         $products = Product::with('sector')->whereIn('id', $arrayProduct)->get();
+        
         return view('worker.orderShow', compact('pivot','orders','products'));
     }
 

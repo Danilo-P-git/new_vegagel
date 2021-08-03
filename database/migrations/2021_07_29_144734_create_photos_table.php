@@ -13,10 +13,11 @@ class CreatePhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
+        /* Schema::create('photos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained();
             $table->timestamps();
-        });
+        }); */
     }
 
     /**
@@ -24,8 +25,10 @@ class CreatePhotosTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('photos');
+    public function down(){
+        /* Schema::table('photos', function (Blueprint $table) {
+            $table->dropForeign('photos_product_id_foreign');
+        });
+        Schema::dropIfExists('photos'); */
     }
 }

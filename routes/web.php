@@ -24,11 +24,14 @@ Route::get('/', function () {
 });
 Auth::routes();
 //ROTTE PER L'E-COMMERCE
-Route::get('/ecommerce', [CommerceController::class,'showCommerce'])->name('ecommerce.homecommerce');
+Route::get('/', [CommerceController::class,'showCommerce'])->name('welcome');
+Route::get('/filter', [CommerceController::class,'index'])->name('welcome.filter');
+Route::get('/filter/{$filtered}', [CommerceController::class,'index'])->name('welcomefiltered');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');
+Route::post('admin/home/selected', 'HomeController@logUser')->name('admin.selected')->middleware('is_admin');
 Route::get('worker/home', 'HomeController@workerHome')->name('worker.home')->middleware('is_worker');
 Route::get('worker/orders', 'OrderController@index')->name('worker.orders')->middleware('is_worker');
 Route::any('worker/orders/{id}', 'OrderController@show')->name('worker.orderShow')->middleware('is_worker');
