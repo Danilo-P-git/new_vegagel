@@ -45,13 +45,13 @@ class OrderController extends Controller
         
         $orders = Order::find($id);
         $pivot = Order_product::where('order_id', $id)->get();
-        // dd($pivot);
+        dd($pivot);
         $arrayProduct = array();
         foreach ($pivot as $key) {
             array_push($arrayProduct, $key->product_id);
             
         }
-        
+        dd($arrayProduct);
         
         $products = Product::with('sector')->whereIn('id', $arrayProduct)->get();
         

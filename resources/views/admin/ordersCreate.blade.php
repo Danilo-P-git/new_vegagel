@@ -37,7 +37,7 @@
                     @foreach ($cart as $key =>$item )
                     
                     <tr>
-                        {{-- <td>{{$item['nome']}}</td> --}}
+                        <td>{{$item['nome']}}</td>
                         <td>{{$item['codice_prodotto']}}</td>
                         <td>{{$item['quantita']}}</td>
                         <td>{{$item['lotto']}}</td>

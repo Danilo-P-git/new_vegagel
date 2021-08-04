@@ -190,7 +190,7 @@
     {{-- <a id="test" class="btn btn-success"> TESTAMI</a> --}}
   <button id="submit" type="submit" class="btn btn-primary">Scarica</button>
 
-
+    </form>
 
 </div>
 

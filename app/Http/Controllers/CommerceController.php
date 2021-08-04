@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class CommerceController extends Controller
 {
     public function showCommerce(){
+        
 
         $products= Product::all();
         /* dd($products); */
@@ -19,6 +20,7 @@ class CommerceController extends Controller
 
     public function index(Request $request)
     {
+        
         $products= Product::all();
         $priceMin=$request->prezzo_min;
         $priceMax=$request->prezzo_max;

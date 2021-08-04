@@ -18,6 +18,9 @@
                     <th>@sortablelink('data_di_scadenza', 'Data di scadenza')</th>
                     <th>Settore</th>
                     <th>Scaffale</th>
+                    <th>quantita rimanente</th>
+                    <th>quantita ordinata</th>
+
                 </tr>
 
             </thead>
@@ -29,6 +32,9 @@
                         <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
+                        <td>{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
+                        <td>{{$item->sector->quantita_bloccata}}</td>
+
 
                     </tr>
                 @endforeach
@@ -56,6 +62,9 @@
                     <th>@sortablelink('data_di_scadenza', 'data_di_scadenza')</th>
                     <th>Settore</th>
                     <th>Scaffale</th>
+                    <th>quantita rimanente</th>
+                    <th>quantita ordinata</th>
+
                 </tr>
 
             </thead>
@@ -67,6 +76,9 @@
                         <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
+                        <td>{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
+                        <td>{{$item->sector->quantita_bloccata}}</td>
+
 
                     </tr>
                 @endforeach
@@ -93,6 +105,8 @@
                     <th>@sortablelink('data_di_scadenza', 'data_di_scadenza')</th>
                     <th>Settore</th>
                     <th>Scaffale</th>
+                    <th>quantita rimanente</th>
+                    <th>quantita ordinata</th>
                 </tr>
 
             </thead>
@@ -104,6 +118,8 @@
                         <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
+                        <td>{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
+                        <td>{{$item->sector->quantita_bloccata}}</td>
 
                     </tr>
                 @endforeach

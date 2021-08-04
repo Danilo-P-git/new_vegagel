@@ -71,6 +71,7 @@
     } else {
         $verifca = false;
     }
+    
 @endphp
     <div class="card m-2 orders-card p-4" style=" @if ($key->completato == 1) background-color: rgba(25, 255, 0, 0.34); @endif" id="{{$products[$value]->id}}">
         <div class="card-body position-relative">

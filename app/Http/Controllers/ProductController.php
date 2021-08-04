@@ -192,9 +192,9 @@ class ProductController extends Controller
         $newProduct->prezzo_al_kg = $request->prezzo_al_kg;
         $newProduct->peso = $request->peso;
         $newProduct->category_id = $request->category_id;
-        $newProduct->photo = $request->photo;
+        /* $newProduct->photo = $request->photo; */
         $newProduct->save();
-        $newId= $newProduct->id;
+       /*  $newId= $newProduct->id;
         $photo = $request->photo->storeAs(
             "images/".$newId,
             "photo".$newId.".jpg",
@@ -217,7 +217,7 @@ class ProductController extends Controller
                 $newPhoto->product_id = $newId;
                 $newPhoto->save();
             }
-        }
+        } */
 
 
         $newSector = new Sector;

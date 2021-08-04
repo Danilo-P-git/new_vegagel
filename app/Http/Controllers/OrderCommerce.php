@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class OrderCommerce extends Controller
 {
     public function orderCreate(Request $request){
+        
 
         $orders = Order::with('user')->where('completato', 0)->orderBy('created_at')->get();
         /* dd($request->all()); */
