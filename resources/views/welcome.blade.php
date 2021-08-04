@@ -5,23 +5,26 @@
         <div class="container shadow mt-5 my-5">
             <div class="row justify-content-center">
                 @foreach ($products as $product)
-                <div class="col-12 col-md-3 m-5 ">
-                    <div class="card card-round">
-                        {{-- <img src="{{asset('storage/'.$product->photo)}}" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="..."> --}}
-                        <img src="https://via.placeholder.com/728.png?text=Immagine+segnaposto" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="...">
-                        <div class="card-body">
-                          <h5 class="">Nome articolo: </h5>
-                          <p style="color: #fd0000af"><strong>{{$product->name}}</strong></p>
-                          <h5 class="card-text">Descrizione prodotto: </h5>
-                          <p style="color: #fd0000af"><strong>{{$product->description}}</p></strong><hr>
-                          <h5 class="card-text">Prezzo singolo: <strong><span style="color: #fd0000af">{{$product->prezzo_al_pezzo}} €</span></strong></h5>
-                          <h5 class="card-text">Prezzo al Kg: <strong><span style="color: #fd0000af">{{$product->prezzo_al_kg}} €</span></strong></h5>
-                          <h5 class="card-text">Unità disponibili: <strong><span style="color: #fd0000af">{{$product->sector->quantita_rimanente - $product->sector->quantita_bloccata}}</span></strong></h5>
-                          
-                          <a href="#" class="btn btn-primary">Aggiungi al carrello</a>
+                <form action="{{route('ecommerce.ordercreate')}}" method="GET">
+                    <div class="col-12 col-md-3 m-5 ">
+                        <div class="card">
+                            {{-- <img src="{{asset('storage/'.$product->photo)}}" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="..."> --}}
+                            <img src="https://via.placeholder.com/728.png?text=Immagine+segnaposto" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="...">
+                            <div class="card-body">
+                            <h5 class="">Nome articolo: </h5>
+                            <p style="color: #fd0000af"><strong>{{$product->name}}</strong></p>
+                            <p style="color: #fd0000af"><input type="text" name="id" value="{{$product->id}}"><strong>{{$product->name}}</strong></p>
+                            <h5 class="card-text">Descrizione prodotto: </h5>
+                            <p style="color: #fd0000af"><strong>{{$product->description}}</p></strong><hr>
+                            <h5 class="card-text">Prezzo singolo: <strong><span style="color: #fd0000af">{{$product->prezzo_al_pezzo}} €</span></strong></h5>
+                            <h5 class="card-text">Prezzo al Kg: <strong><span style="color: #fd0000af">{{$product->prezzo_al_kg}} €</span></strong></h5>
+                            <h5 class="card-text">Unità disponibili: <strong><span style="color: #fd0000af">{{$product->sector->quantita_rimanente - $product->sector->quantita_bloccata}}</span></strong></h5>
+                            
+                            <button class="btn btn-primary">Aggiungi al carrello</button>
+                        </form>
+                            </div>
                         </div>
-                      </div>
-                </div>
+                    </div>
                 @endforeach
             </div>
         </div>

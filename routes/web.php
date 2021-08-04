@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\CommerceController;
+use App\Http\Controllers\OrderCommerce;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Auth::routes();
 Route::get('/', [CommerceController::class,'showCommerce'])->name('welcome');
 Route::get('/filter', [CommerceController::class,'index'])->name('welcome.filter');
 Route::get('/filter/{$filtered}', [CommerceController::class,'index'])->name('welcomefiltered');
+Route::get('/ecommerce', [OrderCommerce::class,'orderCreate'])->name('ecommerce.ordercreate');
+Route::get('/ecommerce/{$id}', [OrderCommerce::class,'orderCreate'])->name('ecommerce.ordercreateid');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
