@@ -106,6 +106,14 @@
           @endforeach
       </select>
     </div>
+    <div class="form-group col-md-3 col-12">
+      <label for="fornitori_id">Fornitore</label>
+      <select class="custom-select custom-select-lg" name="fornitori_id" id="fornitori_id">
+          @foreach ($fornitori as $fornitori )
+              <option value="{{$fornitori->id}}" >{{$fornitori->name}}</option>
+          @endforeach
+      </select>
+    </div>
   </div>
       {{-- form row  --}}
 
@@ -356,6 +364,7 @@
           $('#description').val(response.description);
           $('#peso').val(response.peso);
           $('#category_id').val(response.category_id)
+          $('#fornitori_id').val(response.fornitori_id)
 
 
 

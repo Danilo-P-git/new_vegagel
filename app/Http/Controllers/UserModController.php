@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Fornitori;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -42,8 +43,17 @@ class UserModController extends Controller
         ->whereNotNull('is_worker')
         ->whereNotNull('ragione_sociale')
         ->sortable()->paginate(5);
+
+        $fornitori= Fornitori::
+        where('is_supplier',1)
+        ->whereNull('ragione_sociale')
+        ->sortable()->paginate(5);
+
+
         
-        return view('admin.showUser', compact('users', 'aziende', 'worker'));
+        
+        
+        return view('admin.showUser', compact('users', 'aziende', 'worker','fornitori'));
     }
     // possibilità di poter far diventare un utente lavoratore e viceversa
     public function editRole(Request $request, $id) {
@@ -139,5 +149,28 @@ class UserModController extends Controller
 
 
 
+    }
+
+    public function createFornitori(Request $request){
+        
+       
+        $user = new Fornitori;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make('PasswordDefault');
+        $user->pec = $request->pec;
+        $user->telefono = $request->telefono;
+        $user->indirizzo = $request->indirizzo;
+        $user->codice_fiscale = $request->codice_fiscale;
+        $user->citta = $request->citta;
+        $user->cap = $request->cap;
+        $user->provincia = $request->provincia;
+        $user->partita_iva = $request->partita_iva;
+        $user->num_documento = $request->num_documento;
+        $user->ragione_sociale = $request->ragione_sociale;
+        $user->is_supplier = 1;
+        $user->save();
+
+        return redirect()->route('admin.showUser');
     }
 }

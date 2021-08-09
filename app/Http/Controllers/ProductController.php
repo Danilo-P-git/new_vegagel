@@ -9,6 +9,7 @@ use App\Sector;
 use App\Product;
 
 use App\Category;
+use App\Fornitori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,9 +28,10 @@ class ProductController extends Controller
     
     public function index()
     {
+        $fornitori=Fornitori::all();
         $products = Product::with('sector')->sortable()->get();
         
-        return view('worker.index', compact('products'));
+        return view('worker.index', compact('products','fornitori'));
     }
 
     /**
@@ -41,8 +43,9 @@ class ProductController extends Controller
     // Pagina di creazione dell' prodotto 
     public function create()
     {
+        $fornitori=Fornitori::all();
         $categories = Category::all();
-        return view('worker.create', compact('categories'));
+        return view('worker.create', compact('categories','fornitori'));
     }
 
     /**
@@ -180,7 +183,7 @@ class ProductController extends Controller
            
     
     ]);
-
+        
         $newProduct = new Product;
         $newProduct->codice_prodotto = $request->codice_prodotto;
         $newProduct->codice_stock = $request->codice_stock;
@@ -192,6 +195,8 @@ class ProductController extends Controller
         $newProduct->prezzo_al_kg = $request->prezzo_al_kg;
         $newProduct->peso = $request->peso;
         $newProduct->category_id = $request->category_id;
+        $newProduct->fornitori_id = $request->fornitori_id;
+        /* dd($request->fornitori_id); */
         /* $newProduct->photo = $request->photo; */
         $newProduct->save();
        /*  $newId= $newProduct->id;
@@ -335,6 +340,7 @@ class ProductController extends Controller
         $product->prezzo_al_kg = $request->prezzo_al_kg;
         $product->peso = $request->peso;
         $product->category_id = $request->category_id;
+        $product->fornitori_id = $request->fornitori_id; //new
         $product->sector->settore = $request->settore;
         $product->sector->scaffale = $request->scaffale;
         $product->sector->quantita_rimanente = $request->quantita_rimanente;

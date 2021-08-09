@@ -10169,6 +10169,21 @@ h3 {
   box-shadow: -10px 0 15px -8px rgba(0, 0, 0, 0.767), 10px 0 15px -8px rgba(0, 0, 0, 0.767);
 }
 
+.changetored {
+  background-color: red;
+  color: white;
+}
+
+.changetogreen {
+  background-color: green;
+  color: white;
+}
+
+.accordion {
+  opacity: 0.8 !important;
+  background-color: green;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

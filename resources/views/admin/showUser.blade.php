@@ -959,6 +959,44 @@
 </section>
   {{-- Lavoratori --}}
 
+  {{-- FORNITORI --}}
+
+  <h2 class="py-2"> Fornitori</h2>
+    <div class="d-flex flex-column ">
+      <label class="ml-auto form-label" for="filterAzienda">Cerca il nome dell' azienda</label>
+      <input id="filterAzienda" class="ml-auto form-control offset-10 col-6 col-md-2" type="text" placeholder="Cerca">
+      <a class="ml-auto btn btn-primary my-1" id="cercaAziende">Search</a>
+    </div>
+    <table class="table border shadow table-bordered table-hover  rounded" >
+        <thead class="thead-dark rounded">
+            <tr>
+                <th scope="col">@sortablelink('name', 'Nome di riferimento')</th>
+                <th class="d-none d-md-table-cell" scope="col">@sortablelink('pec', 'Email-pec')</th>
+                <th scope="col">@sortablelink('ragione_sociale', 'Nome azienda')</th>
+                <th scope="col">@sortablelink('indirizzo', 'Indirizzo')</th>
+                <th scope="col">@sortablelink('telefono', 'Telefono di riferimento')</th>
+                <th class="d-none d-md-table-cell" scope="col">@sortablelink('partita_iva', 'Partita Iva')</th>
+
+
+
+
+                <th>Azioni</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody  class="azienda-wrapper">
+            @foreach ($fornitori as $item )
+                <tr>
+                    <td>{{$item->name}}</td>
+                    <td class="d-none d-md-table-cell">{{$item->email}}</td>
+                    <td>{{$item->ragione_sociale}}</td>
+                    <td>{{$item->indirizzo}}</td>
+                    <td>{{$item->telefono}}</td>
+                    <td class="d-none d-md-table-cell">{{$item->partita_iva}}</td>
+            @endforeach
+
   @include('layouts.handlebars_layout.aziendaHandle')
   @include('layouts.handlebars_layout.userHandle')
 

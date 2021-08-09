@@ -32,7 +32,7 @@
                         <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
-                        <td>{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
+                        <td name="changecolor">{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
                         <td>{{$item->sector->quantita_bloccata}}</td>
 
 
@@ -76,7 +76,7 @@
                         <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
-                        <td>{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
+                        <td name="changecolor">{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
                         <td>{{$item->sector->quantita_bloccata}}</td>
 
 
@@ -118,7 +118,7 @@
                         <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>
                         <td>{{$item->sector->scaffale}}</td>
-                        <td>{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
+                        <td name="changecolor">{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</td>
                         <td>{{$item->sector->quantita_bloccata}}</td>
 
                     </tr>
@@ -136,5 +136,26 @@
 
 
 </div>
+
+<script>
+
+
+let x = document.getElementsByName("changecolor");
+let i;
+
+for (i = 0; i < x.length; i++) {
+    if(x[i].innerHTML <= 20){
+         x[i].className = 'changetored';
+        } else if (x[i].innerHTML >=50){
+            x[i].className = 'changetogreen';
+        }
+
+}
+
+
+            
+   
+    
+</script>
 
 @endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Fornitori;
 use Illuminate\Database\Seeder;
 use App\User;
 
@@ -53,6 +54,14 @@ class UserSeeder extends Seeder
               // "indirizzo" => "via etnea 123",
               "is_admin" =>  "0",
               "is_worker" => "0"
+            ],
+            [
+              "name" => "Alessio",
+              // "date_of_birth" => "1989-05-19",
+              "email" => "alessioscionti@gmail.com",
+              // "indirizzo" => "via etnea 123",
+              "is_admin" =>  "1",
+              "is_worker" => "0"
             ]
           ];
 
@@ -67,6 +76,24 @@ class UserSeeder extends Seeder
             $newUser->is_admin = $user["is_admin"];
             $newUser->is_worker = $user["is_worker"];
             $newUser->save();
+          }
+
+          $fornitori= [
+            [
+              "name" => "Alessio",
+              // "date_of_birth" => "1994-02-17",
+              "email" => "alessioscionti@gmail.com",
+              "indirizzo" => "via milazzo 98",
+              "is_supplier" => "1" ,
+            ],
+          ];
+          foreach ($fornitori as $user) {
+            $newfornitori = new Fornitori;
+            $newfornitori->name=$user["name"];
+            $newfornitori->password = Hash::make('admin007');
+            $newfornitori->email = $user["email"];
+            $newfornitori->is_supplier = $user["is_supplier"];
+            $newfornitori->save();
           }
     }
 }

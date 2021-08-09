@@ -1843,18 +1843,31 @@ module.exports = {
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // utilizzo di handlebar e di chiamate api al controller API SearchController
+
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/cjs/handlebars */ "./node_modules/handlebars/dist/cjs/handlebars.js");
 
 if (screen.width < 980) {
   $("#admin-nav").addClass('active');
-}
+} // admin sidebar 
+
 
 $(document).ready(function () {
   $('#sidebarCollapse').on('click', function () {
     $('#admin-nav').toggleClass('active');
+  }); // /admin sidebar 
+  // stile
+
+  $("#lavoratoreCreate").on('change', function () {
+    console.log('change');
+    $("#aziendeCreate").toggle('fast');
   });
+  $(".close").on('click', function () {
+    $(".element-wrapper").empty();
+  }); // stile
+  // ajax ricerca azienda api 
+
   $("#cercaAziende").on('click', function () {
     var filter = $("#filterAzienda").val();
     console.log(filter);
@@ -1874,7 +1887,9 @@ $(document).ready(function () {
         renderAzienda(response);
       }
     });
-  });
+  }); // ajax ricerca azienda api 
+  // ajax ricerca utente ADMIN  api 
+
   $("#cercaUtente").on('click', function () {
     var filter = $("#filterUtente").val();
     console.log(filter);
@@ -1894,7 +1909,9 @@ $(document).ready(function () {
         renderUtente(response);
       }
     });
-  });
+  }); // ajax ricerca utente ADMIN  api 
+  // impostazione data e mese per date di scadenza in orderCreate lato ADMIN 
+
   var d = new Date();
   var month = d.getMonth() + 1;
   var day = d.getDate();
@@ -1902,14 +1919,9 @@ $(document).ready(function () {
   var d2 = new Date();
   var month2 = d.getMonth() + 2;
   var day2 = d.getDate();
-  var oneMonth = d.getFullYear() + '-' + (('' + month2).length < 2 ? '0' : '') + month2 + '-' + (('' + day).length < 2 ? '0' : '') + day;
-  $("#lavoratoreCreate").on('change', function () {
-    console.log('change');
-    $("#aziendeCreate").toggle('fast');
-  });
-  $(".close").on('click', function () {
-    $(".element-wrapper").empty();
-  });
+  var oneMonth = d.getFullYear() + '-' + (('' + month2).length < 2 ? '0' : '') + month2 + '-' + (('' + day).length < 2 ? '0' : '') + day; // impostazione data e mese per date di scadenza in orderCreate lato ADMIN 
+  // Ricerca nei prodotti il singolo lotto 
+
   $(".products").on('click', function () {
     var codProdotto = $(this).val();
     var protocol = window.location.protocol;
@@ -1945,7 +1957,9 @@ $(document).ready(function () {
 
       }
     });
-  }); // FUNZIONI
+  }); // Ricerca nei prodotti il singolo lotto 
+  // FUNZIONI
+  // stampa azienda 
 
   function renderAzienda(data) {
     var source = $("#azienda-template").html();
@@ -1972,7 +1986,9 @@ $(document).ready(function () {
       $(".azienda-wrapper").append(html);
     } // for
 
-  }
+  } // stampa azienda 
+  // stampa utente handelbars 
+
 
   function renderUtente(data) {
     var source = $("#user-template").html();
@@ -1999,7 +2015,9 @@ $(document).ready(function () {
       $(".utente-wrapper").append(html);
     } // for
 
-  }
+  } // stampa utente handelbars 
+  // stampa prodotti handlebars 
+
 
   function renderProdotti(data) {
     var source = $("#products-template").html();
@@ -2023,7 +2041,8 @@ $(document).ready(function () {
       var html = template(context);
       $(".element-wrapper").append(html);
     }
-  }
+  } // stampa prodotti handlebars 
+
 });
 
 /***/ }),

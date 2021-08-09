@@ -35,12 +35,18 @@ class Product extends Model
         "created_at",
         "updated_at",
         "data_di_scadenza",
-        "photo"
+        "photo",
+        "fornitori_id"
 
     ];
 
     public function scopeFilter(Builder $builder, $request)
     {
         return (new ProductFilter($request))->filter($builder);
+    }
+
+    public function fornitori()
+    {
+        return $this->belongsTo(Fornitori::class);
     }
 }
