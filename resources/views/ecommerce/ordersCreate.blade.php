@@ -17,6 +17,7 @@
         $cart = session()->get('cart')
         
         @endphp
+        
 
 
         <h2>Ordine in creazione</h2>
@@ -28,7 +29,7 @@
                         <th>Codice prodotto</th>
                         <th>Quantita</th>
                         <th>Lotto</th>
-                        <th>creato da:</th>
+                        <th>creato da</th>
                         <th>Provenienza</th>
                         <th>Azioni</th>
 
@@ -36,8 +37,12 @@
                     
                 </thead>
                 <tbody>
+                    
+                        
+                    
                     @foreach ($cart as $key =>$item )
-                    @if ($item['zona']='interno')
+                    
+                    @if ($item['zona']='1')
                         
                     
                     <tr>
@@ -47,15 +52,16 @@
                         <td>{{$item['lotto']}}</td>
                         <td>{{$item['user']}}</td>
                         <td>{{$item['zona']}}</td>
-                        <td><a href="{{route('admin.orderDelete', $key)}}">Cancella</a></td>
+                        <td><a href="{{route('ecommerce.orderDelete', $key)}}">Cancella</a></td>
                     </tr>
                     @endif 
-                    @endforeach  
+                    @endforeach 
+                    
                 </tbody>
             </table>
             
         </div>
-        <form action="{{route('admin.orderSend')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('ecommerce.orderSend')}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="py-2" style="width: 100%">
@@ -215,7 +221,7 @@
         });
     }); 
 </script>
-@include('layouts.handlebars_layout.orderHandle')
+@include('layouts.handlebars_layout.orderEcommerceHandle')
 
 
 @endsection

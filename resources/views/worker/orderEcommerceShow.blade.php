@@ -55,7 +55,7 @@
 </script>
 
 <div class="container d-flex ">
-    <a class="btn btn-primary" href="{{route("worker.orders")}}">Torna alla pagina degli ordini</a>
+    <a class="btn btn-primary" href="{{route("worker.orderEcommerce")}}">Torna alla pagina degli ordini</a>
 
 </div>
 <div class="container d-flex shadow bg-light p-1 px-md-5 rounded justify-content-center flex-wrap">
@@ -95,7 +95,7 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{route('worker.orderConfirm', $key->id)}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('worker.orderEcommerceConfirm', $key->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="form-group">

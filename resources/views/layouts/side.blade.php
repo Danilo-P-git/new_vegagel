@@ -29,11 +29,11 @@
         <nav class="navbar navbar-expand-md sticky-top navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    NEW VECAGEL
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    <img class="logo img-fluid" src="{{asset('storage/newvecagel.jpg')}}" alt="New Vecagel">
+                  </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -126,6 +126,9 @@
                         </li>
                         <li class="{{ (request()->is('admin/orders*')) ? 'active' : '' }}" >
                             <a href="{{route('admin.orders')}}">Ordini</a>
+                        </li>
+                        <li class="{{ (request()->is('ecommerce/orders*')) ? 'active' : '' }}" >
+                            <a href="{{route('ecommerce.orders')}}">Ordini E-commerce</a>
                         </li>
                         <li class="{{ (request()->is('admin/categories*')) ? 'active' : '' }}">
                             <a href="{{route('admin.categories')}}">Categorie</a>

@@ -1,20 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Product;
-use App\Sector;
-use App\Log;
-use App\Order;
-use App\Order_Product;
-use App\User;
-use DB;
-use Illuminate\Support\Facades\Auth;
-use Sortable;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
-class AdminCartController extends Controller
+use App\Order;
+use App\User;
+use App\Sector;
+use App\Product;
+use Carbon\Carbon;
+use App\Order_Ecommerces;
+use Illuminate\Http\Request;
+use App\Order_Ecommerce_product;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+class AdminCartEcommerceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,8 +22,8 @@ class AdminCartController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'DESC')->get();
-        return view('admin.orders', compact('orders'));
+        $orders = Order_Ecommerces::orderBy('created_at', 'DESC')->get();
+        return view('ecommerce.orders', compact('orders'));
     }
 
     // Questa funzione raggruppa tutti i prodotti in base al loro codice prodotto e somma la loro quantita e le loro informazioni 
@@ -51,7 +50,10 @@ class AdminCartController extends Controller
         $sector = Sector::all();
         $observerCall = Product::all();
         $users = User::where('ragione_sociale', '!=', NULL)->get();
-        return view('admin.ordersCreate', compact('products', 'sector', 'users','today', 'traUnMese') );
+
+        $orderEcommerce=Order_Ecommerces::all();
+        /* dd($orderEcommerce); */
+        return view('ecommerce.ordersCreate', compact('products', 'sector', 'users','today', 'traUnMese','orderEcommerce') );
     }
 
         // TEST 
@@ -72,6 +74,7 @@ class AdminCartController extends Controller
     {
         
         /* dd($request); */
+        
        $products = Product::with('sector')->where('esaurito', '=', 0)->find($id);
         // dd($request->quantita_bloccata);
        $products->sector->quantita_bloccata = $products->sector->quantita_bloccata + $request->quantita_bloccata;
@@ -86,11 +89,40 @@ class AdminCartController extends Controller
             "quantita" => $request->quantita_bloccata,
             "user"=>$request->user,//test
             "zona"=>$request->zona,
+            "data_di_consegna"=>$request->data_di_consegna,
             
         );
         /* dd($cart); */
+
+        //INIZIO SALVATAGGIO DATI DIRETTAMENTE NEL DB
         
-        $request->session()->put('cart', $cart);
+        $orderEcommerce = New Order_Ecommerces;
+        $orderEcommerce->user_id = Auth::User()->id;
+        $orderEcommerce->data_di_consegna = $request->data_di_consegna;
+        $orderEcommerce->ecommerce = $request->zona;
+        $orderEcommerce->save();
+        /* dd($orderEcommerce); */
+        $idOrder=$orderEcommerce->id;
+        /* dd($cart); */
+        foreach ($cart as $key){
+
+            $orderProductEcommerce= New order_Ecommerce_product();
+            $orderProductEcommerce->order_ecommerce_id = $idOrder;
+            $orderProductEcommerce->product_id=$key['id'];
+            $orderProductEcommerce->quantita=$key['quantita'];
+            $orderProductEcommerce->save();
+
+        }
+        
+        
+
+        /* dd($orderProductEcommerce); */
+
+        
+
+        //FINE SALVATAGGIO DATI NEL DB
+        
+        $request->session()->pull('cart', $cart);
         $request->session()->flash('message', 'Inserimento riuscito');
         
         $products->push();
@@ -108,15 +140,16 @@ class AdminCartController extends Controller
         
         /* dd($request, $cart); */
 
-        $order = New Order;
-        $order->user_id = $request->user;
-        $order->data_di_consegna = $request->data_di_consegna;
+        /* $order = New Order_Ecommerces; */
+        $order= DB::table('update Order_Ecommerce set data_di_consegna=?',[$request->data_di_consegna]);
+        /* $order->user_id = $request->user; //da togliere
+        $order->data_di_consegna = $request->data_di_consegna; //da fare update */
         $order->save();
         $id = $order->id;
         // dd($cart)
         foreach ($cart as $key) {
-            $pivot = New Order_Product;
-            $pivot->order_id = $id;
+            $pivot = New Order_Ecommerce_product();
+            $pivot->order_ecommerce_id = $id;
             $pivot->product_id = $key['id'];
             $pivot->quantita = $key['quantita'];
             $pivot->save();

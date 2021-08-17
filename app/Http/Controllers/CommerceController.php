@@ -12,7 +12,8 @@ class CommerceController extends Controller
 {
     public function showCommerce(){
         
-
+        $cart = session()->get('cart');
+        /* dd($cart); */
         $products= Product::all();
         /* dd($products); */
         return view('welcome', compact('products'));

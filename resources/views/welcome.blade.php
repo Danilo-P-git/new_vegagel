@@ -12,16 +12,23 @@
         
         $cart = session()->get('cart');
 
-        /* {{dd($cart);}} */
+        /* dd($cart); */
         @endphp
 
 @endif
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-info" data-toggle="dropdown">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+        </button>
+    </div>
+</div>
 <div class="container shadow mt-5 my-5">
     <div class="row justify-content-center">
         @foreach ($products as $item)
-        <div class="col-12 col-md-3 m-5 ">
+        <div class="col-12 col-md-4 col-lg-6 col-xl-3 col-xs-12 m-5 ">
             <div class="card card-round">
-                <form action="{{route('ecommerce.ordercreate')}}" method="GET">
+                <form action="{{route('ecommerce.ordersCreate')}}" method="GET">
                     {{-- <img src="{{asset('storage/'.$item->photo)}}" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="..."> --}}
                     <img src="https://via.placeholder.com/728.png?text=Immagine+segnaposto" class="card-img-top img-fluid mt-3 my-3" style="height:300px;object-fit: contain" alt="...">
                     <div class="card-body">
@@ -34,10 +41,22 @@
                         <h5 class="card-text">Unità disponibili: <strong><span style="color: #fd0000af">{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</span></strong></h5>
                                                     
                         <!-- Button trigger modal -->
-
+                        @if (Auth::User() == false )
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-md-6">
+                                    <a href="{{route('register')}}"><li class="btn btn-primary rounded products">Registrati</li></a>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <a href="{{route('login')}}"><li class="btn btn-primary rounded products">Accedi</li></a>
+                                </div>
+                            </div>
+                        </div>
+                            @else
                         <button type="button" class="btn btn-primary rounded products" data-toggle="modal" data-target="#prod{{$item->codice_prodotto}}" value="{{$item->codice_prodotto}}">
                             <i class="fas fa-truck"></i>
                         </button>
+                        @endif
                                                     <!-- Modal -->
                             <div class="modal fade" id="prod{{$item->codice_prodotto}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -108,5 +127,5 @@
         });
     }); 
 </script>
-@include('layouts.handlebars_layout.orderHandle')
+@include('layouts.handlebars_layout.orderEcommerceHandle')
 @endsection

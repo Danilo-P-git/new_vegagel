@@ -85,6 +85,8 @@ class UserSeeder extends Seeder
               "email" => "alessioscionti@gmail.com",
               "indirizzo" => "via milazzo 98",
               "is_supplier" => "1" ,
+              "ragione_sociale" => "Alessio SRL" ,
+              "telefono" => "3492881265" ,
             ],
           ];
           foreach ($fornitori as $user) {
@@ -93,6 +95,8 @@ class UserSeeder extends Seeder
             $newfornitori->password = Hash::make('admin007');
             $newfornitori->email = $user["email"];
             $newfornitori->is_supplier = $user["is_supplier"];
+            $newfornitori->ragione_sociale = $user["ragione_sociale"];
+            $newfornitori->telefono = $user["telefono"];
             $newfornitori->save();
           }
     }

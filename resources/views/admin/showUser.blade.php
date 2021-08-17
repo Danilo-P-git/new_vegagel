@@ -954,12 +954,13 @@
   </table>
   {!! $users->appends(Request::except('page'))->render() !!}
   <p>
-      Mostra {{$users->count()}} di {{ $users->total() }} Utenti registrati.
+      Mostra {{$worker->count()}} di {{ $worker->total() }} Lavoratori registrati.
   </p>
 </section>
   {{-- Lavoratori --}}
-
   {{-- FORNITORI --}}
+  <br><br>
+  <hr>
 
   <h2 class="py-2"> Fornitori</h2>
     <div class="d-flex flex-column ">
@@ -976,17 +977,13 @@
                 <th scope="col">@sortablelink('indirizzo', 'Indirizzo')</th>
                 <th scope="col">@sortablelink('telefono', 'Telefono di riferimento')</th>
                 <th class="d-none d-md-table-cell" scope="col">@sortablelink('partita_iva', 'Partita Iva')</th>
-
-
-
-
                 <th>Azioni</th>
 
             </tr>
 
         </thead>
 
-        <tbody  class="azienda-wrapper">
+          <tbody  class="azienda-wrapper">
             @foreach ($fornitori as $item )
                 <tr>
                     <td>{{$item->name}}</td>
@@ -996,6 +993,12 @@
                     <td>{{$item->telefono}}</td>
                     <td class="d-none d-md-table-cell">{{$item->partita_iva}}</td>
             @endforeach
+          </tbody>
+    </table>
+            {!! $users->appends(Request::except('page'))->render() !!}
+            <p>
+                Mostra {{$fornitori->count()}} di {{ $fornitori->total() }} Fornitori.
+            </p>
 
   @include('layouts.handlebars_layout.aziendaHandle')
   @include('layouts.handlebars_layout.userHandle')

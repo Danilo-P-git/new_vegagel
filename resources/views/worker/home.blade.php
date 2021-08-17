@@ -22,7 +22,7 @@
 
       </div>
       <div class="col-6">
-        <a class="btn  btn_menu shadow m-auto d-flex" href=""><span class="m-auto">WIP Delivery</span></a>
+        <a class="btn  btn_menu shadow m-auto d-flex" href="{{route('worker.orderEcommerce')}}"><span class="m-auto">Ordini Ecommerce</span></a>
           
 
       </div>

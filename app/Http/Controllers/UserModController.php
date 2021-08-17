@@ -46,7 +46,7 @@ class UserModController extends Controller
 
         $fornitori= Fornitori::
         where('is_supplier',1)
-        ->whereNull('ragione_sociale')
+        /* ->where('ragione_sociale') */
         ->sortable()->paginate(5);
 
 

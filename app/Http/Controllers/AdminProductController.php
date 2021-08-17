@@ -86,4 +86,12 @@ class AdminProductController extends Controller
         Storage::put('public/products/tab_products_'.$today.'.pdf', $pdf->output());
         return $pdf->download('tab_products_'.$today.'.pdf');
     }
+
+    public function details(Product $item){
+        
+
+        /* $products=Product::all(); */
+        return view('admin.productsdetail', compact('item'));
+
+    }
 }

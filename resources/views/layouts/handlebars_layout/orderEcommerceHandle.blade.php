@@ -24,7 +24,7 @@
     <h5   class="d-none text-danger quasi-scaduto@{{id}}">Attenzione il prodotto sta per scadere.</h5>
     <h5>Prezzo al pezzo <strong> @{{prezzo_al_pezzo}}</strong> €</h5>
     <h5>Un singolo elemento equivale a <strong> @{{peso}} kg/l</strong></h5>
-    <form action="{{env('APP_URL')}}/admin/ordersQuantity/@{{id}}" method="post">
+    <form action="{{env('APP_URL')}}/ecommerce/ordersQuantity/@{{id}}" method="post">
         @csrf
         @method('PUT')
 
@@ -44,9 +44,11 @@
 
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Ordina</button>
+        <button type="submit" class="btn btn-primary">Ordina</button><br>
+        <label for="data_di_consegna">Inserisci una data di consegna</label>
+            <input name="data_di_consegna" type="date" id="data_di_consegna" class="form-control" style="width: 45%" required value="" >
         <input name="user" value="{{Auth::User()->name}}"hidden>
-        <input name="zona" value="interno" hidden>
+        <input name="zona" value="1" hidden>
     </form>
         <h5 class="py-1">Soltanto in caso di errore cliccare per modificare</h5>
         <a class="btn btn-primary rounded my-2" href="{{env('APP_URL')}}/worker/@{{id}}/edit"><i class="fas fa-edit"></i></a>

@@ -113,7 +113,7 @@
             <tbody>
                 @foreach ($products as $item )
                     <tr>
-                        <td>{{$item->name}}</td>
+                        <td><a style="color: black" href="{{route('admin.productsdetail', compact('item'))}}">{{$item->name}}</td></a>
                         <td>{{$item->lotto}}</td>
                         <td>{{carbon\Carbon::createFromFormat('Y-m-d', $item->data_di_scadenza)->format('d-m-Y')}}</td>
                         <td>{{$item->sector->settore}}</td>

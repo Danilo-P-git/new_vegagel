@@ -24,6 +24,10 @@ class Product extends Model
     {
         return $this->belongsTo('App\Category');
     }
+    public function order_Ecommerce_product()
+    {
+        return $this->belongsTo('App\Order_Ecommerce_Product');
+    }
 
 
     public $sortable = [
