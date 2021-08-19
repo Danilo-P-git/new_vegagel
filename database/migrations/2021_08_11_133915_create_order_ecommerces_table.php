@@ -17,6 +17,7 @@ class CreateOrderEcommercesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->boolean('completato')->default(0);
+            $table->boolean('annullato')->default(0);
             $table->date('data_di_consegna')->nullable();
             $table->timestamps();
         });

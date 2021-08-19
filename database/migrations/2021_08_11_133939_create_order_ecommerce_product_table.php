@@ -15,10 +15,11 @@ class CreateOrderEcommerceProductTable extends Migration
     {
         Schema::create('order_ecommerce_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_ecommerce_id')->constrained();
+            $table->foreignId('order_ecommerce_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained();
             $table->integer('quantita')->constrained();
             $table->boolean('completato')->default(0);
+            $table->boolean('annullato')->default(0);
             $table->timestamps();
         });
     }

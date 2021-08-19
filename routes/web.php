@@ -4,10 +4,11 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderCommerce;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\AdminProductController;
-use App\Http\Controllers\CommerceController;
-use App\Http\Controllers\OrderCommerce;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::any('ecommerce/ordersQuantity/{id}', 'AdminCartEcommerceController@quanti
 Route::any('ecommerce/ordersNew/{id}', 'AdminCartEcommerceController@addOrder')->name('ecommerce.addOrder');
 Route::any('ecommerce/orderSend','AdminCartEcommerceController@orderSend')->name('ecommerce.orderSend');
 Route::any('ecommerce/orderDelete/{id}', 'AdminCartEcommerceController@deleteCart')->name('ecommerce.orderDelete');
+Route::any('ecommerce/deleteOrder/{id}', 'AdminCartEcommerceController@deleteOrder')->name('ecommerce.deleteOrder');
 
 
 
@@ -81,4 +83,6 @@ Route::get('admin/products/detail/{item}', [AdminProductController::class, 'deta
 Route::any('pdf/scaduti', 'AdminProductController@stampaScaduti')->name('pdf.scaduti');
 Route::any('pdf/inScadenza', 'AdminProductController@stampaInScadenza')->name('pdf.inScadenza');
 Route::any('pdf/prodotti', 'AdminProductController@stampaProdotti')->name('pdf.prodotti');
+
+
 

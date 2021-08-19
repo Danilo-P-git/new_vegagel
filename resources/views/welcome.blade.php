@@ -18,7 +18,7 @@
 @endif
 <div class="container">
     <div class="row">
-        <button type="button" class="btn btn-info" data-toggle="dropdown">
+        <button type="button" class="btn btn-info ml-auto" data-toggle="dropdown">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
         </button>
     </div>
@@ -38,7 +38,13 @@
                         <p style="color: #fd0000af"><strong>{{$item->description}}</p></strong><hr>
                         <h5 class="card-text">Prezzo singolo: <strong><span style="color: #fd0000af">{{$item->prezzo_al_pezzo}} €</span></strong></h5>
                         <h5 class="card-text">Prezzo al Kg: <strong><span style="color: #fd0000af">{{$item->prezzo_al_kg}} €</span></strong></h5>
+                        @if ($item->sector->quantita_rimanente - $item->sector->quantita_bloccata > 0)
                         <h5 class="card-text">Unità disponibili: <strong><span style="color: #fd0000af">{{$item->sector->quantita_rimanente - $item->sector->quantita_bloccata}}</span></strong></h5>
+                            
+                        @else
+                        <h5 class="card-text">Unità disponibili: <strong><span style="color: #fd0000af">Esaurito!</span></strong></h5>
+
+                        @endif
                                                     
                         <!-- Button trigger modal -->
                         @if (Auth::User() == false )
@@ -127,5 +133,7 @@
         });
     }); 
 </script>
+
+
 @include('layouts.handlebars_layout.orderEcommerceHandle')
 @endsection

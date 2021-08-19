@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+       
 
 
         /*

@@ -40,18 +40,18 @@
 
             <div class="col-md-6">
                 <input id="bloccata@{{id}}" type="number" max="@{{quantita_dif}}" class="form-control" name="quantita_bloccata" value="" required >
+               
+
             </div>
         </div>
-        <div class="row">
-            <label class="col-md-4 col-form-label text-md-right" for="data_di_consegna">Inserisci una data di consegna</label>
-            <input class="col-md-6 form-control" name="data_di_consegna" type="date" id="data_di_consegna" style="width: 45%" required value="" >
-        </div>
-        <br>
         <button type="submit" class="btn btn-primary">Ordina</button><br>
+        <label for="data_di_consegna">Inserisci una data di consegna</label>
+            <input name="data_di_consegna" type="date" id="data_di_consegna" class="form-control" style="width: 45%" required value="" >
         <input name="user" value="{{Auth::User()->name}}"hidden>
         <input name="zona" value="1" hidden>
     </form>
-        
+        <h5 class="py-1">Soltanto in caso di errore cliccare per modificare</h5>
+        <a class="btn btn-primary rounded my-2" href="{{env('APP_URL')}}/worker/@{{id}}/edit"><i class="fas fa-edit"></i></a>
       <hr> 
 </div>
 

@@ -22,6 +22,7 @@ class AdminCartEcommerceController extends Controller
      */
     public function index()
     {
+        /* $orderProductId=Order_Ecommerce_product::all(); */
         $orders = Order_Ecommerces::orderBy('created_at', 'DESC')->get();
         return view('ecommerce.orders', compact('orders'));
     }
@@ -187,6 +188,32 @@ class AdminCartEcommerceController extends Controller
 
         return redirect()->back();
           
+   }
+
+   public function deleteOrder($id){
+
+       $orders = Order_Ecommerces::find($id);
+       /* dd($orders); */
+       
+       $orderProductId=Order_Ecommerce_product::find($orders['id']);
+       
+       $quantita_bloccata=$orderProductId['quantita'];
+        /* dd($quantita_bloccata); */
+        $updateQty=DB::table('sectors')->where('product_id', '=', $orderProductId['product_id'])->decrement('quantita_bloccata', $quantita_bloccata);
+        /* dd($updateQty); */
+        /* $orderProductDelete=DB::table('order_ecommerce_product')->join('sectors', function($join){
+            $join->on('order_ecommerce_product.product_id', '=', 'sectors.product_id');
+        })->select(DB::raw('sum(quantita_bloccata - quantita)'))->get(); */
+
+
+
+        //METODO FUNZIONANTE
+       /* $orderProductDelete= DB::table('order_Ecommerce_Product')->where('order_ecommerce_id', '=', $id)->get(); */
+       $orderDelete= DB::table('order_Ecommerces')->where('id', '=', $id)->delete();
+       /* dd($orderProductDelete); */
+        //METODO FUNZIONANTE
+
+        return redirect()->back();
    }
 
 

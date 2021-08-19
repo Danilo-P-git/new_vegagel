@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="container-sm bg-light shadow p-1 px-lg-5 rounded">
-    <div class="text-center">
+    {{-- <div class="text-center">
         <a href="{{route('ecommerce.ordersCreate')}}" class="btn btn-primary">Crea un nuovo Ordine</a>
+    </div> --}}
+    <div class="text-center">
+        <h2>Storico Ordini E-commerce</h2>
     </div>
     <div class="overflow-auto p-2">
         <table class="table border shadow table-bordered table-hover table-sm">
@@ -13,6 +16,7 @@
                     <th>Utente</th>
                     <th>Creato il</th>
                     <th>Stato</th>
+                    <th>Azione</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +43,11 @@
                         @endif
                         <a target="_blank" class="btn btn-primary" href="{{route('pdf.bollaEcommerce', $order->id)}}">Salva pdf</a>
                         </td>
-
+                        <td>@if ($order->completato == 1)
+                            @else 
+                            <a href="{{route('ecommerce.deleteOrder', $order->id)}}">Cancella</a> {{--DA CREARE LOGICA DI CANCELLAZIONE ORDINE DOPO CONFERMA --}}
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
