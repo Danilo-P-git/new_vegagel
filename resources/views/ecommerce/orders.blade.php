@@ -35,18 +35,32 @@
                         <td>{{$order->id}}</td>
                         <td>{{$nome}}</td>
                         <td>{{$order->created_at}}</td>
-                        <td>@if ($order->completato == 1)
+                        
+                        <td>@if ($order->annullato == 0)
+                            @if ($order->completato == 1)
                             Completato
                             @else
                             In lavorazione
                             
                         @endif
+                        @else
+                            Ordine Cancellato
+                        @endif
+                        
                         <a target="_blank" class="btn btn-primary" href="{{route('pdf.bollaEcommerce', $order->id)}}">Salva pdf</a>
                         </td>
-                        <td>@if ($order->completato == 1)
+                        <td>@if ($order->annullato == 1)
+                            @if ($order->completato == 1)
                             @else 
-                            <a href="{{route('ecommerce.deleteOrder', $order->id)}}">Cancella</a> {{--DA CREARE LOGICA DI CANCELLAZIONE ORDINE DOPO CONFERMA --}}
+                            <a href="{{route('ecommerce.deleteOrder', $order->id)}}"></a>
                             @endif
+                        @else
+                        @if ($order->completato == 1)
+                        @else 
+                        <a href="{{route('ecommerce.deleteOrder', $order->id)}}">Cancella</a>
+                        @endif
+                        @endif
+                            
                         </td>
                     </tr>
                 @endforeach

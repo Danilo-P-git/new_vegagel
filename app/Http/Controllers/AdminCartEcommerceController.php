@@ -191,29 +191,22 @@ class AdminCartEcommerceController extends Controller
    }
 
    public function deleteOrder($id){
+        //PRENDO L'ID DELL'ORDINE DA CANCELLARE E LO CERCO TRAMITE QUERY NELLA TABELLA DEGLI ORDINI
+        $orders = Order_Ecommerces::find($id);
 
-       $orders = Order_Ecommerces::find($id);
-       /* dd($orders); */
-       
-       $orderProductId=Order_Ecommerce_product::find($orders['id']);
-       
-       $quantita_bloccata=$orderProductId['quantita'];
-        /* dd($quantita_bloccata); */
+        //PRENDO L'ARRAY CHE TORNA DALLA QUERY PRECEDENTE E CONFRONTO L'ID DELL'ORDINE CON L'ID DELLA RELAZIONE TRA ORDINE E LA TABELLA ORDER_ECOMMERCE_PRODUCT
+        $orderProductId=Order_Ecommerce_product::find($orders['id']);
+
+        //UNA VOLTA RECUPERATO L'ID DELL'ORDINE TRAMITE LA RELAZIONE, POSSO ASSEGNARE A UNA VARIABILE LA QUANTITA ORDINATA IN FASE DI ORDINE DEL PRODOTTO 
+        $quantita_bloccata=$orderProductId['quantita'];
+
+        //SELEZIONO LA TABELLA SECTORS E LA COLONNA PRODUCT_ID E LA CONFRONTO CON IL PRODUCT_ID DELL'ORDINE SE IL VALORE è UGUALE, CHIEDO ALLA QUERY DI DECREMENTARE IL VALORE DELLA QUANTITà BLOCCATA DI QUELL'ORDINE CON LA COLONNA PRESENTE NELLA TABELLA SECTOR, IN MODO CHE QUANDO CANCELLERò L'ORDINE, LA QUANTITà SARà DI NUOVO DISPONIBILE
         $updateQty=DB::table('sectors')->where('product_id', '=', $orderProductId['product_id'])->decrement('quantita_bloccata', $quantita_bloccata);
-        /* dd($updateQty); */
-        /* $orderProductDelete=DB::table('order_ecommerce_product')->join('sectors', function($join){
-            $join->on('order_ecommerce_product.product_id', '=', 'sectors.product_id');
-        })->select(DB::raw('sum(quantita_bloccata - quantita)'))->get(); */
 
+        //UNA VOLTA CHE HO FATTO TUTTI I CONTROLLI E RESETTATO LO STATO DELLE QUANTITA A PRIMA CHE L'ORDINE VENISSE CREATO, SETTO L'ORDINE STESSO SU STATO ANNULLATO, IL DATO NON VERRà CANCELLATO DAL DATABASE IN MODO DA POTERLO USARE PIU AVANTI PER FINI STATISTICI
+        $orderDelete= DB::table('order_Ecommerces')->where('id', '=', $id)->update(['annullato' => 1]);
 
-
-        //METODO FUNZIONANTE
-       /* $orderProductDelete= DB::table('order_Ecommerce_Product')->where('order_ecommerce_id', '=', $id)->get(); */
-       $orderDelete= DB::table('order_Ecommerces')->where('id', '=', $id)->delete();
-       /* dd($orderProductDelete); */
-        //METODO FUNZIONANTE
-
-        return redirect()->back();
+    return redirect()->back();
    }
 
 

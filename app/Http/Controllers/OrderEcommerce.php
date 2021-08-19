@@ -135,6 +135,7 @@ class OrderEcommerce extends Controller
         $pivot = Order_Ecommerce_product::where('order_ecommerce_id', $id)->get();
         /* dd($pivot); */
         $order = Order_Ecommerces::with('user')->find($id);
+        /* dd($order); */
         $arrayProduct = array();
         foreach ($pivot as $key) {
             array_push($arrayProduct, $key->product_id);
