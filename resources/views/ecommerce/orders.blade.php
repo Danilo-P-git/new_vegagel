@@ -17,6 +17,7 @@
                     <th>Creato il</th>
                     <th>Stato</th>
                     <th>Azione</th>
+                    <th>Totale €</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +63,7 @@
                         @endif
                             
                         </td>
+                        <td>{{$total}} €</td>
                     </tr>
                 @endforeach
             </tbody>

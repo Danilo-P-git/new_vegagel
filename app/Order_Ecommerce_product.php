@@ -13,7 +13,7 @@ class Order_Ecommerce_product extends Model
     {
         return $this->hasMany(Order_Ecommerces::class);
     }
-    public function Product()
+    public function Products()
     {
         return $this->hasMany(Product::class);
     }

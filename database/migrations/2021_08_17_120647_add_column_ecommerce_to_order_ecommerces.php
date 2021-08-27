@@ -11,22 +11,22 @@ class AddColumnEcommerceToOrderEcommerces extends Migration
      *
      * @return void
      */
-    public function up()
+    /* public function up()
     {
         Schema::table('order_ecommerces', function (Blueprint $table) {
             $table->integer('ecommerce')->after('data_di_consegna')->default(0);
         });
-    }
+    } */
 
     /**
      * Reverse the migrations.
      *
      * @return void
      */
-    public function down()
+    /* public function down()
     {
         Schema::table('order_ecommerces', function (Blueprint $table) {
             $table->dropColumn('ecommerce');
         });
-    }
+    } */
 }

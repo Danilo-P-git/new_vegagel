@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\Order_Product;
 use App\Product;
+use App\Sector;
+use App\User;
 use Illuminate\Http\Request;
 
 class OrderCommerce extends Controller
@@ -42,4 +44,7 @@ class OrderCommerce extends Controller
         
         return view('worker.orderShow', compact('pivot','orders','products'));
     }
+
+
+
 }

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Product;
-use App\Log;
-use App\Order_Ecommerce;
-use App\Order_Ecommerce_product;
-use App\Order_Ecommerces;
-use Illuminate\Support\Facades\Auth;
 use PDF;
+use App\Log;
+use App\User;
+use App\Sector;
+use App\Product;
+use App\Order_Ecommerce;
+use App\Order_Ecommerces;
+use Illuminate\Http\Request;
+use App\Order_Ecommerce_product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class OrderEcommerce extends Controller
@@ -42,7 +44,7 @@ class OrderEcommerce extends Controller
     // mostra l'ordine singolo con all'interno i prodotti
     public function show($id)
     {
-        
+        /* dd($id); */
         $orders = Order_Ecommerces::find($id);
         $pivot = Order_Ecommerce_product::where('order_ecommerce_id', $id)->get();
         /* dd($pivot); */
@@ -135,12 +137,12 @@ class OrderEcommerce extends Controller
         $pivot = Order_Ecommerce_product::where('order_ecommerce_id', $id)->get();
         /* dd($pivot); */
         $order = Order_Ecommerces::with('user')->find($id);
-        /* dd($order); */
         $arrayProduct = array();
         foreach ($pivot as $key) {
             array_push($arrayProduct, $key->product_id);
             
         }
+        /* dd($arrayProduct); */
         $products = Product::with('sector')->whereIn('id', $arrayProduct)->get();
 
         $pdf = PDF::loadView('pdf.bollaEcommerce', compact('pivot', 'order', 'products') )->setOptions(['defaultFont' => 'sans-serif']);
@@ -150,4 +152,5 @@ class OrderEcommerce extends Controller
         return $pdf->download('bolla_di_carico'.$order->id.'.pdf');
 
     }
+
 }

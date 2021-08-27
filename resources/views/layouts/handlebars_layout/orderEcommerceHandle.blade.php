@@ -24,12 +24,12 @@
     <h5   class="d-none text-danger quasi-scaduto@{{id}}">Attenzione il prodotto sta per scadere.</h5>
     <h5>Prezzo al pezzo <strong> @{{prezzo_al_pezzo}}</strong> €</h5>
     <h5>Un singolo elemento equivale a <strong> @{{peso}} kg/l</strong></h5>
-    <form action="{{env('APP_URL')}}/ecommerce/ordersQuantity/@{{id}}" method="post">
+    <form action="{{route('add.to.cart',@$item->id)}}" method="post">
         @csrf
-        @method('PUT')
+        
 
         
-        <h5>Quantita totale  @{{quantita}}</h5>
+        <h5>Quantita disponibile <strong> @{{quantita}}</strong></h5>
         <div class="alert alert-warning" role="alert">
            <p> Attualmente ci sono <strong>@{{quantita_bloccata}} </strong> elementi ordinati su  <strong>@{{quantita}}</strong></p>
         </div>
@@ -50,6 +50,8 @@
         <button type="submit" class="btn btn-primary">Ordina</button><br>
         <input name="user" value="{{Auth::User()->name}}"hidden>
         <input name="zona" value="1" hidden>
+        <input name="id" value="{{$item->id}}" hidden>
+        <input name="id" value="{{$item->codice_prodotto}}" hidden>
     </form>
         
       <hr> 

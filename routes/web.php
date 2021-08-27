@@ -2,13 +2,16 @@
 
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\notInUse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderCommerce;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderEcommerce;
 use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\ProductEcommerceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,4 +88,9 @@ Route::any('pdf/inScadenza', 'AdminProductController@stampaInScadenza')->name('p
 Route::any('pdf/prodotti', 'AdminProductController@stampaProdotti')->name('pdf.prodotti');
 
 
-
+Route::get('/ecommerce', [ProductEcommerceController::class, 'index'])->name('ecommerce.index');  
+Route::get('cart', [ProductEcommerceController::class, 'cart'])->name('ecommerce.cart');
+Route::get('add-to-cart/{id}', [ProductEcommerceController::class, 'addToCart'])->name('add.to.cart');
+Route::patch('update-cart', [ProductEcommerceController::class, 'update'])->name('update.cart');
+Route::delete('remove-from-cart', [ProductEcommerceController::class, 'remove'])->name('remove.from.cart');
+Route::post('sendOrder', [ProductEcommerceController::class, 'sendOrder'])->name('ecommerce.cart.store');

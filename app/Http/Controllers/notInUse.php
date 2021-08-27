@@ -10,7 +10,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 class Cart {
-    private $items;
+    private $cart;
     private $total;
     public function __construct() {
         $this->items = [];
@@ -18,32 +18,31 @@ class Cart {
     }
 
     public function emptyCart() {
-        $this->items = [];
+        $this->cart = [];
         $this->total = 0.00;
     }
 
     // metodi getter e setter per l’array di prodotti nel carrello
-    public function setItems($items) {
-        $this->items = $items;
+    public function setItems($cart) {
+        $this->cart = $cart;
     }
     public function getItems() {
-        $items = [];
+        $carts = [];
         if($this->hasItems()) {
-            foreach($this->items as $item) {
-                $items[] = [
-                        'id' => $item['id'],
-                        'name' => $item['name'],
-                        'description' => $item['description'],
-                        'price' => $item['price'],
-                        'manufacturer' => $item['manufacturer'],
-                        'image' => $item['image'],
-                        'quantity' => $item['quantity'],
-                        'subtotal' => $item['subtotal'],
-                        'slug' => $item['slug']
+            foreach($this->carts as $cart) {
+                $carts[] = [
+                        'id' => $cart['id'],
+                        'nome' => $cart['name'],
+                        'description' => $cart['description'],
+                        'prezzo_al_pezzo' => $cart['prezzo_al_pezzo'],
+                        'lotto' => $cart['lotto'],
+                        'quantita' => $cart['quantita'],
+                        /* 'subtotal' => $cart['subtotal'],
+                        'slug' => $cart['slug'] */
                 ];
             }
         }
-        return $items;
+        return $carts;
     } 
     //METODI PER IL TOTALE
     public function setTotal($value) {

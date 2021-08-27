@@ -17,6 +17,10 @@
             $nome = $order->user->name;
         @endphp
     @endif
+    @if ($order->annullato == 1)
+    @else
+        
+    
         <div class="card mt-4 mx-auto" style="width: 70%">
             <div class="card-body">
             <a href="{{route('worker.orderEcommerceShow', $order->id)}}">
@@ -69,6 +73,7 @@
                 </script>
             </div>
         </div>
+        @endif
     
     @endforeach
 

@@ -71,7 +71,7 @@ class AdminCartController extends Controller
     public function quantitaBloccata(Request $request, $id)
     {
         
-        /* dd($request); */
+        
        $products = Product::with('sector')->where('esaurito', '=', 0)->find($id);
         // dd($request->quantita_bloccata);
        $products->sector->quantita_bloccata = $products->sector->quantita_bloccata + $request->quantita_bloccata;
@@ -106,14 +106,14 @@ class AdminCartController extends Controller
     {
         $cart = session()->get('cart');
         
-        /* dd($request, $cart); */
+       /*  dd($request, $cart); */
 
         $order = New Order;
         $order->user_id = $request->user;
         $order->data_di_consegna = $request->data_di_consegna;
         $order->save();
         $id = $order->id;
-        // dd($cart)
+        /* dd($cart); */
         foreach ($cart as $key) {
             $pivot = New Order_Product;
             $pivot->order_id = $id;
@@ -121,6 +121,7 @@ class AdminCartController extends Controller
             $pivot->quantita = $key['quantita'];
             $pivot->save();
         }
+        /* dd($pivot); */
 
         session()->forget('cart');
         session()->flash('message', 'Ordine inviato');

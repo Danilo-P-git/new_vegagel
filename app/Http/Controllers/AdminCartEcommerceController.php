@@ -22,9 +22,25 @@ class AdminCartEcommerceController extends Controller
      */
     public function index()
     {
-        /* $orderProductId=Order_Ecommerce_product::all(); */
+        
         $orders = Order_Ecommerces::orderBy('created_at', 'DESC')->get();
-        return view('ecommerce.orders', compact('orders'));
+        
+        foreach ($orders as $key) {
+            
+            $totalpricePerOrder=DB::table('order_ecommerce_product')->where('order_ecommerce_id', '=', $key['id'])->get();//ricavo tutti gli order_product con lo stesso id ordine
+            
+            $quantity=0;
+            $totale=0;
+            foreach ($totalpricePerOrder as $key) {
+                $quantity=$key->quantita;
+               $totale += $selectProduct=DB::table('products')->where('id','=',$key->product_id)->sum('prezzo_al_pezzo');
+                $total=$totale*$quantity;
+                
+                }
+                /* dd($totale); */
+        }
+        
+        return view('ecommerce.orders', compact('orders','total'));
     }
 
     // Questa funzione raggruppa tutti i prodotti in base al loro codice prodotto e somma la loro quantita e le loro informazioni 
@@ -191,17 +207,22 @@ class AdminCartEcommerceController extends Controller
    }
 
    public function deleteOrder($id){
-        //PRENDO L'ID DELL'ORDINE DA CANCELLARE E LO CERCO TRAMITE QUERY NELLA TABELLA DEGLI ORDINI
-        $orders = Order_Ecommerces::find($id);
+       //PRENDO L'ID DELL'ORDINE DA CANCELLARE E LO CERCO TRAMITE QUERY NELLA TABELLA DEGLI ORDINI
+       $orders = Order_Ecommerces::find($id);
+       
+       //PRENDO L'ARRAY CHE TORNA DALLA QUERY PRECEDENTE E CONFRONTO L'ID DELL'ORDINE CON L'ID DELLA RELAZIONE TRA ORDINE E LA TABELLA ORDER_ECOMMERCE_PRODUCT
+       $orderProductId=Order_Ecommerce_product::where('order_ecommerce_id', '=', $orders['id'])->get();
+       
 
-        //PRENDO L'ARRAY CHE TORNA DALLA QUERY PRECEDENTE E CONFRONTO L'ID DELL'ORDINE CON L'ID DELLA RELAZIONE TRA ORDINE E LA TABELLA ORDER_ECOMMERCE_PRODUCT
-        $orderProductId=Order_Ecommerce_product::find($orders['id']);
+       foreach ($orderProductId as $item) {
+           
+           //UNA VOLTA RECUPERATO L'ID DELL'ORDINE TRAMITE LA RELAZIONE, POSSO ASSEGNARE A UNA VARIABILE LA QUANTITA ORDINATA IN FASE DI ORDINE DEL PRODOTTO 
+            $quantita_bloccata=$item['quantita'];
+            //SELEZIONO LA TABELLA SECTORS E LA COLONNA PRODUCT_ID E LA CONFRONTO CON IL PRODUCT_ID DELL'ORDINE SE IL VALORE è UGUALE, CHIEDO ALLA QUERY DI DECREMENTARE IL VALORE DELLA QUANTITà BLOCCATA DI QUELL'ORDINE CON LA COLONNA PRESENTE NELLA TABELLA SECTOR, IN MODO CHE QUANDO CANCELLERò L'ORDINE, LA QUANTITà SARà DI NUOVO DISPONIBILE
+            $updateQty=DB::table('sectors')->where('product_id', '=', $item['product_id'])->decrement('quantita_bloccata', $quantita_bloccata);
+        }
 
-        //UNA VOLTA RECUPERATO L'ID DELL'ORDINE TRAMITE LA RELAZIONE, POSSO ASSEGNARE A UNA VARIABILE LA QUANTITA ORDINATA IN FASE DI ORDINE DEL PRODOTTO 
-        $quantita_bloccata=$orderProductId['quantita'];
 
-        //SELEZIONO LA TABELLA SECTORS E LA COLONNA PRODUCT_ID E LA CONFRONTO CON IL PRODUCT_ID DELL'ORDINE SE IL VALORE è UGUALE, CHIEDO ALLA QUERY DI DECREMENTARE IL VALORE DELLA QUANTITà BLOCCATA DI QUELL'ORDINE CON LA COLONNA PRESENTE NELLA TABELLA SECTOR, IN MODO CHE QUANDO CANCELLERò L'ORDINE, LA QUANTITà SARà DI NUOVO DISPONIBILE
-        $updateQty=DB::table('sectors')->where('product_id', '=', $orderProductId['product_id'])->decrement('quantita_bloccata', $quantita_bloccata);
 
         //UNA VOLTA CHE HO FATTO TUTTI I CONTROLLI E RESETTATO LO STATO DELLE QUANTITA A PRIMA CHE L'ORDINE VENISSE CREATO, SETTO L'ORDINE STESSO SU STATO ANNULLATO, IL DATO NON VERRà CANCELLATO DAL DATABASE IN MODO DA POTERLO USARE PIU AVANTI PER FINI STATISTICI
         $orderDelete= DB::table('order_Ecommerces')->where('id', '=', $id)->update(['annullato' => 1]);
