@@ -104,6 +104,7 @@ class AdminCartController extends Controller
     // Creazione e invio ordine ai lavoratori e cancellazione CART 
     public function orderSend(Request $request)
     {
+        
         $cart = session()->get('cart');
         
        /*  dd($request, $cart); */
@@ -111,6 +112,8 @@ class AdminCartController extends Controller
         $order = New Order;
         $order->user_id = $request->user;
         $order->data_di_consegna = $request->data_di_consegna;
+        $order->totale_al_pezzo = $request->totalePezzo;
+        $order->totale_al_kg = $request->totaleKg;
         $order->save();
         $id = $order->id;
         /* dd($cart); */

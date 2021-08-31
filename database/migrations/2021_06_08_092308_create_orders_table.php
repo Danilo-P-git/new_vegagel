@@ -18,6 +18,8 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->boolean('completato')->default(0);
             $table->date('data_di_consegna')->nullable();
+            $table->decimal('totale_al_pezzo');
+            $table->decimal('totale_al_kg');
             $table->timestamps();
         });
     }

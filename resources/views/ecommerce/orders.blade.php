@@ -57,13 +57,13 @@
                             @endif
                         @else
                         @if ($order->completato == 1)
-                        @else 
+                        @else
                         <a href="{{route('ecommerce.deleteOrder', $order->id)}}">Cancella</a>
                         @endif
                         @endif
                             
                         </td>
-                        <td>{{$total}} €</td>
+                        <td>{{$order->totale}} €</td>
                     </tr>
                 @endforeach
             </tbody>

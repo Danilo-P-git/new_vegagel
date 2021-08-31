@@ -19,6 +19,7 @@ class CreateOrderEcommercesTable extends Migration
             $table->boolean('completato')->default(0);
             $table->boolean('annullato')->default(0);
             $table->date('data_di_consegna')->nullable();
+            $table->integer('totale')->default(0);
             $table->timestamps();
         });
     }

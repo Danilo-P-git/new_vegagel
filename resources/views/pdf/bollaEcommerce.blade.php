@@ -413,9 +413,13 @@
             <th>Peso</th>
 
             <th>QTA prelevata</th>
+            
           </tr>
         </thead>
         <tbody>
+            
+                
+            
             @foreach ($products as $product)
                 @php
                     $quantitaACartone = $product->sector->quantita_a_cartone;
@@ -442,11 +446,27 @@
             <td>{{$quantitaOrdinata}}</td>
             <td>{{$peso}} KG/L</td>
             <td>___________</td>
+            
 
           </tr>
           @endforeach
+          
          
         </tbody>
+        <thead class="table">
+            <tr>
+                <th style="font-size: 25px;color:red;text-align:start;">TOTALE</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th style="font-size: 25px;color:red;text-align:start;">{{$order->totale}}€</th>
+
+            </tr>
+            
+        </thead>
     </table>
 
     {{-- <table class="table">

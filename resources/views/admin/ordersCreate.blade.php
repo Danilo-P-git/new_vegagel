@@ -29,7 +29,8 @@
                         <th>Quantita</th>
                         <th>Lotto</th>
                         <th>creato da:</th>
-                        <th>Provenienza</th>
+                        <th>Prezzo al pezzo</th>
+                        <th>Prezzo al Kg</th>
                         <th>Azioni</th>
 
                     </tr>
@@ -40,18 +41,43 @@
                     @if ($item['zona']='interno')
                         
                     
+                    
                     <tr>
                         <td>{{$item['nome']}}</td>
                         <td>{{$item['codice_prodotto']}}</td>
                         <td>{{$item['quantita']}}</td>
                         <td>{{$item['lotto']}}</td>
                         <td>{{$item['user']}}</td>
-                        <td>{{$item['zona']}}</td>
+                        <td>{{$item['prezzoPezzo']}} €</td>
+                        <td>{{$item['prezzoKg']}} €</td>
                         <td><a href="{{route('admin.orderDelete', $key)}}">Cancella</a></td>
                     </tr>
+                    
                     @endif 
                     @endforeach  
                 </tbody>
+                <?php 
+                    $totalePezzo=0;
+                    $totaleKg=0;
+                    foreach ($cart as $key => $value) {
+                        $totalePezzo += $value['prezzoPezzo'] * $value['quantita'];
+                        $totaleKg += $value['prezzoKg'] * $value['quantita'];
+                    }
+                ?>
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="font-size: 25px;color:#f4c543;text-align:start;">TOTALE</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th style="font-size: 25px;color:#f4c543;text-align:start;">{{$totalePezzo}}€</th>
+                        <th style="font-size: 25px;color:#f4c543;text-align:start;">{{$totaleKg}}€</th>
+                        <th></th>
+
+                    </tr>
+                    
+                </thead>
             </table>
             
         </div>
@@ -72,6 +98,8 @@
             </div>
             <label for="data_di_consegna">Inserisci una data di consegna</label>
             <input name="data_di_consegna" type="date" id="data_di_consegna" class="form-control" style="width: 25%" required value="" >
+            <input name="totalePezzo" type="number" style="width: 25%" required value="{{$totalePezzo}}" hidden >
+            <input name="totaleKg" type="number" style="width: 25%" required value="{{$totaleKg}}" hidden >
             <button type="submit" class="btn btn-primary my-2">Invia ordine</button>
         </form>
         @endif

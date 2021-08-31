@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Order_Ecommerces;
 use Illuminate\Http\Request;
 use App\Order_Ecommerce_product;
+use App\Order_Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,24 +24,32 @@ class AdminCartEcommerceController extends Controller
     public function index()
     {
         
+        
         $orders = Order_Ecommerces::orderBy('created_at', 'DESC')->get();
         
-        foreach ($orders as $key) {
-            
-            $totalpricePerOrder=DB::table('order_ecommerce_product')->where('order_ecommerce_id', '=', $key['id'])->get();//ricavo tutti gli order_product con lo stesso id ordine
-            
-            $quantity=0;
-            $totale=0;
-            foreach ($totalpricePerOrder as $key) {
-                $quantity=$key->quantita;
-               $totale += $selectProduct=DB::table('products')->where('id','=',$key->product_id)->sum('prezzo_al_pezzo');
-                $total=$totale*$quantity;
-                
-                }
-                /* dd($totale); */
-        }
         
-        return view('ecommerce.orders', compact('orders','total'));
+        /* foreach ($orders as $key) {
+            
+            $totalpricePerOrder=DB::table('order_ecommerce_product')->where('order_ecommerce_id', '=', $key['id'])->get();//ricavo tutti gli order_ecommerce_product con lo stesso id ordine
+            
+            
+        } 
+        
+            $totale=0;
+            
+            
+            foreach ($totalpricePerOrder as $key) {
+                dd($key);
+                $totale +=DB::table('products')->where('id','=',$key->product_id)->sum('prezzo_al_pezzo');
+                
+                $quantity =$key->quantita;
+                
+                
+            }
+            $total=$totale*$quantity; */
+        
+        
+        return view('ecommerce.orders', compact('orders'));
     }
 
     // Questa funzione raggruppa tutti i prodotti in base al loro codice prodotto e somma la loro quantita e le loro informazioni 

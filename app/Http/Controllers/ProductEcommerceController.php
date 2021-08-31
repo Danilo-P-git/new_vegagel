@@ -73,9 +73,10 @@ class ProductEcommerceController extends Controller
                 "data_di_consegna" => $request->data_di_consegna,
                 "image" => $products->image,
                 
+                
 
             ];
-            
+            /* dd($cart); */
         }
         
         
@@ -122,14 +123,15 @@ class ProductEcommerceController extends Controller
     {
         
         
-        
         /* dd($request->quantity); */
         $users=Auth::user();
         $cart = session()->get('cart');
+        
          
         $orderEcommerce = New Order_Ecommerces;
         $orderEcommerce->user_id = Auth::User()->id;
         $orderEcommerce->data_di_consegna = $request->data_di_consegna;
+        $orderEcommerce->totale = $request->total;
         /* $orderEcommerce->ecommerce = $request->zona; */
         $orderEcommerce->save();
         /* dd($orderEcommerce); */
@@ -143,7 +145,7 @@ class ProductEcommerceController extends Controller
             $orderProductEcommerce->order_ecommerce_id = $idOrder;
             $orderProductEcommerce->product_id=$key['id_product'];
             $orderProductEcommerce->quantita=$request->quantity;
-            $quantity += $updateQty=DB::table('sectors')->where('product_id', '=', $key['id_product'])->increment('quantita_bloccata', $request->quantity);
+            $quantity +=$updateQty=DB::table('sectors')->where('product_id', '=', $key['id_product'])->increment('quantita_bloccata', $request->quantity);
             $orderProductEcommerce->save();
 
         }

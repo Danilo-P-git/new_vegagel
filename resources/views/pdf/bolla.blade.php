@@ -413,6 +413,7 @@
             <th>Peso</th>
 
             <th>QTA prelevata</th>
+            <th>Totale €</th>
           </tr>
         </thead>
         <tbody>
@@ -447,6 +448,21 @@
           @endforeach
          
         </tbody>
+        <thead class="table table-bordered">
+            <tr>
+                <th style="font-size: 25px;color:#f4c543;text-align:start;">TOTALE</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th style="font-size: 25px;color:#f4c543;text-align:start;">{{$order->totale}}€</th>
+                <th></th>
+
+            </tr>
+            
+        </thead>
     </table>
 
     {{-- <table class="table">

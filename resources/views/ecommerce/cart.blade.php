@@ -1,6 +1,7 @@
 @extends('ecommerce.side')
 
 @section('content')
+
 <div class="container">
     <div class="col-12">
 
@@ -25,8 +26,7 @@
 
         
         @foreach(session('cart') as $id)
-        
-        <form action="{{route('ecommerce.cart.store', $id['id_product'])}}" method="POST">
+        <form action="{{route('ecommerce.cart.store', $id['id_product'],$total)}}" method="POST">
             @csrf
             <p name="userId" value="{{Auth::user()->name}}"></p>
                 @php 
@@ -37,7 +37,7 @@
                 <tr data-id="{{ $id['id_product'] }}">
                     <td data-th="Product">
                         <div class="row">
-                            <div class="col-sm-3 hidden-xs"><img src="{{ $id['image'] }}" width="100" height="100" class="img-responsive"/></div>
+                            <div class="col-sm-3 hidden-xs"><img src="https://via.placeholder.com/80.png?text=Immagine+segnaposto" width="100" height="100" class="img-responsive"/></div>
                             <div class="col-sm-9">
                                 <h4 class="nomargin">{{ $id['name'] }}</h4>
                             </div>
@@ -49,7 +49,7 @@
                     </td>
                     <td data-th="Subtotal" class="text-center">€{{ $id['price'] * $id['quantity'] }}</td>
                     <td class="actions" data-th="">
-                        <button class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-danger btn-sm remove-from-cart"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
             
@@ -57,16 +57,17 @@
             <div class="row">
                 <label class="col-md-4 col-form-label text-md-right" for="data_di_consegna">Inserisci una data di consegna</label>
                 <input class="col-md-6 form-control" name="data_di_consegna" type="date" id="data_di_consegna" style="width: 45%" required value="" >
+                <input name="total" type="number" value="{{$total}}"hidden>
             </div>
+        </tbody>
         @endif
-    </tbody>
     <tfoot>
         <tr>
             <td colspan="5" class="text-right"><h3><strong>Totale €{{ $total }}</strong></h3></td>
         </tr>
         <tr>
             <td colspan="5" class="text-right">
-                <a href="{{ url('/ecommerce') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+                <a href="{{ url('/') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
                 <button type="submit" class="btn btn-success">Checkout</button>
             </form>
             </td>
@@ -84,7 +85,7 @@
         e.preventDefault();
   
         var ele = $(this);
-        
+  
         $.ajax({
             url: '{{ route('update.cart') }}',
             method: "patch",
@@ -96,7 +97,6 @@
             success: function (response) {
                window.location.reload();
             }
-            
         });
     });
   
@@ -105,7 +105,7 @@
   
         var ele = $(this);
   
-        if(confirm("Are you sure want to remove?")) {
+        if(confirm("Sei sicuro di rimuovere il prodotto?")) {
             $.ajax({
                 url: '{{ route('remove.from.cart') }}',
                 method: "DELETE",
