@@ -20,7 +20,7 @@
 
 
         <h2>Ordine in creazione</h2>
-        <div class="overflow-auto p-2" style="width: 80%">
+        <div class="overflow-auto p-2" style="width: 100%">
             <table class="table border shadow table-bordered table-hover table-sm">
                 <thead class="thead-dark">
                     <tr>
@@ -29,10 +29,10 @@
                         <th>Quantita</th>
                         <th>Lotto</th>
                         <th>creato da:</th>
+                        <th>Azioni</th>
                         <th>Prezzo al pezzo</th>
                         <th>Prezzo al Kg</th>
-                        <th>Azioni</th>
-
+                        
                     </tr>
                     
                 </thead>
@@ -48,15 +48,11 @@
                         <td>{{$item['quantita']}}</td>
                         <td>{{$item['lotto']}}</td>
                         <td>{{$item['user']}}</td>
+                        <td><a href="{{route('admin.orderDelete', $key)}}">Cancella</a></td>
                         <td>{{$item['prezzoPezzo']}} €</td>
                         <td>{{$item['prezzoKg']}} €</td>
-                        <td><a href="{{route('admin.orderDelete', $key)}}">Cancella</a></td>
                     </tr>
-                    
-                    @endif 
-                    @endforeach  
-                </tbody>
-                <?php 
+                    <?php 
                     $totalePezzo=0;
                     $totaleKg=0;
                     foreach ($cart as $key => $value) {
@@ -64,6 +60,14 @@
                         $totaleKg += $value['prezzoKg'] * $value['quantita'];
                     }
                 ?>
+                    <input type="number" id="prezzoPezzo" value="{{$totalePezzo}}" hidden>
+                    <input type="number" id="prezzoKg" value="{{$totaleKg}}" hidden>
+                    
+                    
+                    @endif 
+                    @endforeach  
+                </tbody>
+                
                 <thead class="thead-dark">
                     <tr>
                         <th style="font-size: 25px;color:#f4c543;text-align:start;">TOTALE</th>
@@ -71,9 +75,9 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th style="font-size: 25px;color:#f4c543;text-align:start;">{{$totalePezzo}}€</th>
-                        <th style="font-size: 25px;color:#f4c543;text-align:start;">{{$totaleKg}}€</th>
                         <th></th>
+                        <th name="sconto" style="font-size: 25px;color:#f4c543;text-align:start;">€</th>
+                        <th name="sconto2" style="font-size: 25px;color:#f4c543;text-align:start;">€</th>
 
                     </tr>
                     
@@ -93,6 +97,12 @@
                     <option value="{{$user->id}}">{{$user->ragione_sociale}}</option>
                         
                     @endforeach
+                </select><br><br>
+                <p>Seleziona Listino Sconto</p>
+                <select class="form-select" name="listini" id="listini">
+                    <option value="0" selected>---</option>
+                    <option value="1.5">Listino 1</option>
+                    <option value="2">Listino 2</option></select></td>
                 </select>
 
             </div>
@@ -243,6 +253,37 @@
                $(this).show();                
         });
     }); 
+</script>
+<script>
+    $("#listini").change(function () {
+    var perc = parseFloat($("#prezzoPezzo").val());
+    var perc2 = parseFloat($("#prezzoKg").val());
+    var purch = parseFloat($("#listini").val());
+
+   /* $("#prezzoPezzo").val((purch * perc)/(100).toFixed(2)); */
+   let sconto1=(purch/100)*(perc);
+   let sconto2=(purch/100)*(perc2);
+   let tot=(perc-sconto1).toFixed(2);
+   let tot2=(perc2-sconto2).toFixed(2);
+   
+
+    let x = document.getElementsByName("sconto");
+    let i;
+
+    for (i = 0; i < x.length; i++) {
+        x[i].innerHTML = tot + ' €';
+    }
+    let x2 = document.getElementsByName("sconto2");
+    let i2;
+
+    for (i2 = 0; i2 < x.length; i2++) {
+        x2[i2].innerHTML = tot2 + ' €';
+
+    }
+   /* document.getElementsByName("sconto")[0].innerHTML = tot + ' €'; */
+   
+});
+
 </script>
 @include('layouts.handlebars_layout.orderHandle')
 

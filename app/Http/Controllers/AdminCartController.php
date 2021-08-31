@@ -108,11 +108,12 @@ class AdminCartController extends Controller
         $cart = session()->get('cart');
         
        /*  dd($request, $cart); */
-
+        dd($request);
         $order = New Order;
         $order->user_id = $request->user;
         $order->data_di_consegna = $request->data_di_consegna;
         $order->totale_al_pezzo = $request->totalePezzo;
+        $order->listino = $request->listino;
         $order->totale_al_kg = $request->totaleKg;
         $order->save();
         $id = $order->id;

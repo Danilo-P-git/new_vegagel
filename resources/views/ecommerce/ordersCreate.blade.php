@@ -31,6 +31,7 @@
                         <th>Lotto</th>
                         <th>creato da</th>
                         <th>Provenienza</th>
+                        <th>Listino</th>
                         <th>Azioni</th>
 
                     </tr>
@@ -52,6 +53,10 @@
                         <td>{{$item['lotto']}}</td>
                         <td>{{$item['user']}}</td>
                         <td>{{$item['zona']}}</td>
+                        <td><select name="listino" id="">
+                            <option id="listino1" value="listino1"></option>
+                            <option id="listino2" value="listino2"></option></select></td>
+                        </select></td>
                         <td><a href="{{route('ecommerce.orderDelete', $key)}}">Cancella</a></td>
                     </tr>
                     @endif 
