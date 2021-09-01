@@ -76,8 +76,8 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th name="sconto" style="font-size: 25px;color:#f4c543;text-align:start;">€</th>
-                        <th name="sconto2" style="font-size: 25px;color:#f4c543;text-align:start;">€</th>
+                        <th name="sconto" style="font-size: 20px;color:#f4c543;text-align:start;">€</th>
+                        <th name="sconto2" style="font-size: 20px;color:#f4c543;text-align:start;">€</th>
 
                     </tr>
                     
@@ -101,8 +101,8 @@
                 <p>Seleziona Listino Sconto</p>
                 <select class="form-select" name="listini" id="listini">
                     <option value="0" selected>---</option>
-                    <option value="1.5">Listino 1</option>
-                    <option value="2">Listino 2</option></select></td>
+                    <option value="1.5">Listino 1 - 1.5%</option>
+                    <option value="2">Listino 2 - 2%</option></select></td>
                 </select>
 
             </div>
@@ -271,13 +271,13 @@
     let i;
 
     for (i = 0; i < x.length; i++) {
-        x[i].innerHTML = tot + ' €';
+        x[i].innerHTML ='<s>'+perc+' €'+'</s>'+ '<br>'+'  ' +tot + ' €';
     }
     let x2 = document.getElementsByName("sconto2");
     let i2;
 
     for (i2 = 0; i2 < x.length; i2++) {
-        x2[i2].innerHTML = tot2 + ' €';
+        x2[i2].innerHTML = '<s>'+perc2+' €'+'</s>'+ '<br>'+'  ' +tot2 + ' €';
 
     }
    /* document.getElementsByName("sconto")[0].innerHTML = tot + ' €'; */

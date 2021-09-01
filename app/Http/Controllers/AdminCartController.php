@@ -106,15 +106,19 @@ class AdminCartController extends Controller
     {
         
         $cart = session()->get('cart');
+        $listini=$request->listini;
+        $scontoPezzo=($listini/100)*$request->totalePezzo;
+        $totalePezzo=$request->totalePezzo-$scontoPezzo;
+
+        $scontoKg=($listini/100)*$request->totaleKg;
+        $totaleKg=$request->totaleKg-$scontoKg;
         
-       /*  dd($request, $cart); */
-        dd($request);
+        
         $order = New Order;
         $order->user_id = $request->user;
         $order->data_di_consegna = $request->data_di_consegna;
-        $order->totale_al_pezzo = $request->totalePezzo;
-        $order->listino = $request->listino;
-        $order->totale_al_kg = $request->totaleKg;
+        $order->totale_al_pezzo = $totalePezzo;
+        $order->totale_al_kg = $totaleKg;
         $order->save();
         $id = $order->id;
         /* dd($cart); */
